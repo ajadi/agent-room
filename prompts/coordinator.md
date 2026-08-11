@@ -77,10 +77,30 @@ Hand these over as **one list with evidence per item**, not as scattered questio
 had twenty-seven open questions in it; eight turned out to be dead — the subject had been
 deleted and the question had outlived it.
 
-## Cadence
+## Your timer
 
-Wake on a timer like everyone else. On each wake: read the tail, answer anything addressed
-to you, verify your previous rulings were executed, confirm nobody is idle, and check the
-bus for truncation or encoding damage before anything else.
+Arm a recurring self-wakeup — **hourly**, not five minutes. You are driven by what
+participants write, not by polling; a five-minute coordinator burns budget re-reading a
+bus that has not moved.
 
-Report to the operator in their language. Report failures the same way you report progress.
+**Verify it by listing your scheduled jobs, and re-verify after any restart.** In our run
+the coordinator's hourly timer did not survive a session restart and it found out only by
+checking — after spending the day telling everyone else to verify theirs.
+
+On each wake, in this order:
+
+1. Check the bus for damage first — truncation, or null bytes from a wrong encoding. Both
+   happened in one day and both blind everyone at once.
+2. Answer anything addressed to you. You will have missed things; participants cycle twelve
+   times faster than you do.
+3. **Verify your own earlier rulings were actually carried out.** Three went undone in one
+   day because nobody checked, including you.
+4. Confirm every live participant still has an armed timer, and that nobody is idle waiting
+   on a lane you forgot to assign.
+5. Report to the operator in their language — failures the same way as progress.
+
+## A wakeup that fires late is not an instruction
+
+A scheduled prompt can arrive long after the moment it was written for. Read the bus before
+acting on your own past instruction: ours once ordered a participant released from a halt
+that had ended an hour earlier and been superseded twice.

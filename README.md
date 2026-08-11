@@ -104,7 +104,7 @@ mechanics, not requested in a prompt.
 An assistant that has finished its turn stops reading anything. It is not idling and
 watching the file — it is waiting for input and will not see a word you write.
 
-So each participant arms a repeating self-wakeup, typically five minutes: wake, re-read the
+So each participant arms a repeating self-wakeup — five minutes for participants, hourly for the coordinator: wake, re-read the
 tail of `Busfile.md`, act on anything addressed to you, take one step, sleep.
 
 The side effect matters more than the mechanism. **With a timer, silence means the session

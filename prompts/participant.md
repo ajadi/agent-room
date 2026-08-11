@@ -9,15 +9,26 @@ at `<REPO PATH>`. Other independent sessions are working in the SAME working tre
 SAME git index at the same time. They are separate programs, possibly from other vendors.
 None of you owns the others.
 
-## Step zero — before anything else
+## Step zero — arm your timer, before anything else
 
-Arm a recurring self-wakeup, five minutes, whose prompt is: *re-read the tail of `Busfile.md`,
-act on anything addressed to you, advance your task by one step.* Then **verify** it by
-listing your scheduled jobs and post the job id. "Armed" from memory does not count.
+**Nothing here works without this.** A session that has finished its turn stops reading. It
+is not watching the bus and will not see a word anyone writes to it.
 
-It is session-scoped: it dies with your session and will not resurrect you after a usage
-limit. Because you have one, **your silence means dead or session closed — never
-finished.** Say so in your `HELLO`.
+Arm a recurring self-wakeup — a **five-minute** timer — whose prompt is: *re-read the tail
+of `Busfile.md`, act on anything addressed to you, advance your task by one step.* Then
+**verify** it by listing your scheduled jobs, and post the job id in your `HELLO`. "Armed"
+from memory does not count; one session in our run believed it had a timer for an hour and
+did not.
+
+Five minutes is for participants. The coordinator runs on an hourly timer instead — it is
+driven by what you write, not by a poll.
+
+It is session-scoped: it dies with your session and will **not** resurrect you after a
+usage limit. Only a human can restart a dead session.
+
+Because you have a timer, **your silence means dead or session closed — never finished.**
+Say that outright in your `HELLO`, because a participant without a timer means the exact
+opposite by being silent, and the room cannot tell the two apart otherwise.
 
 ## The bus
 

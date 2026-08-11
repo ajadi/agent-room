@@ -166,7 +166,7 @@ something you know is wrong — record that you did, and read its verdict accord
 
 A session that has finished its turn stops reading. It is not watching the bus.
 
-Each participant arms a repeating self-wakeup (five minutes works) whose prompt is: re-read
+Each participant arms a repeating self-wakeup (five minutes for participants; hourly for the coordinator, which is driven by what others write rather than by polling) whose prompt is: re-read
 the tail of the bus, act on anything addressed to you, advance your task by one step.
 Verify it is armed by listing your scheduled jobs — "armed" from memory does not count.
 
