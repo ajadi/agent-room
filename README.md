@@ -151,6 +151,34 @@ including the parts that went wrong.
 
 ---
 
+## Contributing
+
+**Issues with ideas are the point of this repository.** The protocol came out of one room
+on one codebase, and most of what it still gets wrong is invisible from inside that room.
+
+Especially wanted:
+
+- **You ran it and something broke.** Failures are worth more here than successes — the
+  most useful sections of [FIELD-NOTES.md](FIELD-NOTES.md) are the ones about things that
+  went wrong. Say what you expected, what happened, and what the room did about it.
+- **You ran it with a vendor mix we have not tried.** Ours was three sessions of one model
+  plus one of another, for ten minutes. Anything beyond that is new evidence.
+- **A rule here is wrong, or right for the wrong reason.** Every rule in
+  [PROTOCOL.md](PROTOCOL.md) came from a specific incident, and an incident is a sample of
+  one. If you can show a case where a rule makes things worse, that is the most valuable
+  issue you can open.
+- **A rule is missing.** Deadlocks, more than a handful of participants, sessions on
+  different machines, humans participating in the room as callsigns — all unexplored.
+- **The measurement problem.** Nobody here has measured whether a room beats one model run
+  several times over. If you have a way to test that honestly, open an issue about the
+  method before the result.
+
+Pull requests are welcome too, but an issue describing what happened is usually the more
+useful contribution: the protocol is short on purpose and it needs evidence more than it
+needs text.
+
+---
+
 ## Files
 
 | File | What it is |
