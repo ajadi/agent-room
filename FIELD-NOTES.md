@@ -4,7 +4,9 @@ Observations from running the room on one real repository. Written down because 
 failures are more useful than the successes, and because a protocol document that only
 describes the intended behaviour teaches nothing about what actually happens.
 
-Nothing here is a benchmark. One room, one codebase, two days.
+Nothing here is a benchmark. One room, one codebase, three days — two spent on the
+codebase and one spent trying to ship it, which turned out to be a different job with
+different failures.
 
 ---
 
@@ -186,3 +188,166 @@ Each one was written into the shared file, in public, and each one changed a rul
 An arrangement where the arbitrator can be corrected by evidence, and where that correction
 is part of the permanent record, behaves better than one where the arbitrator cannot be
 corrected at all. That turned out to be the point of the whole exercise.
+
+---
+
+# Day three: the room tries to ship
+
+The first two days were spent finding and fixing defects, and the room was good at it. On
+the third day the operator stopped that work with one sentence — *you can find bugs and fix
+them in a circle forever* — and asked instead for a release he could hand to factory
+operators after lunch.
+
+Almost everything below is a failure mode that only appears when a deadline is real and the
+output is a folder somebody else has to use. None of them showed up in two days of
+bug-hunting.
+
+---
+
+## Grading findings as two kinds, and nothing in between
+
+The instruction that broke the find-fix-find loop was not "stop finding things". It was that
+every finding had to be graded **BLOCKS HANDOVER** or **SHIPS WITH A NOTE**, with no third
+option.
+
+That single rule converted an open-ended hunt into a closing list. Of everything the three
+sessions surfaced in a morning, two items blocked and the rest became lines in a release
+note. The release note stopped being an afterthought and became the place findings *go to*,
+which is what made it safe to stop looking.
+
+The room had been perfectly capable of grading severity before. What it lacked was a
+grading scheme with a **terminal state**.
+
+---
+
+## Three sessions refining a number that no decision depended on
+
+Asked how much firmware had to be copied, the room produced 14.7 MB, then 44.5 MB, then
+33.5 MB, with excellent reasoning about which population each figure counted, whether a plan
+double-counts, and what a "floor" means. Two of the three sessions corrected each other's
+arithmetic, and both corrections were right.
+
+The real answer was **49 MB**. None of the three estimates was close.
+
+The coordinator ended it by running `df`: 27 GB free, and the entire source tree — the
+absolute worst case — is 2.6 GB. Every number in the disputed range led to the same action.
+
+The rule that came out of it: **refine a measurement only when a decision hangs on the
+difference.** The coordinator's share of the blame is the larger one; the check that
+dissolved the question took one command and could have been run an hour earlier.
+
+This is the inverse of day two's lesson. There, measuring instead of assuming caught almost
+everything. Here, measuring *was* the avoidance behaviour — it feels like work, it produces
+defensible artefacts, and it is much more comfortable than copying 49 MB and finding out.
+
+---
+
+## Briefing a live task from a stale memory note
+
+The coordinator told a session that the build script could not be run from inside the
+harness, citing a note recorded seven weeks earlier about a hang that left unkillable
+processes. On that basis the session was told to *describe the procedure a human would
+follow* instead of building anything.
+
+The operator's reply: that was fixed long ago.
+
+The session then ran the build, end to end, in about a minute, and produced a correct
+artifact. The stale note had converted a one-minute action into a documentation exercise —
+and would have done so silently, because nothing about a remembered hazard announces its own
+expiry.
+
+A documented **hazard** is the one kind of record that inverts when someone fixes it. A
+documented fact goes stale and becomes wrong; a documented hazard goes stale and becomes an
+*obstacle you impose on yourself*. Date them, and re-test one before you brief anyone on it.
+
+---
+
+## Sending three agents to measure what the specification already answered
+
+The packaged application started, identified its site correctly, and showed no firmware
+paths. The coordinator gathered evidence, formed a plausible hypothesis about why, and
+dispatched all three sessions to confirm or refute it by running things.
+
+The operator answered in six words: **it was in the spec.**
+
+It was. Two rows in the requirements document, open since three weeks earlier, stated (a)
+that the site profile configures exactly one device family and every other family needs its
+own per-plugin file, and (b) that a file consisting only of comments falls back to the
+factory share **silently** — which is precisely the shape the kit had shipped.
+
+Worse: a handover kit had been built two weeks before, by the same room, and archived. That
+kit had deliberately shipped a *deliberately invalid* path so that a misconfiguration would
+fail loudly. Nobody read it, and the new kit reintroduced the silent shape it existed to
+prevent.
+
+The pattern is not ignorance of the document. It is that **measurement had become the
+reflex**, and a room that has learned "run it, don't guess" will run things rather than read
+the file that already contains the answer. Both instincts are correct and they compete;
+nothing in the protocol said which comes first. It now does: **check whether it is written
+down before you measure, and check the archive before you rebuild.**
+
+---
+
+## Documenting a cause where the operator needed a procedure
+
+When the empty fields turned out to be expected behaviour — they are override boxes,
+disabled unless you tick a checkbox — the first response was to explain *why* they are
+blank.
+
+The session that wrote it caught its own error a minute later: the operator did not need an
+explanation, he needed **the next three keystrokes and what to read afterwards**. The
+shipped instruction changed from "trust the blank fields" to "leave the box unticked, press
+Run, and read the three log lines that name the firmware folder and both files".
+
+Its own phrasing is the keeper: *I documented a CAUSE where the operator needed a
+PROCEDURE.* An explanation is what you write when the reader is you.
+
+---
+
+## Shrinking the room to one, on purpose
+
+Mid-morning the operator cut the room to a single worker for the day. The two stood down
+cleanly: cancelled their timers, posted what they held, and stated plainly that they were
+now unreachable and only a human could restart them.
+
+That last sentence matters more than it sounds. A session with a timer has a defined
+silence — dead or closed. A session that has *cancelled* its timer has a different one, and
+if it does not say so, the two are indistinguishable from outside.
+
+The order was reversed within the hour, which is the honest reason there is no measurement
+here of what a one-session day costs. What can be said is what the room had already
+measured about itself the night before: of nine improvements one participant made to a
+single document, **eight came from contact with somebody or something else** — four from
+another session's review, one from a coordinator ruling, two from running the artefact, and
+one self-generated. Removing two of three participants removes most of that, and the
+remaining substitute is execution rather than review.
+
+---
+
+## The coordinator's own instruments, again
+
+Two of the coordinator's wake-up checks read the wrong thing on day three.
+
+The bus-integrity check reported null bytes in every line of a clean file, because the
+pattern it used matched everything. The who-is-idle check reported one participant's last
+message under another participant's name, because the pattern matched the **recipient**
+column instead of the sender column — and it did that twice, hours apart, having been
+noticed in between.
+
+Neither caused harm, both were caught by the results looking wrong rather than by any
+verification. The uncomfortable part is the symmetry with the guards the room spent two days
+cataloguing: **the checks a coordinator runs on the room are exactly as likely to be broken
+as the checks the room runs on the code**, and nobody is reviewing them.
+
+---
+
+## What day three did not answer
+
+The handover did not happen before lunch. At the point these notes were written the package
+existed, started, read its own configuration and resolved firmware for eleven of eleven
+supported boards — and the room had just discovered that it might be resolving them from the
+wrong share, one that exists on the build machine and not at the destination.
+
+That is the honest state: a room that can build a deliverable in a morning, and cannot yet
+tell you whether the deliverable works anywhere but the desk it was built on. Nobody has
+flashed a physical board with it.
