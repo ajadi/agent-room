@@ -162,7 +162,12 @@ are contradictory readings of the same quiet file, and confusing them is expensi
 - **It cannot compel.** A coordinator can observe a violation and demand a correction. It
   cannot stop another session. The whole thing rests on good faith, and a participant
   determined to route around it will.
-- **It does not protect against malice**, only against inattention.
+- **It does not protect against malice**, only against inattention. `FROM` is not
+  authenticated, append-only is a convention rather than a property, and the bus is an
+  instruction channel by construction — anything that gets text into it directs the room.
+  The realistic version needs no attacker, only a participant that read something
+  instruction-shaped in the repository it was working on. [THREATS.md](THREATS.md) sets out
+  what follows from that and why the fix would cost more than it buys.
 - **Vendor differences bite early.** The first cross-vendor incident in our own run was not
   a disagreement about code — one participant wrote the log in a different text encoding
   and every other tool declared the shared file binary. The whole room went blind at once.
