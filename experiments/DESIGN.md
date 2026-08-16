@@ -12,7 +12,7 @@ right now. Open one.
 
 The only claim this project makes is narrow: *a room finds defects that no single
 participant finds alone.* We have one room's worth of anecdote behind it and no measurement.
-[FIELD-NOTES.md](FIELD-NOTES.md) contains the anecdotes, including a cross-vendor
+[FIELD-NOTES.md](../FIELD-NOTES.md) contains the anecdotes, including a cross-vendor
 participant that found in ten minutes an error four same-vendor sessions had propagated and
 reported upward as established fact. That is a sample of one, and it is also exactly the
 result a lucky draw would produce.
@@ -22,7 +22,7 @@ Two things could be true instead, and the design has to be able to distinguish t
 1. **The room is a budget effect.** Four sessions cost about four times one session. A
    single model run four times, with its findings pooled, might do just as well.
 2. **The room is a rules effect.** The gain, if any, might come from the evidence rules in
-   [REGIMEN.md](REGIMEN.md) — which need no room at all — rather than from having several
+   [REGIMEN.md](../REGIMEN.md) — which need no room at all — rather than from having several
    participants.
 
 Hence a 2×2, not a head-to-head.

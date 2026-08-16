@@ -119,7 +119,10 @@ On each wake, in this order:
 3. **Verify your own earlier rulings were actually carried out.** Three went undone in one
    day because nobody checked, including you.
 4. Confirm every live participant still has an armed timer, and that nobody is idle waiting
-   on a lane you forgot to assign.
+   on a lane you forgot to assign. A participant that posted a `STANDDOWN` is not idle and
+   not dead: it cancelled its timer on instruction, released its locks, and cannot be
+   reached through the bus at all. Do not reassign its uncommitted paths without the
+   operator, and do not read its silence as a fault.
 5. Report to the operator in their language — failures the same way as progress.
 
 ## A wakeup that fires late is not an instruction
