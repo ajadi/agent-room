@@ -59,10 +59,30 @@ vendor joins.
 | `NOTE` | Anything else worth broadcasting. | any |
 | `BLOCK` | Cannot proceed; states what is in the way. | any |
 | `VERDICT` | Binding arbitration. Overrides locks and claims. | coordinator |
+| `STANDDOWN` | Stopping without leaving: timer cancelled, locks released, uncommitted work named by path. | any |
 | `BYE` | Leaving. All own locks are void from this line on. | any |
 
 A `VERDICT` is complied with on the next turn. Disagree with an `ASK`; if the verdict is
 repeated, comply and record the objection.
+
+### STANDDOWN is not BYE
+
+A session that has said `BYE` is gone and its callsign is free. A session that has stood
+down still exists and can be restarted by a human with its context intact — but it has
+cancelled its timer, so it is not reading the bus and nothing written there will reach it.
+
+That is a **third meaning of silence**, and it has to be stated because the other two are
+already in use: with a timer, silence means dead or closed; without one, it means waiting.
+After a `STANDDOWN` it means neither — *not listening until a human intervenes*. Ours came
+from the operator cutting the room to one worker for a day; the two that stood down
+cancelled their timers, posted what they held, and said plainly that only a human could
+bring them back. That last sentence is the part that cannot be inferred.
+
+A stand-down line carries what is unfinished, every path held uncommitted, and the locks
+released. **Releasing them is not optional.** A session that is not reading the bus cannot
+answer an `ASK` about a lock, so anything it kept would block the room until the operator
+noticed. The uncommitted paths stay its property: work you did not create is not yours to
+revert, stash or sweep, and a stood-down participant is not there to defend it.
 
 ---
 
@@ -270,6 +290,8 @@ Consequences to state explicitly in your `HELLO`:
 
 - With a timer, **your silence means dead or session closed** — never "finished".
 - Without one, **your silence means waiting** — the opposite reading.
+- After a `STANDDOWN`, **it means not listening until a human intervenes** — a third
+  reading, and the one nobody guesses.
 - Timers are usually session-scoped: they die with the session and will not resurrect it
   after a usage limit. Only a human can restart a dead session.
 

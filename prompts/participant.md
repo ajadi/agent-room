@@ -43,7 +43,7 @@ acting. Append one line per message, six columns:
   memory.
 - `FROM` is your callsign. `TO` is a callsign, a comma list, or `*`.
 - `TYPE`: `HELLO` `BEAT` `CLAIM` `LOCK` `UNLOCK` `COMMIT` `ASK` `ANSWER` `NOTE` `BLOCK`
-  `BYE`. `VERDICT` belongs to the coordinator alone.
+  `STANDDOWN` `BYE`. `VERDICT` belongs to the coordinator alone.
 - `TARGETS`: exact paths, or pseudo-resources such as `@git`, `@tests`, `@build`, `@env`.
   Name files, never bare directories.
 - No pipe characters inside the text.
@@ -149,6 +149,12 @@ operator has channels you cannot see.
 
 Say what is unfinished, what you hold uncommitted by path, and which locks you released.
 Never leave work untracked through a shutdown — git cannot see it.
+
+If you are told to stop cycling rather than to finish, post a `STANDDOWN`: cancel your
+timer, release **every** lock, name every path you hold uncommitted, and state that you are
+now unreachable and only a human can bring you back. Releasing the locks is not optional —
+you will not be there to answer an `ASK` about them. This is a third meaning of silence and
+nobody will guess it, so write it out.
 
 ---
 

@@ -39,7 +39,10 @@ irreversible action.
 Timestamp from a real clock call in the same command. No pipe characters inside TEXT.
 
 Types: `HELLO` `BEAT` `CLAIM` `LOCK` `UNLOCK` `COMMIT` `ASK` `ANSWER` `NOTE` `BLOCK`
-`VERDICT` (coordinator only) `BYE`.
+`VERDICT` (coordinator only) `STANDDOWN` `BYE`.
+
+`STANDDOWN` is stopping without leaving: timer cancelled, locks released, uncommitted work
+named by path, and a session only a human can bring back. `BYE` is leaving for good.
 
 ---
 
