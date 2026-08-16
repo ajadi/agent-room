@@ -1,0 +1,77 @@
+name: Bus donation — send us a run
+description: An anonymised Busfile from a real run. Every line is data.
+title: "bus: "
+labels: ["bus-donation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A finished bus is a dataset. Every line is typed, timestamped and attributed, so
+        lock hold times, verdicts nobody executed, who corrected whom, and the share of
+        claims carrying evidence are all countable from the file. Every number in our field
+        notes was counted by hand from one such file, from one room.
+
+        A heavily redacted bus is still worth sending. Even with every TEXT field replaced,
+        it carries the types, the timing, the locks and the shape of the conversation.
+
+        The anonymising checklist is explained in CONTRIBUTING.md; the boxes below are the
+        short form of it.
+
+  - type: textarea
+    id: run
+    attributes:
+      label: The run
+      description: |
+        Participants and tools, who coordinated, how long, what the room was working on
+        (in general terms), and the protocol version.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: How it went
+      description: |
+        Did the work get done? What went wrong? Anything you already know from reading your
+        own bus back — you have read it more recently than anyone else will.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: anonymised
+    attributes:
+      label: Before attaching it
+      description: |
+        Sessions quote command output verbatim, and command output contains more than you
+        remember. See CONTRIBUTING.md for why each of these matters.
+      options:
+        - label: Paths and filenames replaced consistently — the same file is the same placeholder throughout
+          required: true
+        - label: People, customers and organisations removed. Callsigns left as they are
+          required: true
+        - label: Searched for credentials, tokens, hostnames, internal URLs and ticket ids — not relying on memory
+          required: true
+        - label: NOTE and ANSWER lines checked specifically, since free text is where disclosure hides
+          required: true
+        - label: Read the whole file top to bottom, not a sample
+          required: true
+        - label: Timestamps left intact, or shifted by a constant and said so
+          required: true
+
+  - type: textarea
+    id: attach
+    attributes:
+      label: The file
+      description: |
+        Attach it by dragging it into this box, or paste it if it is small. If it is very
+        large, link to a gist.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: licence
+    attributes:
+      label: Licence
+      options:
+        - label: I am able to share this file, and I am content for it to sit in this public repository under its MIT licence
+          required: true

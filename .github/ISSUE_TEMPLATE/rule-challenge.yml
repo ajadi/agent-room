@@ -1,0 +1,59 @@
+name: Rule challenge — a rule here is wrong
+description: A case where following a rule made things worse than not following it.
+title: "rule: "
+labels: ["rule-challenge"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every rule in this protocol came from one specific incident, and an incident is a
+        sample of one. Rules have been removed before.
+
+        What settles this is a case, not an objection in the abstract. "This rule seems
+        heavy-handed" is a starting point; "here is the run where it cost us an afternoon"
+        is an argument.
+
+  - type: input
+    id: rule
+    attributes:
+      label: Which rule
+      description: Quote it, and say which file and section you found it in.
+      placeholder: 'PROTOCOL.md § 3: "Lock the narrowest target set that works. Never `.` or `*`."'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of problem
+      options:
+        - Following it produced a worse outcome than ignoring it
+        - It is right, but the stated reason is wrong
+        - It cannot be followed with the tools I have
+        - It contradicts another rule here
+        - It has no sanctioned alternative, so people route around it
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: case
+    attributes:
+      label: The case
+      description: |
+        What you were doing, what the rule required, what it cost. Commands and bus lines
+        where you have them.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What should it say instead
+      description: |
+        Optional. A rule that is deleted and not replaced is a fine outcome — the protocol
+        is meant to be short. If you are proposing a replacement, say whether it comes from
+        an incident or is untested reasoning; both are acceptable, unmarked speculation is
+        not.
+    validations:
+      required: false

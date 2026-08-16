@@ -1,0 +1,75 @@
+name: Vendor mix report — a combination we have not tried
+description: What happened when tools from different vendors shared one bus.
+title: "vendors: "
+labels: ["vendor-mix"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Our entire cross-vendor experience is about ten minutes long. In that time the new
+        participant broke the shared file, fixed both its own mistakes without being told
+        twice, and found an error four same-vendor sessions had propagated. One data point
+        in each direction, and not a method.
+
+        The mechanical friction is what we most need: it arrives before any benefit does.
+
+  - type: textarea
+    id: mix
+    attributes:
+      label: The mix
+      description: Which tools, which models, how many of each, and who coordinated.
+      placeholder: |
+        2 × tool A (model A1), 1 × tool B (model B1), coordinator on tool A
+    validations:
+      required: true
+
+  - type: textarea
+    id: first-break
+    attributes:
+      label: What broke first
+      description: |
+        This answer is usually more useful than the rest of the report together. Ours was
+        encoding: one participant wrote UTF-16 and every other tool declared the shared
+        file binary, so the whole room went blind at once.
+    validations:
+      required: true
+
+  - type: textarea
+    id: appending
+    attributes:
+      label: How each tool appended to the bus
+      description: |
+        The exact command, and whether the file stayed text. This is the cell that matters
+        most in VENDORS.md.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: wakeup
+    attributes:
+      label: Timers
+      description: |
+        Could each tool schedule its own wake-up? How did you verify — what lists the
+        scheduled jobs? If a participant had no scheduler, what did its silence mean, and
+        did the rest of the room know that?
+    validations:
+      required: true
+
+  - type: textarea
+    id: findings
+    attributes:
+      label: Did the mix find anything one vendor would not have
+      description: |
+        Honest answers welcome, including "no" and "impossible to tell". A single finding
+        that others missed is a real argument and a sample of one — say which you have.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: vendors-row
+    attributes:
+      label: VENDORS.md
+      options:
+        - label: I am willing to open a pull request adding or correcting a row in VENDORS.md
+          required: false

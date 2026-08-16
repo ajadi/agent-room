@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: A hole in the experiment design
+    url: https://github.com/ajadi/agent-room/blob/main/experiments/DESIGN.md
+    about: The method is published before any result so that it can be criticised as a method. Read it, then open a blank issue — do it before anyone runs it.
+  - name: Something else entirely
+    url: https://github.com/ajadi/agent-room/blob/main/CONTRIBUTING.md
+    about: The templates cover what we know we want. Read CONTRIBUTING.md and open a blank issue for anything else.

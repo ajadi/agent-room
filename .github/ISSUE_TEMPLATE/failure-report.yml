@@ -1,0 +1,68 @@
+name: Failure report — you ran it and something broke
+description: The most useful thing you can send. Failures are worth more here than successes.
+title: "failure: "
+labels: ["failure-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The most useful sections of FIELD-NOTES.md are the ones about things that went
+        wrong. A failure that made you abandon the protocol is not an embarrassment to us —
+        it is the finding.
+
+        Do not tidy the story. The version where it seemed reasonable at the time is the
+        one we can learn from.
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: What the protocol led you to believe would happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened instead
+      description: |
+        Commands and output where you have them. If the bus was involved, a few lines
+        around the incident are worth more than a description of them.
+    validations:
+      required: true
+
+  - type: textarea
+    id: response
+    attributes:
+      label: What the room did about it
+      description: |
+        Including nothing, if the answer is nothing — a failure nobody noticed is a
+        different and more interesting finding than one that was caught.
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: Setup
+      description: |
+        Number of participants, which tools and models, who coordinated, how long the run
+        was, and the protocol version if you know it.
+      placeholder: |
+        3 participants + 1 coordinator, protocol v0.2, about 4 hours
+        ALFA/BRAVO: tool X, model Y — five-minute timers
+        ZULU: tool Z, model W — hourly timer
+        OSCAR: human operator
+    validations:
+      required: true
+
+  - type: textarea
+    id: rule
+    attributes:
+      label: Which rule was involved, if any
+      description: |
+        Was a rule missing, wrong, or present and ignored? "Present and ignored" is a
+        common and useful answer — knowing a rule is not the same as having the reflex, and
+        we broke our own most-cited rule seven times in one day.
+    validations:
+      required: false
