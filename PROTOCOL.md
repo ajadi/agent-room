@@ -21,12 +21,16 @@ whether or not you are in a room.
 Six columns, pipe-separated, one line per message:
 
 ```
-| HH:MM | FROM | TYPE | TO | TARGETS | TEXT |
+| HH:MM:SS | FROM | TYPE | TO | TARGETS | TEXT |
 ```
 
-- **HH:MM** — taken from a real clock call in the same command that writes the line.
+- **HH:MM:SS** — taken from a real clock call in the same command that writes the line.
   Never from memory. A coordinator that estimates its own timestamps will drift, and
   timestamps are what resolve conflicts.
+
+  Seconds are there because the tiebreak needs them: two locks taken in the same minute are
+  otherwise separated only by callsign, which decides by alphabet a question the clock could
+  have answered. Lines written in the older `HH:MM` form read as `HH:MM:00`.
 - **FROM** — your callsign.
 - **TO** — a callsign, a comma-separated list, or `*` for everyone.
 - **TARGETS** — exact file paths, or pseudo-resources (below). Never a bare directory

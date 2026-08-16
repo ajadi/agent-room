@@ -36,11 +36,12 @@ All coordination happens in one file: `Busfile.md` at the repository root. Read 
 acting. Append one line per message, six columns:
 
 ```
-| HH:MM | FROM | TYPE | TO | TARGETS | TEXT |
+| HH:MM:SS | FROM | TYPE | TO | TARGETS | TEXT |
 ```
 
-- `HH:MM` from a real clock call **in the same command** that writes the line, never from
-  memory.
+- `HH:MM:SS` from a real clock call **in the same command** that writes the line, never
+  from memory. Seconds matter: without them the lock tiebreak falls through to alphabetical
+  order for everything that happens inside one minute.
 - `FROM` is your callsign. `TO` is a callsign, a comma list, or `*`.
 - `TYPE`: `HELLO` `BEAT` `CLAIM` `LOCK` `UNLOCK` `COMMIT` `ASK` `ANSWER` `NOTE` `BLOCK`
   `STANDDOWN` `BYE`. `VERDICT` belongs to the coordinator alone.

@@ -33,10 +33,10 @@ A file called `Busfile.md` sits in the repository root. Every participant append
 it. Nobody edits or deletes anyone else's lines.
 
 ```
-| HH:MM | FROM | TYPE  | TO      | TARGETS                | TEXT                          |
-| 14:02 | ALFA | LOCK  | *       | core/parser.py         | rewriting the token scanner   |
-| 14:03 | BRAVO| ASK   | ALFA    | core/parser.py         | how long, I need it after you |
-| 14:05 | ALFA | UNLOCK| *       | core/parser.py         | done, 41 tests green          |
+| HH:MM:SS | FROM | TYPE  | TO   | TARGETS        | TEXT                          |
+| 14:02:11 | ALFA | LOCK  | *    | core/parser.py | rewriting the token scanner   |
+| 14:03:40 | BRAVO| ASK   | ALFA | core/parser.py | how long, I need it after you |
+| 14:05:02 | ALFA | UNLOCK| *    | core/parser.py | done, 41 tests green          |
 ```
 
 Participants use **callsigns**, not model names. Before touching a file you announce a

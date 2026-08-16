@@ -33,10 +33,12 @@ irreversible action.
 ## 2. Line format
 
 ```
-| HH:MM | FROM | TYPE | TO | TARGETS | TEXT |
+| HH:MM:SS | FROM | TYPE | TO | TARGETS | TEXT |
 ```
 
-Timestamp from a real clock call in the same command. No pipe characters inside TEXT.
+Timestamp from a real clock call in the same command, to the second — the tiebreak needs
+them, or a question the clock could settle gets settled by alphabet instead. No pipe
+characters inside TEXT.
 
 Types: `HELLO` `BEAT` `CLAIM` `LOCK` `UNLOCK` `COMMIT` `ASK` `ANSWER` `NOTE` `BLOCK`
 `VERDICT` (coordinator only) `STANDDOWN` `BYE`.
@@ -88,5 +90,5 @@ No negotiation. If you lost, `UNLOCK` at once.
 
 ## 5. Journal — append below, newest at the bottom
 
-| HH:MM | FROM | TYPE | TO | TARGETS | TEXT |
+| HH:MM:SS | FROM | TYPE | TO | TARGETS | TEXT |
 |---|---|---|---|---|---|
