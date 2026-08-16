@@ -13,6 +13,9 @@ Each rule carries the incident that produced it. The incidents are written up in
 [FIELD-NOTES.md](FIELD-NOTES.md); the shapes that recur have names in
 [PATTERNS.md](PATTERNS.md).
 
+The examples are all from a coding room, because that is where our evidence is. The rules
+are not about code, and nothing below depends on the work being software.
+
 ---
 
 ## 1. Two kinds of assertion

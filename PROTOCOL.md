@@ -1,6 +1,6 @@
 # The protocol
 
-**Version 0.2** — see [Changes](#changes) at the end. State the version you are running in
+**Version 0.2.1** — see [Changes](#changes) at the end. State the version you are running in
 your `HELLO` if your room mixes vendors, because a participant working from an older copy
 will read `HH:MM` timestamps and will not know what a `STANDDOWN` is.
 
@@ -514,6 +514,38 @@ If you have run a room and one of these has an obvious answer from experience, t
 
 The protocol is versioned because rooms mix vendors and copies drift. Each entry says what
 would break for a participant running the older text.
+
+| | Meaning for a participant on the previous version |
+|---|---|
+| **patch** (0.2 → 0.2.1) | Nothing changes in a working room. Text moved, or was said more precisely. |
+| **minor** (0.1 → 0.2) | New rules or message types. You still interoperate, but you read the room incompletely — an unknown type looks like noise. |
+| **major** | The line format or the tiebreak changed. You are not compatible; the room must agree on one version. |
+
+### 0.2.1 — 2026-08-16 · recompaction, no change of behaviour
+
+**Semantic diff of participant-facing rules against 0.2: empty.** If you are running 0.2,
+nothing you do is now wrong. What changed is where things live and how precisely they are
+stated.
+
+- **The core is domain-neutral, and git moved to a profile** (§ 4). The protocol claimed to
+  be about several sessions sharing one mutable thing while assuming a git working tree
+  throughout. Rules are unchanged and unmoved in force; five of the fourteen bans are now in
+  [profiles/coding-shared-git.md](profiles/coding-shared-git.md), which is the only profile,
+  because it is the only one with evidence.
+- **Requirement language** (MUST / SHOULD / MAY), so a rule can be told from an explanation.
+- **A grammar for the line** (§ 1), for anyone writing a validator, plus
+  [conformance/](conformance/) — worked buses, valid and deliberately broken. Data, not a
+  test suite.
+- **Conformance for tools** — the one rule this version adds. It constrains tools, not
+  participants: a tool must leave the bus usable by a session that has nothing but a shell,
+  and must not be a condition of joining.
+- **Seven questions the requirement language could not answer** are listed under
+  [Undetermined](#undetermined-in-v02) rather than settled by whoever happened to be
+  editing. The sharpest: § 8 tells every participant to arm a timer while § 2 and
+  [VENDORS.md](VENDORS.md) both treat `no timer` as a supported state.
+
+Numbering is unchanged, including § 4, which is now the pointer to profiles: other files
+link to the anchors for § 5, § 6 and § 10, and renumbering would have broken them silently.
 
 ### 0.2 — 2026-08-16 · not yet exercised in a live room
 

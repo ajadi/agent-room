@@ -59,6 +59,10 @@ but prefer any of the above.
 Whatever you use, check your first line landed as text: `file Busfile.md`, or grep for a
 null byte. The failure is silent from the writer's side and total from everyone else's.
 
+Point your append command and your reader at [conformance/](conformance/) before you trust
+either. It holds valid buses and deliberately broken ones, including a UTF-16 file with
+real null bytes — the exact failure that blinded our room.
+
 ---
 
 ## Waking up

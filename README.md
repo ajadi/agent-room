@@ -1,9 +1,9 @@
 # agent-room
 
-**A text-file protocol for several independent AI coding sessions working in one
-repository at the same time.**
+**A text-file protocol for several independent AI sessions working on the same thing at the
+same time.**
 
-[![protocol v0.2](https://img.shields.io/badge/protocol-v0.2-blue)](PROTOCOL.md)
+[![protocol v0.2.1](https://img.shields.io/badge/protocol-v0.2.1-blue)](PROTOCOL.md)
 [![evidence: one room, three days](https://img.shields.io/badge/evidence-one%20room%2C%20three%20days-orange)](FIELD-NOTES.md)
 [![license MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -11,11 +11,18 @@ No server. No database. No framework. Nothing to install. The participants are n
 by anything — they are separate programs that already exist, possibly from different
 vendors, that have agreed to append to the same file.
 
-> **Status.** Protocol **v0.2**. The evidence in this repository — [FIELD-NOTES.md](FIELD-NOTES.md) —
-> is evidence about **v0.1**: one room, one codebase, three days. Everything added in v0.2 is
-> generalised from those incidents and **has not been run in a live room yet**. It is marked
-> as such in [the changelog](PROTOCOL.md#changes). Treat it as proposals with good
-> provenance, not as measured improvements.
+The core assumes only that several sessions share one mutable thing and one record. **All
+of our evidence is from code**, in a shared git working tree, and those rules are now a
+[profile](profiles/coding-shared-git.md) rather than the protocol — so a room over
+documents, a database or a hardware bench can use the core and delete the rest. Nobody has
+run one yet.
+
+> **Status.** Protocol **v0.2.1**. The evidence in this repository —
+> [FIELD-NOTES.md](FIELD-NOTES.md) — is evidence about **v0.1**: one room, one codebase,
+> three days. Everything added in v0.2 is generalised from those incidents and **has not
+> been run in a live room yet**; v0.2.1 moved text around without changing what any
+> participant must do. Both are marked in [the changelog](PROTOCOL.md#changes). Treat the
+> additions as proposals with good provenance, not as measured improvements.
 
 ---
 
@@ -64,8 +71,10 @@ it. Nobody edits or deletes anyone else's lines.
 | 14:05:02 | ALFA | UNLOCK| *    | core/parser.py | done, 41 tests green          |
 ```
 
-Participants use **callsigns**, not model names. Before touching a file you announce a
-`LOCK`; when you are finished you `UNLOCK`. If two sessions claim the same file at once, the
+Participants use **callsigns**, not model names. Before changing anything shared you
+announce a `LOCK`; when you are finished you `UNLOCK`. A resource is a path, or an
+`@token` for shared state that is not a file — which ones exist is what a
+[profile](profiles/coding-shared-git.md) defines. If two sessions claim the same file at once, the
 earlier timestamp wins; on a tie, the alphabetically lower callsign wins. No negotiation.
 
 One participant acts as **coordinator**: arbitrates conflicts, assigns work, and checks
@@ -96,8 +105,9 @@ reverse. Either way, snapshot it — see step 4.
 **2. Start each session with a prompt and a callsign.**
 
 Paste [`prompts/participant.md`](prompts/participant.md) into each worker session, replacing
-`<CALLSIGN>`, `<REPO PATH>` and the lane at the end. Give one session
-[`prompts/coordinator.md`](prompts/coordinator.md) instead.
+`<CALLSIGN>`, `<SHARED STATE>` and the lane at the end. Give one session
+[`prompts/coordinator.md`](prompts/coordinator.md) instead. Both prompts end with a git
+profile block marked for deletion — **delete it if your room is not working on code.**
 
 **3. Have every participant arm a self-wakeup and verify it.**
 
@@ -267,7 +277,9 @@ everything that went wrong — which is most of what is worth reading.
 
 | File | What it is |
 |---|---|
-| [`PROTOCOL.md`](PROTOCOL.md) | **The machinery.** Message format, locks, shared git, keeping the bus, the operator, timers, and every ban paired with its sanctioned alternative. Versioned, with a changelog |
+| [`PROTOCOL.md`](PROTOCOL.md) | **The core.** Domain-neutral: message format and grammar, locks, keeping the bus, the operator, timers, and every ban paired with its sanctioned alternative. Versioned, with a changelog |
+| [`profiles/coding-shared-git.md`](profiles/coding-shared-git.md) | The one profile with evidence behind it: sessions sharing a working tree and a git index. Also how to write another |
+| [`conformance/`](conformance/) | Worked buses, valid and deliberately broken, for anyone writing a validator — or testing their own check on input known to be bad |
 | [`REGIMEN.md`](REGIMEN.md) | **The rules about knowledge.** Claims versus opinions, what counts as evidence, measuring third rather than first, hazards that expire. Readable on its own — none of it needs a room |
 | [`PATTERNS.md`](PATTERNS.md) | Thirteen named failure modes, each linked to the incident it came from |
 | [`FIELD-NOTES.md`](FIELD-NOTES.md) | Measured observations from three days of real use, failures included. All the evidence there is |
