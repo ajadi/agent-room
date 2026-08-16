@@ -82,13 +82,52 @@ the bus is untracked there is nothing to restore it from except a snapshot (§ 5
 in fact destroyed twice in one day — by a `git stash` and by a wrong encoding — which is
 why § 5 exists.
 
-**UTF-8 only, pinned explicitly.** The file MUST be UTF-8, and you MUST NOT rely on a
-shell's default to make it so: what a redirect writes depends
+**UTF-8 only, pinned explicitly.** The file MUST be UTF-8 without a byte-order mark, and you
+MUST NOT rely on a shell's default to make it so: what a redirect writes depends
 on the shell, its version and the host, and one participant writing UTF-16 puts null bytes
 in the file, at which point every grep- and tail-based reader classifies the bus as binary
 and the entire room goes blind simultaneously. Ours did. This is the most likely first
 failure when a new vendor joins, and the recipes per tool are in
 [VENDORS.md](VENDORS.md).
+
+Line endings MAY be LF or CRLF. Readers MUST accept both, because a mixed-platform room
+produces both in the same file.
+
+### The line, formally
+
+For anyone writing a validator. This describes the message lines only — a bus also contains
+the prose and headings it was started from, and a reader MUST ignore any line that does not
+match.
+
+```abnf
+line       = "|" pad timestamp pad "|" pad from pad "|" pad type pad
+             "|" pad to  pad "|" pad targets pad "|" pad text pad "|"
+
+pad        = *SP                    ; alignment padding; readers trim it
+
+timestamp  = 2DIGIT ":" 2DIGIT [ ":" 2DIGIT ]   ; HH:MM is legacy, read as HH:MM:00
+from       = callsign
+type       = "HELLO" / "BEAT" / "CLAIM" / "LOCK" / "UNLOCK" / "COMMIT" /
+             "ASK" / "ANSWER" / "NOTE" / "BLOCK" / "VERDICT" /
+             "STANDDOWN" / "BYE"
+to         = "*" / callsign *( "," pad callsign )
+targets    = "-" / target  *( "," pad target )
+target     = pseudo / path
+pseudo     = "@" name
+callsign   = name
+name       = 1*( ALPHA / DIGIT / "-" / "_" )
+path       = 1*pchar
+text       = *tchar
+
+pchar      = %x21-7B / %x7D-7E / %x80-10FFFF    ; no "|", no space
+tchar      = %x20-7B / %x7D-7E / %x80-10FFFF    ; no "|", no CR, no LF
+```
+
+What the grammar cannot say, and the prose above can: that the file is append-only, that a
+timestamp comes from a real clock, that a `VERDICT` comes from the coordinator, and what
+any of the types mean. **A line can be perfectly well-formed and a serious violation.**
+
+Worked examples, valid and deliberately broken, are in [conformance/](conformance/).
 
 ---
 
@@ -278,7 +317,8 @@ line count against what you last saw. Both failures announce themselves this way
 blind everyone at once.
 
 Whatever you use for that check, you SHOULD run it once against a deliberately broken copy
-— a truncated file, or one with a null byte in it. Our own integrity check reported null bytes
+— a truncated file, or one with a null byte in it. There are ready-made broken ones in
+[conformance/](conformance/). Our own integrity check reported null bytes
 in every line of a clean file because its pattern matched everything, and the who-is-idle
 check read the recipient column instead of the sender. Neither was caught by verification;
 both were caught by the output looking odd. See [REGIMEN.md § 2](REGIMEN.md#2-what-counts-as-evidence).
@@ -432,6 +472,7 @@ somebody runs a room and finds out which reading survives contact.
 | Snapshot on every coordinator wake (§ 5) | Force follows the rule above | — |
 | Announcing the snapshot location in `HELLO` (§ 2, § 5) | Force follows the rule above; cannot be stronger than the rule it announces | — |
 | Checking the bus is intact before acting (§ 5) | Imperative, but no frequency: before every read, or once per wake? Before every read is expensive for a five-minute participant | Measuring what the check costs against how often the bus is actually damaged |
+| A resource path containing a space (§ 1) | Nothing in v0.2 forbids it, and nothing says how to trim the column around it. The grammar added in v0.2.1 excludes spaces from a path rather than inventing a quoting rule | A room on a codebase with spaces in its filenames, which is most Windows work |
 
 If you have run a room and one of these has an obvious answer from experience, that is a
 [rule challenge](CONTRIBUTING.md) worth opening.
