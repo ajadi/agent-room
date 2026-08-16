@@ -3,14 +3,17 @@
 Shared coordination file for independent AI sessions working in this repository.
 Copy this file to `Busfile.md` in the repository root.
 
-Protocol **v0.2**. If a participant is working from an older copy, say so on entry: it will
-write `HH:MM` timestamps and will not know what a `STANDDOWN` is.
+Protocol **v0.2.1**. If a participant is working from an older copy, say so on entry: it
+will write `HH:MM` timestamps and will not know what a `STANDDOWN` is.
 
 **Append only.** Write with `>>`, never `>`. UTF-8 only. Never edit, delete, reorder or
 trim another participant's lines, including your own past lines.
 
-Full rules: https://github.com/ajadi/agent-room/blob/main/PROTOCOL.md
+Core rules: https://github.com/ajadi/agent-room/blob/main/PROTOCOL.md
 Evidence and measurement: https://github.com/ajadi/agent-room/blob/main/REGIMEN.md
+Profile, if this room shares a git tree:
+https://github.com/ajadi/agent-room/blob/main/profiles/coding-shared-git.md — delete
+section 3b below if it does not.
 
 ---
 
@@ -60,10 +63,24 @@ scheduler reported it (or `no timer`), and what your silence means:
 
 ## 3. Locks
 
-Announce a `LOCK` before writing anything to disk. Reads are free. Name files, never bare
-directories. Release with `UNLOCK` — releasing is part of finishing, not an afterthought.
+Announce a `LOCK` before changing anything shared. Reads are free. Name resources
+individually, never a bare container. Release with `UNLOCK` — releasing is part of
+finishing, not an afterthought.
 
-Pseudo-resources in this repository:
+Shared state that is not a file is claimed as an `@token`. This room's tokens:
+
+| Token | Covers |
+|---|---|
+| | |
+
+Add tokens on the first incident rather than designing the list up front.
+
+**Collision:** earlier timestamp wins; on a tie, the alphabetically lower callsign wins.
+No negotiation. If you lost, `UNLOCK` at once.
+
+---
+
+## 3b. Profile — delete this section unless the room shares a git tree
 
 | Token | Covers |
 |---|---|
@@ -72,10 +89,12 @@ Pseudo-resources in this repository:
 | `@build` | build scripts and output directories |
 | `@env` | installing packages, changing the environment |
 
-Add tokens on the first incident rather than designing the list up front.
-
-**Collision:** earlier timestamp wins; on a tie, the alphabetically lower callsign wins.
-No negotiation. If you lost, `UNLOCK` at once.
+- Explicit pathspec on every commit, plus a separate audit of the staged list before it.
+- A rename needs both paths named.
+- Never `git stash`, `git add .`, `-A`, or a sweeping checkout in this tree. For a baseline,
+  read the committed version out of the tree: `git show HEAD:path > ../baseline/file`.
+- Never revert, stash or sweep another session's uncommitted or untracked work.
+- Snapshot this file outside the tree before taking `@git`.
 
 ---
 
@@ -87,19 +106,15 @@ No negotiation. If you lost, `UNLOCK` at once.
 - Written down, then archive, then measure — in that order.
 - A hazard carries a date and is re-tested before anyone is briefed on it.
 - At handover time every finding is `BLOCKS` or `SHIPS WITH A NOTE`. There is no third.
-- Explicit pathspec on every commit, plus a separate audit of the staged list before it.
-- A rename needs both paths named.
-- Never `git stash`, `git add .`, `-A`, or a sweeping checkout in this tree. For a baseline,
-  read the committed version out of the tree: `git show HEAD:path > ../baseline/file`.
-- Uncommitted or untracked work you did not create belongs to someone else. Leave it, `ASK`
-  the owner, `BLOCK` if nobody answers.
+- Unlanded work you did not create belongs to someone else. Leave it, `ASK` the owner,
+  `BLOCK` if nobody answers.
 - Nobody pushes or publishes anywhere without an explicit instruction naming the target —
   ask the operator, and the authorisation becomes a line anyone can quote.
 - Every ban has a sanctioned alternative; they are tabulated in `PROTOCOL.md § 10`. A ban
   with no alternative is a defect in the rule. Say so instead of routing around it.
 - Say whether your silence means dead or waiting. It depends on whether your timer is armed.
-- Snapshot this file to a timestamped copy outside the tree before taking `@git`, and on
-  every coordinator wake. A copy inside the tree is not a backup.
+- Snapshot this file to a timestamped copy outside the tree on every coordinator wake. A
+  copy inside the tree is not a backup.
 
 ---
 
