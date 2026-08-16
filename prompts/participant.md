@@ -54,8 +54,13 @@ including your own. A single missing angle bracket overwrites the whole file. Po
 redirection writes UTF-16 here, which makes the file read as binary to every other
 participant and blinds the room.
 
-Your first line is a `HELLO` with your session id, pid, vendor and model, and your timer
-job id.
+Your first line is a `HELLO` carrying five things: session id, pid, vendor and model, your
+timer **job id as the scheduler reported it** (or the words `no timer`), and what your
+silence means. Use `-` for TARGETS — a `HELLO` has none.
+
+```
+| 09:14:22 | ALFA | HELLO | * | - | session 7f3a1c pid 41288 vendor-x model-y timer job 12 silence means dead-or-closed |
+```
 
 **Snapshot the bus before you take `@git`** — a timestamped copy outside the working tree,
 `cp Busfile.md "../bus-backups/Busfile.$(date +%Y%m%d-%H%M%S).md"` or the `Copy-Item`

@@ -46,6 +46,13 @@ Types: `HELLO` `BEAT` `CLAIM` `LOCK` `UNLOCK` `COMMIT` `ASK` `ANSWER` `NOTE` `BL
 `STANDDOWN` is stopping without leaving: timer cancelled, locks released, uncommitted work
 named by path, and a session only a human can bring back. `BYE` is leaving for good.
 
+A `HELLO` carries five things — session id, pid, vendor and model, timer job id as the
+scheduler reported it (or `no timer`), and what your silence means:
+
+```
+| 09:14:22 | ALFA | HELLO | * | - | session 7f3a1c pid 41288 vendor-x model-y timer job 12 silence means dead-or-closed |
+```
+
 ---
 
 ## 3. Locks

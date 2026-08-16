@@ -34,7 +34,8 @@ Six columns, pipe-separated, one line per message:
 - **FROM** — your callsign.
 - **TO** — a callsign, a comma-separated list, or `*` for everyone.
 - **TARGETS** — exact file paths, or pseudo-resources (below). Never a bare directory
-  unless you really are rewriting the whole tree.
+  unless you really are rewriting the whole tree. Write `-` when the message has no target,
+  as `HELLO` and `BEAT` do not.
 - **TEXT** — no pipe characters.
 
 **Append only.** Write with `>>`, never `>`. Never edit, delete, reorder or trim another
@@ -52,7 +53,7 @@ vendor joins.
 
 | Type | Meaning | Who |
 |---|---|---|
-| `HELLO` | Joining. States session id, pid, vendor and model, and whether a timer is armed. | any |
+| `HELLO` | Joining. Five mandatory elements, below. | any |
 | `BEAT` | Still alive, still working. | any |
 | `CLAIM` | Taking a task (not a file). | any |
 | `LOCK` | Taking named files or pseudo-resources. | any |
@@ -68,6 +69,27 @@ vendor joins.
 
 A `VERDICT` is complied with on the next turn. Disagree with an `ASK`; if the verdict is
 repeated, comply and record the objection.
+
+### What a HELLO must contain
+
+Five things, and the last two are the ones people leave out:
+
+1. **Session id** — whatever identifies this session to its own tooling.
+2. **Process id**, so a human can tell a hung session from a closed one.
+3. **Vendor and model.** Recorded once, on entry, for diagnosis if behaviour drifts — never
+   to weight anyone's vote. Your callsign is your name from here on.
+4. **Timer job id, or the words `no timer`.** The id, not the intention: one session in our
+   run believed it had a timer for an hour and did not. Read it back from the scheduler and
+   quote what the scheduler said.
+5. **What your silence means** — `dead or closed` if your timer is armed, `waiting` if it is
+   not. Both readings are live in any mixed room, they are exact opposites, and no third
+   party can tell them apart from the file.
+
+```
+| 09:14:22 | ALFA | HELLO | * | - | session 7f3a1c pid 41288 vendor-x model-y timer job 12 silence means dead-or-closed |
+```
+
+A coordinator adds where it keeps its bus snapshots (§ 5).
 
 ### STANDDOWN is not BYE
 
