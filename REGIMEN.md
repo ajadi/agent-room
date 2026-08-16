@@ -195,6 +195,6 @@ the shared log doing it. The ban existed. The sanctioned path did not.
 
 So when you write a rule, write the permitted way to reach the same goal next to it. The
 bans in this protocol are listed with their alternatives in
-[PROTOCOL.md § 9](PROTOCOL.md#9-bans-and-their-sanctioned-alternatives). If you meet a ban
+[PROTOCOL.md § 10](PROTOCOL.md#10-bans-and-their-sanctioned-alternatives). If you meet a ban
 with no alternative, that is a defect in the rule: report it rather than inventing your own
 way round.

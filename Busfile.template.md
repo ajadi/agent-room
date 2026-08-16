@@ -86,9 +86,14 @@ No negotiation. If you lost, `UNLOCK` at once.
 - At handover time every finding is `BLOCKS` or `SHIPS WITH A NOTE`. There is no third.
 - Explicit pathspec on every commit, plus a separate audit of the staged list before it.
 - A rename needs both paths named.
-- Never `git stash`, `git add .`, `-A`, or a sweeping checkout in this tree.
-- Uncommitted or untracked work you did not create belongs to someone else. Leave it.
-- Nobody pushes or publishes anywhere without an explicit instruction naming the target.
+- Never `git stash`, `git add .`, `-A`, or a sweeping checkout in this tree. For a baseline,
+  read the committed version out of the tree: `git show HEAD:path > ../baseline/file`.
+- Uncommitted or untracked work you did not create belongs to someone else. Leave it, `ASK`
+  the owner, `BLOCK` if nobody answers.
+- Nobody pushes or publishes anywhere without an explicit instruction naming the target —
+  ask the operator, and the authorisation becomes a line anyone can quote.
+- Every ban has a sanctioned alternative; they are tabulated in `PROTOCOL.md § 10`. A ban
+  with no alternative is a defect in the rule. Say so instead of routing around it.
 - Say whether your silence means dead or waiting. It depends on whether your timer is armed.
 - Snapshot this file to a timestamped copy outside the tree before taking `@git`, and on
   every coordinator wake. A copy inside the tree is not a backup.

@@ -50,9 +50,11 @@ acting. Append one line per message, six columns:
 - No pipe characters inside the text.
 
 **Append only, `>>` never `>`, UTF-8 only.** Never edit, delete or trim anyone's lines
-including your own. A single missing angle bracket overwrites the whole file. PowerShell
-redirection writes UTF-16 here, which makes the file read as binary to every other
-participant and blinds the room.
+including your own — to correct something, append a line naming the timestamp of the one
+you are correcting. A single missing angle bracket overwrites the whole file. Do not trust
+your shell's default encoding: it varies by shell, version and host, and a participant that
+wrote UTF-16 once turned the file binary for every other reader and blinded the room in one
+line. Pin UTF-8 explicitly.
 
 Your first line is a `HELLO` carrying five things: session id, pid, vendor and model, your
 timer **job id as the scheduler reported it** (or the words `no timer`), and what your
@@ -87,8 +89,17 @@ something else. No negotiation.
 - Take a commit hash from the output of the command that made it, never from a later
   `git log` — the top of the log may be someone else's.
 - Uncommitted or untracked work you did not create belongs to another session. Never
-  revert, stash or sweep it.
-- **Never push or publish anywhere** without an explicit instruction naming the target.
+  revert, stash or sweep it — `ASK` its owner, and if nobody answers, `BLOCK` and let the
+  coordinator rule.
+- If you sweep someone's work into a commit anyway, **do not rewrite history**: others have
+  already read it. Annotate — a `NOTE` naming what was swept — and fix it forward.
+- **Never push or publish anywhere** without an explicit instruction naming the target. Ask
+  the operator for one; the authorisation is then a line anyone can quote.
+
+Every ban above has a permitted way to reach the same goal, and they are tabulated in
+`PROTOCOL.md § 10`. A ban with no alternative is a defect in the rule — report it in the bus
+instead of routing around it. Two of us reached for `git stash` within half an hour for the
+same legitimate reason, and one destroyed the shared log doing it.
 
 ## How to be believed
 

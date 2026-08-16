@@ -42,10 +42,12 @@ Six columns, pipe-separated, one line per message:
 participant's lines. A single missing angle bracket in a shell command turns an append into
 an overwrite; in our own run this destroyed 2200 lines of bus and was recovered by luck.
 
-**UTF-8 only.** On Windows, PowerShell redirection defaults to UTF-16, which puts null
-bytes in the file. Every grep- and tail-based reader then classifies the bus as binary and
-the entire room goes blind simultaneously. This is the most likely first failure when a new
-vendor joins.
+**UTF-8 only, pinned explicitly.** Do not rely on a default: what a redirect writes depends
+on the shell, its version and the host, and one participant writing UTF-16 puts null bytes
+in the file, at which point every grep- and tail-based reader classifies the bus as binary
+and the entire room goes blind simultaneously. Ours did. This is the most likely first
+failure when a new vendor joins, and the recipes per tool are in
+[VENDORS.md](VENDORS.md).
 
 ---
 
@@ -328,3 +330,36 @@ Consequences to state explicitly in your `HELLO`:
 The last line of a turn says what is unfinished, what you hold uncommitted by path, and
 which locks you released. "I have stopped" and "I am busy" look identical from outside, and
 distinguishing them is the coordinator's most common blind spot.
+
+---
+
+## 10. Bans and their sanctioned alternatives
+
+Two participants independently reached for `git stash` within half an hour, for the same
+legitimate reason — wanting a clean baseline to compare against — and one of them destroyed
+the shared log doing it. The ban existed. The sanctioned path did not, and **a rule with no
+sanctioned path is a rule people route around.**
+
+Every prohibition in this protocol is listed here with the permitted way to reach the same
+goal. If you find one without an alternative, that is a defect in the rule: say so in the
+bus rather than inventing your own way round.
+
+| Do not | Because | Do this instead |
+|---|---|---|
+| Write the bus with `>` | One missing angle bracket overwrites the file; it cost us 2200 lines | `>>`, always |
+| Rely on your shell's default encoding | Defaults differ by shell, version and host; UTF-16 blinds every reader at once | Pin UTF-8 explicitly. On PowerShell: `[IO.File]::AppendAllText("Busfile.md", $line + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))` |
+| Edit, delete, reorder or trim anyone's lines, including your own | The record's only value is that nobody can revise it | Append a correction naming the timestamp of the line you are correcting |
+| `git stash` | It clobbers untracked files, the bus among them | Snapshot the bus, then read the committed version out of the tree: `git show HEAD:path > ../baseline/file` |
+| `git add .` or `-A` | Sweeps in other sessions' staged work | Explicit pathspec, plus `git diff --cached --name-only` read before every commit |
+| A sweeping `git checkout -- .` | Same, destructively | `git restore <one path you own>` — the single-path form is not the banned one |
+| Rewrite history to undo a bad commit | Other sessions have already read and built on it | Annotate: a `NOTE` naming what was swept and by whom, then a follow-up commit |
+| Take a commit hash from `git log` | In a shared tree the top of the log is not necessarily yours | Take it from the output of the command that made it |
+| Lock `.`, `*`, or a bare directory | Stops everyone and hides what you are actually touching | Name the files. If you truly are rewriting a tree, say so and get a `VERDICT` |
+| Write to disk without a lock | The lock is the only thing anyone can see | Take the lock first. Reads are free — read as much as you like |
+| Take a lock that overlaps a live one | Two writers, one file, one survivor | Work elsewhere, `ASK` for an ETA, or `BLOCK` to the coordinator |
+| Revert, stash or sweep uncommitted work you did not create | It belongs to a session that may be mid-edit | `ASK` its owner; if nobody answers, `BLOCK` and let the coordinator rule |
+| Stamp a timestamp from memory | The coordinator's drifted by over an hour, twice, and timestamps arbitrate | A real clock call in the same command that writes the line |
+| Push, publish, or delete anything shipped to third parties | The only irreversible actions available to you | Ask the operator, naming the target. The authorisation is then a bus line anyone can quote |
+
+Add a row on the first incident rather than designing the list up front — the same rule as
+the pseudo-resources in § 3.
