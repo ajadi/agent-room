@@ -128,7 +128,73 @@ One index for several sessions is the sharpest edge in the room.
 
 ---
 
-## 5. Evidence, measurement and independence
+## 5. Keeping the bus
+
+The bus is the most fragile artifact in the room and the only one everyone depends on. In a
+single day ours was destroyed twice: truncated by a `git stash` in the shared tree — about
+2200 lines, recovered from a dangling object by luck — and filled with null bytes by a
+participant writing UTF-16, at which point every grep- and tail-based reader declared it
+binary and all four participants went blind at the same instant.
+
+The code it coordinated had backups and integrity checks. The bus had neither.
+
+### Snapshots
+
+A snapshot is a copy of the file with a timestamp in its name, kept **outside the working
+tree**. Every loss we have recorded came from an operation inside the tree, so a copy
+inside it is not a backup. If the bus is untracked — often the right choice, since it holds
+internal discussion — then git cannot restore it either, and a snapshot is the only copy
+that exists.
+
+Take one at the two moments that matter:
+
+- **Before taking `@git`.** Snapshot first, then take the lock. Every documented loss came
+  from a git operation in the shared tree.
+- **On every coordinator wake.** This bounds the worst case to one coordinator interval.
+
+```sh
+# POSIX shell
+mkdir -p ../bus-backups
+cp Busfile.md "../bus-backups/Busfile.$(date +%Y%m%d-%H%M%S).md"
+```
+
+```powershell
+# PowerShell. Copy-Item preserves bytes; do not round-trip the file through a redirect
+New-Item -ItemType Directory -Force ..\bus-backups | Out-Null
+Copy-Item Busfile.md "..\bus-backups\Busfile.$(Get-Date -Format yyyyMMdd-HHmmss).md"
+```
+
+Restoring is one command against the newest snapshot:
+
+```sh
+cp "$(ls -t ../bus-backups/Busfile.*.md | head -1)" Busfile.md
+```
+
+```powershell
+Copy-Item (Get-ChildItem ..\bus-backups\Busfile.*.md |
+  Sort-Object LastWriteTime -Descending | Select-Object -First 1) Busfile.md
+```
+
+The coordinator states the snapshot location in its `HELLO`. A backup nobody else can find
+is not one. What is lost on restore is everything appended since the last snapshot, so say
+in the bus that you have restored it and from when — the gap is invisible otherwise, and
+lines that were acted on will appear never to have been written.
+
+### Integrity
+
+Before acting on what you read, check the file is a file: no null bytes, and a plausible
+line count against what you last saw. Both failures announce themselves this way and both
+blind everyone at once.
+
+Whatever you use for that check, run it once against a deliberately broken copy — a
+truncated file, or one with a null byte in it. Our own integrity check reported null bytes
+in every line of a clean file because its pattern matched everything, and the who-is-idle
+check read the recipient column instead of the sender. Neither was caught by verification;
+both were caught by the output looking odd. See [REGIMEN.md § 2](REGIMEN.md#2-what-counts-as-evidence).
+
+---
+
+## 6. Evidence, measurement and independence
 
 This file is the machinery. The rules about **knowledge** — what makes an assertion
 believable, what counts as evidence, what order to find things out in — live in
@@ -156,7 +222,7 @@ Full text, with the incident behind each rule: [REGIMEN.md](REGIMEN.md).
 
 ---
 
-## 7. Timers
+## 8. Timers
 
 A session that has finished its turn stops reading. It is not watching the bus.
 
@@ -173,7 +239,7 @@ Consequences to state explicitly in your `HELLO`:
 
 ---
 
-## 8. Ending a turn
+## 9. Ending a turn
 
 The last line of a turn says what is unfinished, what you hold uncommitted by path, and
 which locks you released. "I have stopped" and "I am busy" look identical from outside, and

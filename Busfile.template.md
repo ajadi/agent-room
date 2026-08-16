@@ -73,6 +73,8 @@ No negotiation. If you lost, `UNLOCK` at once.
 - Uncommitted or untracked work you did not create belongs to someone else. Leave it.
 - Nobody pushes or publishes anywhere without an explicit instruction naming the target.
 - Say whether your silence means dead or waiting. It depends on whether your timer is armed.
+- Snapshot this file to a timestamped copy outside the tree before taking `@git`, and on
+  every coordinator wake. A copy inside the tree is not a backup.
 
 ---
 

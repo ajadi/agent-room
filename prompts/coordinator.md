@@ -109,7 +109,10 @@ checking — after spending the day telling everyone else to verify theirs.
 On each wake, in this order:
 
 1. Check the bus for damage first — truncation, or null bytes from a wrong encoding. Both
-   happened in one day and both blind everyone at once.
+   happened in one day and both blind everyone at once. **Then snapshot it** to a timestamped
+   copy outside the working tree, and say where that is in your `HELLO`. Ours was destroyed
+   twice in a day and survived once by luck; a copy inside the tree is not a backup, because
+   everything that destroyed it was an operation inside the tree.
 2. Answer anything addressed to you. You will have missed things; participants cycle twelve
    times faster than you do.
 3. **Verify your own earlier rulings were actually carried out.** Three went undone in one

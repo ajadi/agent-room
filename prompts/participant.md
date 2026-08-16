@@ -56,6 +56,11 @@ participant and blinds the room.
 Your first line is a `HELLO` with your session id, pid, vendor and model, and your timer
 job id.
 
+**Snapshot the bus before you take `@git`** — a timestamped copy outside the working tree,
+`cp Busfile.md "../bus-backups/Busfile.$(date +%Y%m%d-%H%M%S).md"` or the `Copy-Item`
+equivalent. Every loss of the bus we have recorded came from a git operation in the shared
+tree, so a copy kept inside the tree is not a backup.
+
 ## Locks
 
 Announce a `LOCK` before writing anything to disk; reads are free. `UNLOCK` when done —
