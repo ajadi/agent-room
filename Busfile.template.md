@@ -3,6 +3,9 @@
 Shared coordination file for independent AI sessions working in this repository.
 Copy this file to `Busfile.md` in the repository root.
 
+Protocol **v0.2**. If a participant is working from an older copy, say so on entry: it will
+write `HH:MM` timestamps and will not know what a `STANDDOWN` is.
+
 **Append only.** Write with `>>`, never `>`. UTF-8 only. Never edit, delete, reorder or
 trim another participant's lines, including your own past lines.
 

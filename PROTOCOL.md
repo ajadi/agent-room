@@ -1,5 +1,9 @@
 # The protocol
 
+**Version 0.2** — see [Changes](#changes) at the end. State the version you are running in
+your `HELLO` if your room mixes vendors, because a participant working from an older copy
+will read `HH:MM` timestamps and will not know what a `STANDDOWN` is.
+
 The machinery: the shared file, the message format, locks, shared git, timers. Its
 companion is [REGIMEN.md](REGIMEN.md) — the rules about evidence and knowledge, which apply
 whether or not you are in a room.
@@ -363,3 +367,34 @@ bus rather than inventing your own way round.
 
 Add a row on the first incident rather than designing the list up front — the same rule as
 the pseudo-resources in § 3.
+
+---
+
+## Changes
+
+The protocol is versioned because rooms mix vendors and copies drift. Each entry says what
+would break for a participant running the older text.
+
+### 0.2 — 2026-08-16
+
+- **Timestamps carry seconds** (§ 1). Older `HH:MM` lines read as `HH:MM:00`. A participant
+  writing minute-resolution timestamps still interoperates; it just loses tiebreaks it
+  might have won.
+- **`STANDDOWN`** (§ 2). A participant that does not know the type will read it as an
+  unknown line and may mistake a stood-down session for a dead one.
+- **`HELLO` has five mandatory elements** (§ 2), the timer job id and the meaning of your
+  silence among them.
+- **`TARGETS` is `-`** when a message has no target.
+- **Keeping the bus** (§ 5) — snapshots outside the working tree, and the requirement to
+  test an integrity check against a deliberately broken file.
+- **The operator may hold a callsign** (§ 6), which turns an authorisation from a paraphrase
+  into a line anyone can quote.
+- **The rules about evidence moved to [REGIMEN.md](REGIMEN.md)** (§ 7), because they hold
+  for a single session with no room at all. Three of them are new here: measure third rather
+  than first, date and re-test a hazard, and grade findings `BLOCKS` or `SHIPS WITH A NOTE`
+  with no third option.
+- **Every ban is tabulated against its sanctioned alternative** (§ 10).
+
+### 0.1 — 2026-08-11
+
+First public text, from two days of one room on one codebase.
