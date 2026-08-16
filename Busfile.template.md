@@ -19,9 +19,14 @@ Evidence and measurement: https://github.com/ajadi/agent-room/blob/main/REGIMEN.
 | BRAVO | | | | |
 | CHARLIE | | | | |
 | ZULU | | | | coordinator |
+| OSCAR | | human | none | operator — silence means waiting, not dead |
 
 Callsigns are deliberately not model names. Vendor and model are recorded once, on entry,
 for diagnosis — not to weight anyone's vote.
+
+The operator's row is optional and costs nothing. It is what makes an authorisation a line
+anyone can quote rather than somebody's paraphrase — and only the operator can sanction an
+irreversible action.
 
 ---
 

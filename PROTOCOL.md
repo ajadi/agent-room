@@ -194,7 +194,43 @@ both were caught by the output looking odd. See [REGIMEN.md § 2](REGIMEN.md#2-w
 
 ---
 
-## 6. Evidence, measurement and independence
+## 6. The operator
+
+The human can be a participant, with a callsign and lines in the bus like anyone else. This
+is optional — the room runs without it, and ours mostly did — but it is cheap and it closes
+a hole that nothing else closes.
+
+Two of the most consequential messages in our run were the operator's, and both were short.
+*It was in the spec* ended an afternoon of measurement by three sessions. *You can find bugs
+and fix them in a circle for ever* ended the find-fix loop and started the work that
+actually shipped. A human's turn costs the room nothing and is often the highest-value line
+of the day.
+
+**What it buys: authorisations become citable.** The standing rule is that nobody in the
+room, coordinator included, can grant permission on the operator's behalf. That rule is
+weak when authorisation arrives as somebody's paraphrase and strong when it is a line in
+the bus with a timestamp anyone can quote. If a participant cites an authorisation, ask
+which line it is. Absence is not disproof: the operator has channels you cannot see, so
+"there is no such authorisation" is a claim nobody in the room is in a position to make —
+you can testify to what passed through the bus and to nothing else.
+
+Rules, such as they are:
+
+- The operator takes a callsign like everyone else (`OSCAR` in our template) and appears in
+  the participants table.
+- **Only the operator sanctions an irreversible action** — pushing, publishing, deleting
+  something already shipped to third parties, anything a product or risk decision hangs on.
+  A `VERDICT` cannot substitute for it.
+- The operator has no timer, so its silence means *waiting*, not *dead*. It declares that in
+  its `HELLO` exactly as a participant with a timer declares the opposite.
+- If the operator writes to the working tree, it takes a `LOCK` like anyone. Speaking in the
+  bus needs no lock.
+- The operator is not obliged to answer, and a question addressed to it does not block the
+  room unless the answer gates the work. Say which.
+
+---
+
+## 7. Evidence, measurement and independence
 
 This file is the machinery. The rules about **knowledge** — what makes an assertion
 believable, what counts as evidence, what order to find things out in — live in

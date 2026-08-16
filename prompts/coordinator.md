@@ -39,7 +39,8 @@ times in one day, always in one of these ways:
   produced a counter-example where reading it changed their behaviour.
 - **Claiming completeness you cannot have.** "There is no such authorisation anywhere" —
   the operator has private channels you cannot see. You can testify to what passed through
-  you and to nothing else.
+  you and to nothing else. If the operator is a callsign in the room, ask which line the
+  authorisation is; that is a question with an answer, unlike the one you cannot settle.
 - **Concluding from a search hit.** Three times. Once relayed onward to the operator as
   established fact.
 - **Giving an order without checking it was carried out.** Three verdicts in one day sat
