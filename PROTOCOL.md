@@ -30,38 +30,60 @@ apply whether or not you are in a room.
 
 ---
 
+## Requirement language
+
+Since v0.2.1 the normative parts are marked, so that a reader — or a tool built on this
+document — can tell a rule from an explanation.
+
+| Marker | Meaning |
+|---|---|
+| **MUST**, **MUST NOT** | Breaking it breaks the room for other participants. Not a matter of judgement. |
+| **SHOULD** | Do it unless you have a reason not to, and say the reason in the bus. |
+| **MAY** | Permitted. Named here so that nobody has to ask. |
+
+Text without a marker is narration, evidence, or the incident a rule came from. Those
+carry no obligation and are not there by accident: **a rule whose incident is deleted
+becomes folklore**, and the first person to find it inconvenient will delete it.
+
+A few rules deliberately carry no marker. Their force was genuinely ambiguous in v0.2 and
+assigning one here would have been a change disguised as an edit; they keep their original
+wording and are listed under [Undetermined](#undetermined-in-v02) at the end.
+
+---
+
 ## 1. The line format
 
-Six columns, pipe-separated, one line per message:
+A line MUST have six columns, pipe-separated, one message per line:
 
 ```
 | HH:MM:SS | FROM | TYPE | TO | TARGETS | TEXT |
 ```
 
-- **HH:MM:SS** — taken from a real clock call in the same command that writes the line.
-  Never from memory. A coordinator that estimates its own timestamps will drift, and
+- **HH:MM:SS** — MUST come from a real clock call in the same command that writes the line,
+  never from memory. A coordinator that estimates its own timestamps will drift, and
   timestamps are what resolve conflicts.
 
   Seconds are there because the tiebreak needs them: two locks taken in the same minute are
   otherwise separated only by callsign, which decides by alphabet a question the clock could
-  have answered. Lines written in the older `HH:MM` form read as `HH:MM:00`.
+  have answered. Lines in the older `HH:MM` form MUST be read as `HH:MM:00`.
 - **FROM** — your callsign.
-- **TO** — a callsign, a comma-separated list, or `*` for everyone.
+- **TO** — MUST be a callsign, a comma-separated list of them, or `*` for everyone.
 - **TARGETS** — exact resources: paths, or the pseudo-resource tokens your profile defines
-  (§ 3). Never a bare container — a directory, a whole schema — unless you really are
-  rewriting all of it. Write `-` when the message has no target, as `HELLO` and `BEAT` do
-  not.
-- **TEXT** — no pipe characters.
+  (§ 3). MUST NOT be a bare container — a directory, a whole schema — unless you really are
+  rewriting all of it. MUST be `-` when the message has no target, as `HELLO` and `BEAT`
+  have none.
+- **TEXT** — MUST NOT contain a pipe character.
 
-**Append only.** Write with `>>`, never `>`. Never edit, delete, reorder or trim anyone's
-lines, including your own past ones — to correct something, append a line naming the
-timestamp of the one you are correcting. A single missing angle bracket in a shell command
+**Append only.** You MUST write with `>>`, never `>`, and MUST NOT edit, delete, reorder or
+trim anyone's lines, including your own past ones. To correct something, append a line
+naming the timestamp of the one you are correcting. A single missing angle bracket in a shell command
 turns an append into a silent replacement of the whole record with your one line, and if
 the bus is untracked there is nothing to restore it from except a snapshot (§ 5). Ours was
 in fact destroyed twice in one day — by a `git stash` and by a wrong encoding — which is
 why § 5 exists.
 
-**UTF-8 only, pinned explicitly.** Do not rely on a default: what a redirect writes depends
+**UTF-8 only, pinned explicitly.** The file MUST be UTF-8, and you MUST NOT rely on a
+shell's default to make it so: what a redirect writes depends
 on the shell, its version and the host, and one participant writing UTF-16 puts null bytes
 in the file, at which point every grep- and tail-based reader classifies the bus as binary
 and the entire room goes blind simultaneously. Ours did. This is the most likely first
@@ -88,20 +110,22 @@ failure when a new vendor joins, and the recipes per tool are in
 | `STANDDOWN` | Stopping without leaving: timer cancelled, locks released, unlanded work named by path. | any |
 | `BYE` | Leaving. All own locks are void from this line on. | any |
 
-A `VERDICT` is complied with on the next turn. Disagree with an `ASK`; if the verdict is
-repeated, comply and record the objection.
+A `TYPE` MUST be one of these, and a participant MUST NOT write a `VERDICT`.
+
+A `VERDICT` MUST be complied with on the next turn. You MAY disagree with an `ASK`; if the
+verdict is repeated you MUST comply, and MUST record the objection.
 
 ### What a HELLO must contain
 
-Five things, and the last two are the ones people leave out:
+A `HELLO` MUST carry five things, and the last two are the ones people leave out:
 
 1. **Session id** — whatever identifies this session to its own tooling.
 2. **Process id**, so a human can tell a hung session from a closed one.
 3. **Vendor and model.** Recorded once, on entry, for diagnosis if behaviour drifts — never
    to weight anyone's vote. Your callsign is your name from here on.
 4. **Timer job id, or the words `no timer`.** The id, not the intention: one session in our
-   run believed it had a timer for an hour and did not. Read it back from the scheduler and
-   quote what the scheduler said.
+   run believed it had a timer for an hour and did not. You MUST read it back from the
+   scheduler and quote what the scheduler said.
 5. **What your silence means** — `dead or closed` if your timer is armed, `waiting` if it is
    not. Both readings are live in any mixed room, they are exact opposites, and no third
    party can tell them apart from the file.
@@ -125,17 +149,19 @@ from the operator cutting the room to one worker for a day; the two that stood d
 cancelled their timers, posted what they held, and said plainly that only a human could
 bring them back. That last sentence is the part that cannot be inferred.
 
-A stand-down line carries what is unfinished, every path it holds unlanded — uncommitted,
-unsaved, unsent — and the locks released. **Releasing them is not optional.** A session that
-is not reading the bus cannot answer an `ASK` about a lock, so anything it kept would block
-the room until the operator noticed. Those paths stay its property: work you did not create
-is not yours to revert or sweep, and a stood-down participant is not there to defend it.
+A stand-down line MUST carry what is unfinished, every path it holds unlanded —
+uncommitted, unsaved, unsent — and the locks released. **Releasing them is not optional:**
+you MUST release every lock you hold. A session that is not reading the bus cannot answer
+an `ASK` about a lock, so anything it kept would block the room until the operator noticed.
+Those paths stay its property — you MUST NOT revert or sweep work you did not create, and a
+stood-down participant is not there to defend it.
 
 ---
 
 ## 3. Locks
 
-Nothing is written to disk without an active `LOCK` covering it. Reads are free.
+You MUST NOT write to a shared resource without an active `LOCK` covering it. Reads are
+free: you MAY read anything, at any time, without announcing it.
 
 ### Pseudo-resources
 
@@ -144,26 +170,29 @@ and locked exactly like a path.
 
 Which tokens exist is a property of the domain, so the list lives in the profile (§ 4) —
 `@git`, `@tests`, `@build`, `@env` and `@hardware` are the ones the coding profile defines.
-Derive your own from the question *"what does this mutate outside my locked paths?"* and
-extend the list on the first incident rather than designing it up front.
+You SHOULD derive your own from the question *"what does this mutate outside my locked
+paths?"*, and SHOULD extend the list on the first incident rather than designing it up
+front.
 
 ### Acquisition
 
+You MUST follow all four steps, in order:
+
 1. Read the tail of the bus and build the set of active locks.
-2. Overlap with an active lock → do not take it. Work on something else, `ASK` for an ETA,
-   or `BLOCK` to the coordinator.
+2. Overlap with an active lock → you MUST NOT take it. Work on something else, `ASK` for an
+   ETA, or `BLOCK` to the coordinator.
 3. No overlap → append your `LOCK`.
 4. Re-read the tail. If someone claimed the same target in the same moment: **earlier
-   timestamp wins; on a tie, the alphabetically lower callsign wins.** If you lost, append
-   `UNLOCK` immediately and back off.
+   timestamp wins; on a tie, the alphabetically lower callsign wins.** If you lost, you MUST
+   append `UNLOCK` immediately and back off.
 
 ### Discipline
 
-- Lock the narrowest target set that works. Never `.` or `*`.
-- **Releasing your lock is part of finishing.** A lock outliving its task is the most
-  common defect we saw: a closed, archived task still holding an entire directory, silently
-  making other participants stop and verify.
-- Unlanded work you did not create belongs to someone else. Never revert it and never sweep
+- You SHOULD lock the narrowest target set that works, and MUST NOT lock `.` or `*`.
+- **Releasing your lock is part of finishing:** you MUST `UNLOCK` when the work is done. A
+  lock outliving its task is the most common defect we saw — a closed, archived task still
+  holding an entire directory, silently making other participants stop and verify.
+- Unlanded work you did not create belongs to someone else. You MUST NOT revert it or sweep
   it into your own. Your profile names the specific forms this takes.
 
 ---
@@ -238,9 +267,9 @@ Copy-Item (Get-ChildItem ..\bus-backups\Busfile.*.md |
 ```
 
 The coordinator states the snapshot location in its `HELLO`. A backup nobody else can find
-is not one. What is lost on restore is everything appended since the last snapshot, so say
-in the bus that you have restored it and from when — the gap is invisible otherwise, and
-lines that were acted on will appear never to have been written.
+is not one. What is lost on restore is everything appended since the last snapshot, so if
+you restore the bus you MUST say so in it, and from when — the gap is invisible otherwise,
+and lines that were acted on will appear never to have been written.
 
 ### Integrity
 
@@ -248,8 +277,8 @@ Before acting on what you read, check the file is a file: no null bytes, and a p
 line count against what you last saw. Both failures announce themselves this way and both
 blind everyone at once.
 
-Whatever you use for that check, run it once against a deliberately broken copy — a
-truncated file, or one with a null byte in it. Our own integrity check reported null bytes
+Whatever you use for that check, you SHOULD run it once against a deliberately broken copy
+— a truncated file, or one with a null byte in it. Our own integrity check reported null bytes
 in every line of a clean file because its pattern matched everything, and the who-is-idle
 check read the recipient column instead of the sender. Neither was caught by verification;
 both were caught by the output looking odd. See [REGIMEN.md § 2](REGIMEN.md#2-what-counts-as-evidence).
@@ -269,26 +298,26 @@ actually shipped. A human's turn costs the room nothing and is often the highest
 of the day.
 
 **What it buys: authorisations become citable.** The standing rule is that nobody in the
-room, coordinator included, can grant permission on the operator's behalf. That rule is
+room, coordinator included, MAY grant permission on the operator's behalf. That rule is
 weak when authorisation arrives as somebody's paraphrase and strong when it is a line in
-the bus with a timestamp anyone can quote. If a participant cites an authorisation, ask
-which line it is. Absence is not disproof: the operator has channels you cannot see, so
-"there is no such authorisation" is a claim nobody in the room is in a position to make —
-you can testify to what passed through the bus and to nothing else.
+the bus with a timestamp anyone can quote. If a participant cites an authorisation, you
+SHOULD ask which line it is. Absence is not disproof: the operator has channels you cannot
+see, so you MUST NOT claim that no such authorisation exists — you can testify to what
+passed through the bus and to nothing else.
 
 Rules, such as they are:
 
-- The operator takes a callsign like everyone else (`OSCAR` in our template) and appears in
-  the participants table.
+- The operator MAY take a callsign like everyone else (`OSCAR` in our template) and appear
+  in the participants table.
 - **Only the operator sanctions an irreversible action** — pushing, publishing, deleting
   something already shipped to third parties, anything a product or risk decision hangs on.
-  A `VERDICT` cannot substitute for it.
-- The operator has no timer, so its silence means *waiting*, not *dead*. It declares that in
-  its `HELLO` exactly as a participant with a timer declares the opposite.
-- If the operator writes to the working tree, it takes a `LOCK` like anyone. Speaking in the
-  bus needs no lock.
+  A `VERDICT` MUST NOT substitute for it.
+- The operator has no timer, so its silence means *waiting*, not *dead*. It MUST declare
+  that in its `HELLO` exactly as a participant with a timer declares the opposite.
+- If the operator writes to a shared resource it MUST take a `LOCK` like anyone. Speaking in
+  the bus needs none.
 - The operator is not obliged to answer, and a question addressed to it does not block the
-  room unless the answer gates the work. Say which.
+  room unless the answer gates the work. You SHOULD say which.
 
 ---
 
@@ -324,11 +353,17 @@ Full text, with the incident behind each rule: [REGIMEN.md](REGIMEN.md).
 
 A session that has finished its turn stops reading. It is not watching the bus.
 
-Each participant arms a repeating self-wakeup (five minutes for participants; hourly for the coordinator, which is driven by what others write rather than by polling) whose prompt is: re-read
-the tail of the bus, act on anything addressed to you, advance your task by one step.
-Verify it is armed by listing your scheduled jobs — "armed" from memory does not count.
+Each participant arms a repeating self-wakeup whose prompt is: re-read the tail of the bus,
+act on anything addressed to you, advance your task by one step. The interval SHOULD be five
+minutes for a participant and an hour for the coordinator, which is driven by what others
+write rather than by polling.
 
-Consequences to state explicitly in your `HELLO`:
+If you arm one, you MUST verify it by listing your scheduled jobs and quoting the job id —
+"armed" from memory does not count. If you cannot arm one at all, the room still works;
+see [VENDORS.md](VENDORS.md) and say `no timer`, because the meaning of your silence
+inverts.
+
+You MUST state the consequence explicitly in your `HELLO`:
 
 - With a timer, **your silence means dead or session closed** — never "finished".
 - Without one, **your silence means waiting** — the opposite reading.
@@ -341,7 +376,7 @@ Consequences to state explicitly in your `HELLO`:
 
 ## 9. Ending a turn
 
-The last line of a turn says what is unfinished, what you hold unlanded by path, and
+The last line of a turn MUST say what is unfinished, what you hold unlanded by path, and
 which locks you released. "I have stopped" and "I am busy" look identical from outside, and
 distinguishing them is the coordinator's most common blind spot.
 
@@ -355,8 +390,9 @@ the shared log doing it. The ban existed. The sanctioned path did not, and **a r
 sanctioned path is a rule people route around.**
 
 Every prohibition in this protocol is listed here with the permitted way to reach the same
-goal. If you find one without an alternative, that is a defect in the rule: say so in the
-bus rather than inventing your own way round.
+goal. **Every left-hand cell is a MUST NOT; every right-hand cell is the sanctioned route to
+the same goal.** If you find a ban without an alternative, that is a defect in the rule: say
+so in the bus rather than inventing your own way round.
 
 | Do not | Because | Do this instead |
 |---|---|---|
@@ -376,6 +412,29 @@ the pseudo-resources in § 3.
 **Your profile extends this table.** The coding profile adds five rows, all of them about
 git: [`profiles/coding-shared-git.md` § 4](profiles/coding-shared-git.md#4-bans-and-their-sanctioned-alternatives).
 Together the two tables are exactly the fourteen bans that stood in v0.2.
+
+---
+
+## Undetermined in v0.2
+
+Rules whose force was genuinely ambiguous when the requirement language was introduced in
+v0.2.1. Each keeps its original wording, because deciding it here would have been a change
+of the protocol disguised as an edit.
+
+**This is a list of admissions, not a roadmap.** Most of them are settled the same way:
+somebody runs a room and finds out which reading survives contact.
+
+| Rule | The two readings | What would settle it |
+|---|---|---|
+| Arming a timer (§ 8) | § 8 tells every participant to arm one; the `HELLO` contract (§ 2) and [VENDORS.md](VENDORS.md) both treat `no timer` as a supported, declared state. MUST, or MAY-with-declaration? | A room with a participant whose tool has no scheduler, run long enough to see whether the declaration is enough |
+| Snapshotting the bus (§ 5) | Imperative in the text, but the scope is unstated: every participant always, or the coordinator on our behalf? | A run in which the bus is lost with snapshots in place |
+| Snapshot before a dangerous operation (§ 5, profile § 3) | Force follows the rule above | — |
+| Snapshot on every coordinator wake (§ 5) | Force follows the rule above | — |
+| Announcing the snapshot location in `HELLO` (§ 2, § 5) | Force follows the rule above; cannot be stronger than the rule it announces | — |
+| Checking the bus is intact before acting (§ 5) | Imperative, but no frequency: before every read, or once per wake? Before every read is expensive for a five-minute participant | Measuring what the check costs against how often the bus is actually damaged |
+
+If you have run a room and one of these has an obvious answer from experience, that is a
+[rule challenge](CONTRIBUTING.md) worth opening.
 
 ---
 

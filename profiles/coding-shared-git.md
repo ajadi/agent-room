@@ -36,26 +36,29 @@ extend the list on the first incident rather than designing it up front.
 
 One index for several sessions is the sharpest edge in the room.
 
-- **Explicit pathspec on every commit, and a separate audit call before it.** Run the
-  staged-file listing, read it, unstage anything that is not yours, then commit. The
-  pathspec is the mechanism — it does not need vigilance. The audit is the check — it
-  catches what the pathspec cannot.
-- **A rename needs both paths named.** A pathspec commit does not carry the staged
-  deletion, so the old path stays staged for whoever commits next.
-- Never `git stash`, never `git add .` or `-A`, never a sweeping `git checkout --`. To get
+Marked with the same [requirement language](../PROTOCOL.md#requirement-language) as the
+core.
+
+- **Explicit pathspec on every commit, and a separate audit call before it.** You MUST name
+  a pathspec, and MUST read the staged-file listing before committing, unstaging anything
+  that is not yours. The pathspec is the mechanism — it does not need vigilance. The audit
+  is the check — it catches what the pathspec cannot.
+- **A rename needs both paths named:** you MUST name both. A pathspec commit does not carry
+  the staged deletion, so the old path stays staged for whoever commits next.
+- You MUST NOT use `git stash`, `git add .` or `-A`, or a sweeping `git checkout --`. To get
   a baseline for comparison, read the committed version into a temporary directory instead.
   Two of our participants independently reached for `stash` within half an hour, for the
   same reason, and one of them destroyed the bus doing it.
-- Reverting **a single path you own** with `git restore` is correct and is not the banned
+- You MAY revert **a single path you own** with `git restore`; that is not the banned
   sweeping form. Reading a committed blob over the file instead can leave it looking
   modified on a repository with line-ending normalisation, which reads as a failed revert.
-- **Take a commit hash from the output of the command that made it**, never from a later
-  log read. In a shared tree the top of `git log` is not necessarily yours.
+- **Take a commit hash from the output of the command that made it.** You MUST NOT take it
+  from a later log read: in a shared tree the top of `git log` is not necessarily yours.
 
-Uncommitted or untracked work you did not create is the git form of the core rule that
-work you hold is yours and nobody else's ([core § 3](../PROTOCOL.md#3-locks)): never revert
-it, never stash it, never sweep it into your commit. `ASK` its owner; if nobody answers,
-`BLOCK` and let the coordinator rule.
+Uncommitted or untracked work you did not create is the git form of the core rule that work
+someone holds is theirs ([core § 3](../PROTOCOL.md#3-locks)). You MUST NOT revert it, stash
+it, or sweep it into your commit. `ASK` its owner; if nobody answers, `BLOCK` and let the
+coordinator rule.
 
 ---
 
@@ -78,7 +81,8 @@ cp Busfile.md "../bus-backups/Busfile.$(date +%Y%m%d-%H%M%S).md"
 ## 4. Bans and their sanctioned alternatives
 
 These extend the core table ([core § 10](../PROTOCOL.md#10-bans-and-their-sanctioned-alternatives)),
-which continues to apply.
+which continues to apply. As there: every left-hand cell is a MUST NOT, every right-hand
+cell is the sanctioned route to the same goal.
 
 | Do not | Because | Do this instead |
 |---|---|---|
@@ -106,6 +110,6 @@ migrations, hardware benches, document production, incident response, data pipel
 you run one, the **vendor mix** and **failure report** templates take the raw material, and
 a profile can be assembled from it afterwards.
 
-What a profile must not do: contradict the core, require a tool in order to participate, or
-restate core rules in its own words. Three copies of one caveat rot at different rates and
+A profile MUST NOT contradict the core, MUST NOT require a tool in order to participate,
+and SHOULD NOT restate core rules in its own words. Three copies of one caveat rot at different rates and
 then disagree.
