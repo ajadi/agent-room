@@ -4,9 +4,17 @@
 your `HELLO` if your room mixes vendors, because a participant working from an older copy
 will read `HH:MM` timestamps and will not know what a `STANDDOWN` is.
 
-The machinery: the shared file, the message format, locks, shared git, timers. Its
-companion is [REGIMEN.md](REGIMEN.md) — the rules about evidence and knowledge, which apply
-whether or not you are in a room.
+The machinery: the shared file, the message format, locks, liveness, arbitration. It assumes
+only that several independent sessions share **one mutable thing and one record** — a
+working tree, a document set, a bench, a database. Code is the case we have run; it is not
+the case the rules are about.
+
+What the core cannot know is which resources your domain has and which operations on them
+are dangerous. That is a **profile** (§ 4), and there is currently one, because there is
+evidence for one.
+
+Its companion is [REGIMEN.md](REGIMEN.md) — the rules about evidence and knowledge, which
+apply whether or not you are in a room.
 
 ## Terms
 
@@ -16,7 +24,9 @@ whether or not you are in a room.
 | **the room** | The whole arrangement: participants, the bus, the rules below. |
 | **participant** | An independent session. Not spawned by anything in this repository. |
 | **coordinator** | A participant that arbitrates, assigns and checks claims. Has no special powers over anyone's process. |
+| **operator** | The human. May hold a callsign (§ 6); alone can sanction an irreversible action. |
 | **callsign** | A participant's name in the bus. Deliberately not the model name. |
+| **profile** | The domain-specific half: resources, rules and bans for one kind of shared work (§ 4). |
 
 ---
 
@@ -37,9 +47,10 @@ Six columns, pipe-separated, one line per message:
   have answered. Lines written in the older `HH:MM` form read as `HH:MM:00`.
 - **FROM** — your callsign.
 - **TO** — a callsign, a comma-separated list, or `*` for everyone.
-- **TARGETS** — exact file paths, or pseudo-resources (below). Never a bare directory
-  unless you really are rewriting the whole tree. Write `-` when the message has no target,
-  as `HELLO` and `BEAT` do not.
+- **TARGETS** — exact resources: paths, or the pseudo-resource tokens your profile defines
+  (§ 3). Never a bare container — a directory, a whole schema — unless you really are
+  rewriting all of it. Write `-` when the message has no target, as `HELLO` and `BEAT` do
+  not.
 - **TEXT** — no pipe characters.
 
 **Append only.** Write with `>>`, never `>`. Never edit, delete, reorder or trim anyone's
@@ -74,7 +85,7 @@ failure when a new vendor joins, and the recipes per tool are in
 | `NOTE` | Anything else worth broadcasting. | any |
 | `BLOCK` | Cannot proceed; states what is in the way. | any |
 | `VERDICT` | Binding arbitration. Overrides locks and claims. | coordinator |
-| `STANDDOWN` | Stopping without leaving: timer cancelled, locks released, uncommitted work named by path. | any |
+| `STANDDOWN` | Stopping without leaving: timer cancelled, locks released, unlanded work named by path. | any |
 | `BYE` | Leaving. All own locks are void from this line on. | any |
 
 A `VERDICT` is complied with on the next turn. Disagree with an `ASK`; if the verdict is
@@ -114,11 +125,11 @@ from the operator cutting the room to one worker for a day; the two that stood d
 cancelled their timers, posted what they held, and said plainly that only a human could
 bring them back. That last sentence is the part that cannot be inferred.
 
-A stand-down line carries what is unfinished, every path held uncommitted, and the locks
-released. **Releasing them is not optional.** A session that is not reading the bus cannot
-answer an `ASK` about a lock, so anything it kept would block the room until the operator
-noticed. The uncommitted paths stay its property: work you did not create is not yours to
-revert, stash or sweep, and a stood-down participant is not there to defend it.
+A stand-down line carries what is unfinished, every path it holds unlanded — uncommitted,
+unsaved, unsent — and the locks released. **Releasing them is not optional.** A session that
+is not reading the bus cannot answer an `ASK` about a lock, so anything it kept would block
+the room until the operator noticed. Those paths stay its property: work you did not create
+is not yours to revert or sweep, and a stood-down participant is not there to defend it.
 
 ---
 
@@ -128,18 +139,13 @@ Nothing is written to disk without an active `LOCK` covering it. Reads are free.
 
 ### Pseudo-resources
 
-Shared state that is not a file still needs claiming:
+Shared state that is not a file still needs claiming. Such a resource is written `@name`
+and locked exactly like a path.
 
-| Token | Covers |
-|---|---|
-| `@git` | staging, committing, branch operations |
-| `@tests` | running the test suite (memory: never two at once) |
-| `@build` | build scripts and output directories |
-| `@env` | installing packages, changing the virtualenv |
-| `@hardware` | physical devices, serial ports, benches |
-
-Derive the list from the question *"what does this mutate outside my locked paths?"* and
-extend it on the first incident rather than designing it up front.
+Which tokens exist is a property of the domain, so the list lives in the profile (§ 4) —
+`@git`, `@tests`, `@build`, `@env` and `@hardware` are the ones the coding profile defines.
+Derive your own from the question *"what does this mutate outside my locked paths?"* and
+extend the list on the first incident rather than designing it up front.
 
 ### Acquisition
 
@@ -157,30 +163,31 @@ extend it on the first incident rather than designing it up front.
 - **Releasing your lock is part of finishing.** A lock outliving its task is the most
   common defect we saw: a closed, archived task still holding an entire directory, silently
   making other participants stop and verify.
-- Uncommitted or untracked work you did not create belongs to someone else. Never revert
-  it, never stash it, never sweep it into your commit.
+- Unlanded work you did not create belongs to someone else. Never revert it and never sweep
+  it into your own. Your profile names the specific forms this takes.
 
 ---
 
-## 4. Shared git
+## 4. Domain profiles
 
-One index for several sessions is the sharpest edge in the room.
+Everything above is domain-neutral: it assumes several sessions, one mutable thing, one
+record. What it cannot know is which resources your domain has and which operations on them
+destroy something.
 
-- **Explicit pathspec on every commit, and a separate audit call before it.** Run the
-  staged-file listing, read it, unstage anything that is not yours, then commit. The
-  pathspec is the mechanism — it does not need vigilance. The audit is the check — it
-  catches what the pathspec cannot.
-- **A rename needs both paths named.** A pathspec commit does not carry the staged
-  deletion, so the old path stays staged for whoever commits next.
-- Never `git stash`, never `git add .` or `-A`, never a sweeping `git checkout --`. To get
-  a baseline for comparison, read the committed version into a temporary directory instead.
-  Two of our participants independently reached for `stash` within half an hour, for the
-  same reason, and one of them destroyed the bus doing it.
-- Reverting **a single path you own** with `git restore` is correct and is not the banned
-  sweeping form. Reading a committed blob over the file instead can leave it looking
-  modified on a repository with line-ending normalisation, which reads as a failed revert.
-- **Take a commit hash from the output of the command that made it**, never from a later
-  log read. In a shared tree the top of `git log` is not necessarily yours.
+A **profile** supplies exactly that — the pseudo-resource tokens, the rules for the domain's
+sharpest edges, and its bans with their sanctioned alternatives. The core applies in full
+alongside it; a profile adds and never overrides.
+
+| Profile | Domain | Evidence |
+|---|---|---|
+| [coding in a shared git tree](profiles/coding-shared-git.md) | several sessions in one working tree with one git index | three days, one room — [FIELD-NOTES.md](FIELD-NOTES.md) |
+
+This section held the git rules until v0.2.1. They are in the profile now, unchanged.
+
+**There is one profile because there is evidence for one.** How to write another is at the
+end of that file, and the requirement is the same as for any rule here: it comes from a room
+that ran and something that broke, or it is marked untested. A profile invented at a desk
+would be exactly the confident, fluent, unfounded text this protocol exists to resist.
 
 ---
 
@@ -202,11 +209,10 @@ inside it is not a backup. If the bus is untracked — often the right choice, s
 internal discussion — then git cannot restore it either, and a snapshot is the only copy
 that exists.
 
-Take one at the two moments that matter:
-
-- **Before taking `@git`.** Snapshot first, then take the lock. Every documented loss came
-  from a git operation in the shared tree.
-- **On every coordinator wake.** This bounds the worst case to one coordinator interval.
+Take one **on every coordinator wake** — this bounds the worst case to one coordinator
+interval — and before any operation your profile names as dangerous to the file. In the
+coding profile that is `@git`, because every loss we have recorded came from a git
+operation in the shared tree.
 
 ```sh
 # POSIX shell
@@ -335,7 +341,7 @@ Consequences to state explicitly in your `HELLO`:
 
 ## 9. Ending a turn
 
-The last line of a turn says what is unfinished, what you hold uncommitted by path, and
+The last line of a turn says what is unfinished, what you hold unlanded by path, and
 which locks you released. "I have stopped" and "I am busy" look identical from outside, and
 distinguishing them is the coordinator's most common blind spot.
 
@@ -357,20 +363,19 @@ bus rather than inventing your own way round.
 | Write the bus with `>` | One missing angle bracket silently replaces the whole record with your one line | `>>`, always — and snapshots (§ 5), because the bus has been lost to other operations too |
 | Rely on your shell's default encoding | Defaults differ by shell, version and host; UTF-16 blinds every reader at once | Pin UTF-8 explicitly. On PowerShell: `[IO.File]::AppendAllText("Busfile.md", $line + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))` |
 | Edit, delete, reorder or trim anyone's lines, including your own | The record's only value is that nobody can revise it | Append a correction naming the timestamp of the line you are correcting |
-| `git stash` | It clobbers untracked files, the bus among them | Snapshot the bus, then read the committed version out of the tree: `git show HEAD:path > ../baseline/file` |
-| `git add .` or `-A` | Sweeps in other sessions' staged work | Explicit pathspec, plus `git diff --cached --name-only` read before every commit |
-| A sweeping `git checkout -- .` | Same, destructively | `git restore <one path you own>` — the single-path form is not the banned one |
-| Rewrite history to undo a bad commit | Other sessions have already read and built on it | Annotate: a `NOTE` naming what was swept and by whom, then a follow-up commit |
-| Take a commit hash from `git log` | In a shared tree the top of the log is not necessarily yours | Take it from the output of the command that made it |
-| Lock `.`, `*`, or a bare directory | Stops everyone and hides what you are actually touching | Name the files. If you truly are rewriting a tree, say so and get a `VERDICT` |
+| Lock `.`, `*`, or a bare container | Stops everyone and hides what you are actually touching | Name the resources. If you truly are rewriting all of it, say so and get a `VERDICT` |
 | Write to disk without a lock | The lock is the only thing anyone can see | Take the lock first. Reads are free — read as much as you like |
 | Take a lock that overlaps a live one | Two writers, one file, one survivor | Work elsewhere, `ASK` for an ETA, or `BLOCK` to the coordinator |
-| Revert, stash or sweep uncommitted work you did not create | It belongs to a session that may be mid-edit | `ASK` its owner; if nobody answers, `BLOCK` and let the coordinator rule |
+| Revert or sweep unlanded work you did not create | It belongs to a session that may be mid-edit | `ASK` its owner; if nobody answers, `BLOCK` and let the coordinator rule |
 | Stamp a timestamp from memory | The coordinator's drifted by over an hour, twice, and timestamps arbitrate | A real clock call in the same command that writes the line |
 | Push, publish, or delete anything shipped to third parties | The only irreversible actions available to you | Ask the operator, naming the target. The authorisation is then a bus line anyone can quote |
 
 Add a row on the first incident rather than designing the list up front — the same rule as
 the pseudo-resources in § 3.
+
+**Your profile extends this table.** The coding profile adds five rows, all of them about
+git: [`profiles/coding-shared-git.md` § 4](profiles/coding-shared-git.md#4-bans-and-their-sanctioned-alternatives).
+Together the two tables are exactly the fourteen bans that stood in v0.2.
 
 ---
 
