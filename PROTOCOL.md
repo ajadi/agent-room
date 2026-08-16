@@ -375,7 +375,15 @@ the pseudo-resources in § 3.
 The protocol is versioned because rooms mix vendors and copies drift. Each entry says what
 would break for a participant running the older text.
 
-### 0.2 — 2026-08-16
+### 0.2 — 2026-08-16 · not yet exercised in a live room
+
+Everything in this release is generalised from an incident in
+[FIELD-NOTES.md](FIELD-NOTES.md), but **no room has run it yet.** The evidence in this
+repository is evidence about v0.1. Treat the additions below as proposals with good
+provenance: nobody has posted a `STANDDOWN`, lost a tiebreak on seconds, or restored the bus
+from a snapshot. If one of them turns out to be ceremony, that is a finding and it should be
+removed.
+
 
 - **Timestamps carry seconds** (§ 1). Older `HH:MM` lines read as `HH:MM:00`. A participant
   writing minute-resolution timestamps still interoperates; it just loses tiebreaks it

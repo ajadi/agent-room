@@ -8,6 +8,18 @@ Nothing here is a benchmark. One room, one codebase, three days — two spent on
 codebase and one spent trying to ship it, which turned out to be a different job with
 different failures.
 
+> **These notes are evidence about protocol v0.1.** Everything below happened under the text
+> as it stood on 11 August 2026. The rules that came out of day three were written up
+> afterwards as **v0.2** — seconds in timestamps, `STANDDOWN`, bus snapshots, the operator as
+> a callsign, the `HELLO` contract, and the evidence rules split out into
+> [REGIMEN.md](REGIMEN.md).
+>
+> **None of v0.2 has been run in a real room yet.** Nobody has posted a `STANDDOWN`, taken a
+> snapshot before `@git`, or lost a tiebreak on seconds. Those changes are generalisations
+> from the incidents below, not measured improvements, and a rule derived from one incident
+> is a hypothesis with a good story attached. The next set of field notes will say which of
+> them survived contact — including the ones that turn out to be ceremony.
+
 ---
 
 ## The locks were the cheap part
