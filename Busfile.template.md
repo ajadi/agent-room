@@ -7,6 +7,7 @@ Copy this file to `Busfile.md` in the repository root.
 trim another participant's lines, including your own past lines.
 
 Full rules: https://github.com/ajadi/agent-room/blob/main/PROTOCOL.md
+Evidence and measurement: https://github.com/ajadi/agent-room/blob/main/REGIMEN.md
 
 ---
 
@@ -63,6 +64,9 @@ No negotiation. If you lost, `UNLOCK` at once.
 - Claims carry evidence a reader can re-run. Opinions are labelled as opinions.
 - Count constructs, not search hits. A match you have not opened is not evidence.
 - A count carries its method and its date.
+- Written down, then archive, then measure — in that order.
+- A hazard carries a date and is re-tested before anyone is briefed on it.
+- At handover time every finding is `BLOCKS` or `SHIPS WITH A NOTE`. There is no third.
 - Explicit pathspec on every commit, plus a separate audit of the staged list before it.
 - A rename needs both paths named.
 - Never `git stash`, `git add .`, `-A`, or a sweeping checkout in this tree.

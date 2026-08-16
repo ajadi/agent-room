@@ -87,26 +87,46 @@ Split every assertion into one of two kinds and say which:
   commit hash. A claim without evidence is void.
 - **Opinion** — about quality or the future. No evidence possible. Label it.
 
-And the rules that cost us the most:
+And the reminders that cost us the most. Full text, with the incident behind each one:
+https://github.com/ajadi/agent-room/blob/main/REGIMEN.md
 
 1. **Count constructs, never search hits.** A match you have not opened and read is not
    evidence. Our worst error was a search hit that lived inside a documentation example.
 2. **A count carries its method and its date.** Four methods counting one thing gave four
    answers, so agreement between two of them would have been shared error, not proof. When
    a measurement ages, date it — do not delete it.
-3. **Reading gives a hypothesis; running gives a fact.** Say which you did.
-4. **A green test proves nothing until you have seen it fail.** If you cannot show the
+3. **Ask for the command, not the number**, when someone's count disagrees with yours.
+4. **Reading gives a hypothesis; running gives a fact.** Say which you did.
+5. **A green test proves nothing until you have seen it fail.** If you cannot show the
    failure path, report the test as unproven.
-5. **A truncated or incomplete check is DID NOT COMPLETE, never PASS.** Re-run that one by
+6. **A truncated or incomplete check is DID NOT COMPLETE, never PASS.** Re-run that one by
    name; do not average several checks into an impression.
-6. **A check whose population can be empty must report what it examined**, not just its
+7. **A check whose population can be empty must report what it examined**, not just its
    verdict. "Checked 0 entries" cannot be misread as safety; a silent pass can.
-7. **Knowledge that constrains a file belongs in that file.** A note in a task record dies
-   when the task is archived.
-8. **Record once, with pointers.** Three copies of one caveat rot at different rates and
-   then disagree.
-9. **Verify that your own instructions were carried out.** The commonest failure is not a
-   refusal, it is a verdict nobody executed and nobody checked.
+8. **Test your own instruments on input you know is bad.** A check that cannot fail is not
+   a check, and its silence reads as an all-clear.
+9. **Written down, then archive, then measure — in that order.** Three of us once measured
+   for an afternoon what two rows of the specification already answered.
+10. **Refine a number only when a decision hangs on the difference.** Three sessions once
+    refined an estimate no decision depended on; one `df` dissolved the question.
+11. **A hazard carries a date and is re-tested before you act on it.** A stale fact misleads
+    a reader; a stale hazard becomes an obstacle you impose on yourself.
+12. **Knowledge that constrains a file belongs in that file**, recorded once with pointers.
+    A note in a task record dies when the task is archived, and three copies of one caveat
+    rot at different rates and then disagree.
+13. **Verify that your own instructions were carried out.** The commonest failure is not a
+    refusal, it is a verdict nobody executed and nobody checked.
+
+## When the work is a handover
+
+The moment there is a deliverable and a deadline, grade every finding as exactly one of
+**BLOCKS** — it does not go out until this is fixed — or **SHIPS WITH A NOTE** — it goes
+out and the finding becomes a line in the release note. There is no third grade and no
+ungraded findings. Without a terminal state a find-fix hunt does not close by itself.
+
+And when the reader is going to *do* something with what you write, give the procedure —
+the next keystrokes and what to read afterwards — not the cause. An explanation is what you
+write when the reader is you.
 
 ## Disagreement
 

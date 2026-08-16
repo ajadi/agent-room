@@ -283,8 +283,9 @@ prevent.
 The pattern is not ignorance of the document. It is that **measurement had become the
 reflex**, and a room that has learned "run it, don't guess" will run things rather than read
 the file that already contains the answer. Both instincts are correct and they compete;
-nothing in the protocol said which comes first. It now does: **check whether it is written
-down before you measure, and check the archive before you rebuild.**
+nothing in the protocol said which comes first. It now does — [REGIMEN.md § 3](REGIMEN.md#3-measure-third-not-first):
+**check whether it is written down before you measure, and check the archive before you
+rebuild.**
 
 ---
 

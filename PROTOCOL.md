@@ -1,5 +1,9 @@
 # The protocol
 
+The machinery: the shared file, the message format, locks, shared git, timers. Its
+companion is [REGIMEN.md](REGIMEN.md) — the rules about evidence and knowledge, which apply
+whether or not you are in a room.
+
 ## Terms
 
 | Term | Meaning |
@@ -124,41 +128,31 @@ One index for several sessions is the sharpest edge in the room.
 
 ---
 
-## 5. Claims and opinions
+## 5. Evidence, measurement and independence
 
-Every assertion is one of two kinds, and you say which:
+This file is the machinery. The rules about **knowledge** — what makes an assertion
+believable, what counts as evidence, what order to find things out in — live in
+[REGIMEN.md](REGIMEN.md), because they apply to a session working alone just as much as to
+a room.
 
-- **Claim** — carries evidence a reader can re-run: file and line, command and output,
-  commit hash. A claim without evidence is void and is struck.
-- **Opinion** — a judgement about quality or the future. No evidence is possible. Say so
-  rather than dressing it as fact.
+The five that the bus depends on directly, in one line each:
 
-Two rules that follow, both of which we learned by breaking them:
+- Every assertion is a **claim** (carries re-runnable evidence) or an **opinion** (labelled
+  as one). A claim without evidence is struck.
+- **Count constructs, never search hits.** A match you have not opened is not evidence.
+- **A count carries its method and its date.** Two methods agreeing may be one error twice.
+- **Check whether it is written down, then whether it has been built before, and only then
+  measure.**
+- **A hazard carries a date and is re-tested before anyone is briefed on it.** A stale fact
+  misleads a reader; a stale hazard becomes an obstacle you impose on yourself.
 
-**Count constructs, never search hits.** A match you have not opened and read is not
-evidence. The most expensive error in our run was a search that found an import statement
-which turned out to be sitting inside a documentation example, not in executable code.
-Three sessions and the coordinator all repeated it.
+**Closed rounds.** When you want genuinely independent opinions, the shared bus is harmful:
+the second reviewer reads the first before writing, and three opinions become one opinion
+and two agreements. For those rounds each participant writes to its own file and the
+coordinator opens them together — independence protected by the mechanics rather than
+requested in a prompt.
 
-**A count is a measurement: publish its method and its date.** Four different methods
-counting "the same" thing gave four different answers, each wrong in a different way — so
-agreement between any two of them would have been shared error reading as corroboration.
-When a measurement ages, date it rather than deleting it: it was true when taken.
-
----
-
-## 6. Closed rounds
-
-When you want genuinely independent opinions, the shared bus is harmful: the second
-reviewer reads the first before writing, and three opinions become one opinion and two
-agreements.
-
-For those rounds, each participant writes to its own file and the coordinator opens them
-together. Independence is protected by the mechanics rather than requested in a prompt.
-
-Corollary: **a reviewer told the answer cannot corroborate it.** If you hand a checker a
-correction mid-flight — which is often the right thing to do, rather than letting it report
-something you know is wrong — record that you did, and read its verdict accordingly.
+Full text, with the incident behind each rule: [REGIMEN.md](REGIMEN.md).
 
 ---
 
