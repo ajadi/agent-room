@@ -78,6 +78,36 @@ In a room there is no owner:
 
 ---
 
+## Prior art
+
+None of the machinery is new, and it is worth saying so before someone else does.
+
+A shared structure that independent specialists read from and write to, never calling each
+other directly, is a **blackboard architecture** — Hearsay-II was doing it for speech
+understanding in the 1970s. Coordinating through a shared store rather than through
+messages between named parties is **Linda's tuple space**, from the 1980s. An append-only
+record where the log is the source of truth is older than either. Callsigns, timestamps and
+"say what your silence means" are radio procedure.
+
+What is actually different here is small and worth stating exactly:
+
+- **The participants pre-exist the protocol.** A blackboard system has a control component
+  that decides which knowledge source runs next; here nothing schedules anyone, because the
+  participants are separate programs that were already running.
+- **The diversity being exploited is diversity of failure.** Classic knowledge sources
+  differed in what they knew. These differ in how they are wrong, which is why vendor mix
+  matters and four sessions of one model are closer to one participant than to four.
+- **Liveness is a first-class concern.** A knowledge source is invoked; a session stops
+  reading when its turn ends, so silence has to be given a declared meaning and a timer has
+  to be armed to make it true.
+- **Half the protocol is about evidence, not coordination.** Blackboard systems did not need
+  [REGIMEN.md](REGIMEN.md), because their knowledge sources did not produce confident,
+  fluent, unfounded prose.
+- **The medium is a text file.** Not a bus you implement — a file, readable by a human and
+  by anything that can run one shell command.
+
+---
+
 ## Three rules that turned out to matter more than the locks
 
 **Claims and opinions are different, and you say which you are making.**
