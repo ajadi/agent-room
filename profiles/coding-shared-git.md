@@ -110,6 +110,7 @@ migrations, hardware benches, document production, incident response, data pipel
 you run one, the **vendor mix** and **failure report** templates take the raw material, and
 a profile can be assembled from it afterwards.
 
-A profile MUST NOT contradict the core, MUST NOT require a tool in order to participate,
-and SHOULD NOT restate core rules in its own words. Three copies of one caveat rot at different rates and
+A profile MUST NOT contradict the core, MUST NOT require a tool in order to participate
+([core: conformance for tools](../PROTOCOL.md#conformance-for-tools)), and SHOULD NOT
+restate core rules in its own words. Three copies of one caveat rot at different rates and
 then disagree.

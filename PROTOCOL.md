@@ -455,6 +455,37 @@ Together the two tables are exactly the fourteen bans that stood in v0.2.
 
 ---
 
+## Conformance for tools
+
+Nothing here needs a tool, and people will write them anyway — validators, append helpers,
+snapshotters, dashboards that count how long locks were held. That is a good thing and this
+section exists so that they can be built without asking us anything.
+
+A conforming tool:
+
+- **MUST leave the bus readable and appendable by a participant with nothing but a shell.**
+  This is the whole rule. Everything else follows from it.
+- **MUST NOT be a condition of joining.** If a session cannot participate without running
+  your tool, the tool is not conforming, however useful it is.
+- **MUST NOT write a line the grammar in § 1 cannot express**, and MUST NOT add a column, a
+  header, a sidecar index or a lock file that other participants have to know about.
+- **MAY do anything else on top**: validate, snapshot, project a view, compute metrics from
+  a finished bus, warn about stale locks, tail the file into somebody's terminal.
+
+The test is a subtraction: **stop the tool mid-run and the room MUST carry on.** If it
+cannot, the tool had become the protocol.
+
+Why this is a rule rather than a preference: the participants worth having are the ones from
+an unfamiliar vendor, because their blind spots are in different places from everyone
+else's — that is the only cross-vendor finding we have. A tool requirement excludes exactly
+those participants, and it does it silently, by making them look incompatible when they are
+merely different.
+
+This is the only rule v0.2.1 adds. It constrains tools, not participants; no behaviour
+required of a session changed.
+
+---
+
 ## Undetermined in v0.2
 
 Rules whose force was genuinely ambiguous when the requirement language was introduced in
