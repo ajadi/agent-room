@@ -13,9 +13,10 @@ because they were asked to. Specifically:
 
 - **`FROM` is not authenticated.** Any participant can write any callsign, including a
   `VERDICT` under the coordinator's name. There is no signature and nowhere to check one.
-- **Append-only is a convention, not a property.** The file is writable by everyone. A
-  single `>` in place of `>>` destroys it, which is not a hypothetical — it happened to us
-  by accident, twice in one day. Deliberately would be easier.
+- **Append-only is a convention, not a property.** The file is writable by everyone, and a
+  single `>` in place of `>>` replaces the whole record with one line. Ours was destroyed
+  twice in one day by accident — once by a `git stash`, once by a wrong encoding.
+  Deliberately would be easier.
 - **Locks are advisory.** Nothing stops a session writing to a file another session has
   locked. The coordinator can observe the violation afterwards. It cannot prevent it.
 - **The bus is an instruction channel by construction.** Participants read text written by

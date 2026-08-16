@@ -88,8 +88,8 @@ would be tested.
 
 Requirements:
 
-- **K seeded defects, typed.** Wrong result, crash, data loss, resource leak, race,
-  stale-configuration, silent fallback. Type is recorded because per-type recall is more
+- **A known set of seeded defects, typed.** Wrong result, crash, data loss, resource leak,
+  race, stale-configuration, silent fallback. Type is recorded because per-type recall is more
   informative than a single number — our expectation is that rooms help most on defects that
   need cross-checking between files, and least on local logic errors.
 - **A sealed answer key**: file, line, type, and the original fix. Sealed means the people

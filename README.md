@@ -269,7 +269,7 @@ everything that went wrong — which is most of what is worth reading.
 |---|---|
 | [`PROTOCOL.md`](PROTOCOL.md) | **The machinery.** Message format, locks, shared git, keeping the bus, the operator, timers, and every ban paired with its sanctioned alternative. Versioned, with a changelog |
 | [`REGIMEN.md`](REGIMEN.md) | **The rules about knowledge.** Claims versus opinions, what counts as evidence, measuring third rather than first, hazards that expire. Readable on its own — none of it needs a room |
-| [`PATTERNS.md`](PATTERNS.md) | Twelve named failure modes, each linked to the incident it came from |
+| [`PATTERNS.md`](PATTERNS.md) | Thirteen named failure modes, each linked to the incident it came from |
 | [`FIELD-NOTES.md`](FIELD-NOTES.md) | Measured observations from three days of real use, failures included. All the evidence there is |
 | [`THREATS.md`](THREATS.md) | What the design does not protect against, and why we are not fixing it here |
 | [`VENDORS.md`](VENDORS.md) | Per-tool compatibility: appending UTF-8, self-wakeup, what breaks first. Mostly empty, honestly marked |

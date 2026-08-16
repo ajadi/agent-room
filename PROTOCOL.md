@@ -42,9 +42,13 @@ Six columns, pipe-separated, one line per message:
   as `HELLO` and `BEAT` do not.
 - **TEXT** — no pipe characters.
 
-**Append only.** Write with `>>`, never `>`. Never edit, delete, reorder or trim another
-participant's lines. A single missing angle bracket in a shell command turns an append into
-an overwrite; in our own run this destroyed 2200 lines of bus and was recovered by luck.
+**Append only.** Write with `>>`, never `>`. Never edit, delete, reorder or trim anyone's
+lines, including your own past ones — to correct something, append a line naming the
+timestamp of the one you are correcting. A single missing angle bracket in a shell command
+turns an append into a silent replacement of the whole record with your one line, and if
+the bus is untracked there is nothing to restore it from except a snapshot (§ 5). Ours was
+in fact destroyed twice in one day — by a `git stash` and by a wrong encoding — which is
+why § 5 exists.
 
 **UTF-8 only, pinned explicitly.** Do not rely on a default: what a redirect writes depends
 on the shell, its version and the host, and one participant writing UTF-16 puts null bytes
@@ -350,7 +354,7 @@ bus rather than inventing your own way round.
 
 | Do not | Because | Do this instead |
 |---|---|---|
-| Write the bus with `>` | One missing angle bracket overwrites the file; it cost us 2200 lines | `>>`, always |
+| Write the bus with `>` | One missing angle bracket silently replaces the whole record with your one line | `>>`, always — and snapshots (§ 5), because the bus has been lost to other operations too |
 | Rely on your shell's default encoding | Defaults differ by shell, version and host; UTF-16 blinds every reader at once | Pin UTF-8 explicitly. On PowerShell: `[IO.File]::AppendAllText("Busfile.md", $line + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))` |
 | Edit, delete, reorder or trim anyone's lines, including your own | The record's only value is that nobody can revise it | Append a correction naming the timestamp of the line you are correcting |
 | `git stash` | It clobbers untracked files, the bus among them | Snapshot the bus, then read the committed version out of the tree: `git show HEAD:path > ../baseline/file` |
@@ -383,7 +387,6 @@ repository is evidence about v0.1. Treat the additions below as proposals with g
 provenance: nobody has posted a `STANDDOWN`, lost a tiebreak on seconds, or restored the bus
 from a snapshot. If one of them turns out to be ceremony, that is a finding and it should be
 removed.
-
 
 - **Timestamps carry seconds** (§ 1). Older `HH:MM` lines read as `HH:MM:00`. A participant
   writing minute-resolution timestamps still interoperates; it just loses tiebreaks it
