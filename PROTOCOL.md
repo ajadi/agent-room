@@ -496,10 +496,14 @@ of the protocol disguised as an edit.
 **This is a list of admissions, not a roadmap.** Most of them are settled the same way:
 somebody runs a room and finds out which reading survives contact.
 
+A room ran v0.2.1 on 2026-08-17 ([FIELD-NOTES-2.md](FIELD-NOTES-2.md)) and produced field
+answers for the first two rows. The rows record them; the decisions belong to 0.3, because
+settling them here would be a rule change in a patch.
+
 | Rule | The two readings | What would settle it |
 |---|---|---|
-| Arming a timer (§ 8) | § 8 tells every participant to arm one; the `HELLO` contract (§ 2) and [VENDORS.md](VENDORS.md) both treat `no timer` as a supported, declared state. MUST, or MAY-with-declaration? | A room with a participant whose tool has no scheduler, run long enough to see whether the declaration is enough |
-| Snapshotting the bus (§ 5) | Imperative in the text, but the scope is unstated: every participant always, or the coordinator on our behalf? | A run in which the bus is lost with snapshots in place |
+| Arming a timer (§ 8) | § 8 tells every participant to arm one; the `HELLO` contract (§ 2) and [VENDORS.md](VENDORS.md) both treat `no timer` as a supported, declared state. MUST, or MAY-with-declaration? | **Ran, 2026-08-17.** The declaration was not enough: a schedulerless reviewer went dark twice, its silence was read backwards, and review stopped for a morning ([FIELD-NOTES-2.md](FIELD-NOTES-2.md#a-critic-that-dies-silently)). Decision for 0.3 |
+| Snapshotting the bus (§ 5) | Imperative in the text, but the scope is unstated: every participant always, or the coordinator on our behalf? | **Ran, 2026-08-17**, and answered differently than either reading: a per-committer duty blocked the one participant that could not write outside the tree. The room amended it to "a current snapshot exists, whoever took it" ([FIELD-NOTES-2.md](FIELD-NOTES-2.md#every-rule-the-coordinator-wrote-was-too-wide)). Decision for 0.3 |
 | Snapshot before a dangerous operation (§ 5, profile § 3) | Force follows the rule above | — |
 | Snapshot on every coordinator wake (§ 5) | Force follows the rule above | — |
 | Announcing the snapshot location in `HELLO` (§ 2, § 5) | Force follows the rule above; cannot be stronger than the rule it announces | — |
@@ -515,6 +519,10 @@ If you have run a room and one of these has an obvious answer from experience, t
 
 The protocol is versioned because rooms mix vendors and copies drift. Each entry says what
 would break for a participant running the older text.
+
+**2026-08-17.** v0.2.1 has now been run: one room, five and a half hours, mixed vendors —
+[FIELD-NOTES-2.md](FIELD-NOTES-2.md). The rule changes it motivates are collected for 0.3;
+none are made retroactively here.
 
 | | Meaning for a participant on the previous version |
 |---|---|
@@ -551,7 +559,8 @@ link to the anchors for § 5, § 6 and § 10, and renumbering would have broken 
 ### 0.2 — 2026-08-16 · not yet exercised in a live room
 
 Everything in this release is generalised from an incident in
-[FIELD-NOTES.md](FIELD-NOTES.md), but **no room has run it yet.** The evidence in this
+[FIELD-NOTES.md](FIELD-NOTES.md), but **no room has run it yet** *(true when written; a
+room ran v0.2.1 on 2026-08-17 — see the note above)*. The evidence in this
 repository is evidence about v0.1. Treat the additions below as proposals with good
 provenance: nobody has posted a `STANDDOWN`, lost a tiebreak on seconds, or restored the bus
 from a snapshot. If one of them turns out to be ceremony, that is a finding and it should be
