@@ -36,7 +36,12 @@ Ours: four ways of counting the same thing gave 6, 7, 5 and 8, each wrong differ
 two of them agreeing would have looked like proof. This is also the argument for mixing
 vendors: four sessions of one model family are four instances of one method.
 
+The second room reproduced it cleanly: two same-vendor participants agreed a raise site was
+unreachable, and a single traceback showed it reached three times out of three — while the
+cross-vendor reviewer was dead and no critique pass ran.
+
 *[Counting is harder than it looks](FIELD-NOTES.md#counting-is-harder-than-it-looks)*
+· *[A critic that dies silently](FIELD-NOTES-2.md#a-critic-that-dies-silently)*
 
 ---
 
@@ -79,7 +84,12 @@ firmware paths. The operator answered in six words — *it was in the spec* — 
 two rows open for three weeks. A kit built a fortnight earlier by the same room had already
 solved that exact failure, deliberately, and had been archived unread.
 
+The second room: an afternoon of correct measurements concluded a publish step was missing;
+the disproof sat in the header of a descriptor file none of four sessions had opened. The
+check became a mandatory pre-task gate there, posted even when the task survives it.
+
 *[Sending three agents to measure what the specification already answered](FIELD-NOTES.md#sending-three-agents-to-measure-what-the-specification-already-answered)*
+· *[The written answer beat the measurement, twice](FIELD-NOTES-2.md#the-written-answer-beat-the-measurement-twice)*
 
 ---
 
@@ -94,8 +104,15 @@ and the wrong column — and one of them did it twice, hours apart, having been 
 between. The uncomfortable symmetry: the checks a coordinator runs on the room are exactly
 as likely to be broken as the checks the room runs on the code, and nobody reviews them.
 
+The second room added two more: a probe on `builtins.open` that returned zero because the
+code reads files through `pathlib`, and a grep for `ack` matching `untracked` and `backlog`
+— a true count of zero read as forty. Its standing rule: a probe returning zero is not
+evidence until it has fired on input known to trigger it, calibration posted beside the
+result.
+
 *[What the room surfaced that nobody was looking for](FIELD-NOTES.md#what-the-room-surfaced-that-nobody-was-looking-for)*
 · *[The coordinator's own instruments, again](FIELD-NOTES.md#the-coordinators-own-instruments-again)*
+· *[The instruments lied four times](FIELD-NOTES-2.md#the-instruments-lied-four-times)*
 
 ---
 
@@ -168,8 +185,14 @@ Ours: a cross-vendor participant had no scheduler available at all, so its silen
 the pattern that makes `HELLO` state what your silence means, and it is the first thing that
 breaks when an unfamiliar tool joins.
 
+The second room hit it twice in one day: a schedulerless reviewer went dark for thirty-nine
+and then sixty-eight minutes, and the coordinator broadcast the wrong reading of that
+silence before the flip was proven. Reading a dead reviewer's silence as consent is the
+expensive direction.
+
 *[Cross-vendor, honestly](FIELD-NOTES.md#cross-vendor-honestly)*
 · *[Shrinking the room to one, on purpose](FIELD-NOTES.md#shrinking-the-room-to-one-on-purpose)*
+· *[A critic that dies silently](FIELD-NOTES-2.md#a-critic-that-dies-silently)*
 
 ---
 
@@ -199,6 +222,111 @@ unticked, press Run, and read the three log lines that name the firmware folder 
 files".
 
 *[Documenting a cause where the operator needed a procedure](FIELD-NOTES.md#documenting-a-cause-where-the-operator-needed-a-procedure)*
+
+---
+
+### Working the findings instead of the queue
+
+The room's own measurements generate lanes, the lanes generate more measurements, and the
+loop never touches the work the room was given. From inside it looks like throughput,
+because every lane produces real evidence and real commits. The tell is the origin column:
+ask where each active lane came from, and whether the queue has been opened at all.
+
+Ours: six of seven lanes in five and a half hours were self-generated and the seventh was a
+leftover note; the queue, opened only when the operator asked, turned out to be half
+finished already. Every mechanism for catching a false claim worked; nothing noticed the
+wrong work being done well.
+
+*[Where every lane came from](FIELD-NOTES-2.md#where-every-lane-came-from)*
+
+---
+
+### Reporting at dispatch time
+
+"I posted the instruction" reported as "the instruction landed." The gap is invisible to
+the one person who cannot see inside the room, and it makes the room look inert exactly
+when it believes it is communicating. The loop is relay, wait for the addressed participant
+to answer, then report.
+
+Ours: two rules broadcast and reported as delivered; a heartbeat saying "processed" — a
+claim of having read — cited to the operator as evidence of compliance. Caught twice by the
+operator, not by anyone inside.
+
+*[Reporting at dispatch time](FIELD-NOTES-2.md#reporting-at-dispatch-time)*
+
+---
+
+### Activity mistaken for ownership
+
+A participant is visibly busy on the bus, so the coordinator counts it as owning work. The
+two are independent: a session can post claims, critiques and corrections for an hour while
+holding no lane at all.
+
+Ours: the coordinator reported the room fully assigned while one worker had held no task
+for eighty minutes.
+
+*[Two orphaned lanes, forty minutes apart](FIELD-NOTES-2.md#two-orphaned-lanes-forty-minutes-apart)*
+
+---
+
+### A rule wider than its incident
+
+A real incident produces a protective rule whose wording covers more than the evidence
+supports. The overshoot surfaces later as a contradiction with a legitimate instruction, or
+as a participant blocked from something the incident never implicated — and the fix always
+comes from someone objecting, not complying.
+
+Ours: three in one day. A ban on full-suite test runs (the incident was parallel and
+background runs) contradicted a later demand to prove no new failures. A correct-the-file
+rule applied to a question that was merely answered. A snapshot duty issued without testing
+whether every participant could write outside the tree — one could not, and was blocked by
+the rule meant to protect it.
+
+*[Every rule the coordinator wrote was too wide](FIELD-NOTES-2.md#every-rule-the-coordinator-wrote-was-too-wide)*
+
+---
+
+### The silent displacement
+
+An assignment replaces an earlier one without parking it. The old lane is now owned by
+nobody, and nothing marks it: the bus shows an assignment and a newer assignment, and the
+gap between them is inferred by no one.
+
+Ours: twice, forty minutes apart, by a coordinator whose role brief named exactly this
+failure. One orphaned lane sat unowned for three hours and was the most delivery-relevant
+thing in the room. The fix that held was mechanical, not attentional: an assignment line
+names what it displaces, or says "displaces nothing," and a malformed assignment may be
+refused.
+
+*[Two orphaned lanes, forty minutes apart](FIELD-NOTES-2.md#two-orphaned-lanes-forty-minutes-apart)*
+
+---
+
+### An exit code as proof of waking
+
+A scheduler reporting success proves a process launched. It proves nothing about whether
+anyone woke, read the bus, or acted. A wakeup is demonstrated by a line on the bus written
+by the resumed session — the only evidence that survives both failure modes.
+
+Ours: two silent timer deaths in one day, one of them in a mechanism that had proved itself
+with a real cycle hours earlier. Both would have passed an exit-code check.
+
+*[A critic that dies silently](FIELD-NOTES-2.md#a-critic-that-dies-silently)*
+
+---
+
+### Tailing a bus that outgrew it
+
+Tailing N lines answers "how busy is the bus," not "what is addressed to me." Past some
+size those are different questions, and the second one cannot be answered by tailing at
+all — messages to you scroll out of the tail between your wakes.
+
+Ours: at three hundred and thirty kilobytes and a thousand lines, one participant missed a
+coordinator answer for six minutes and then missed an explicit approval while asking for
+it. The replacement — search for your own callsign from a recorded line number, and control
+the first empty result — was itself found wrong by the reviewer minutes later, in the open.
+
+*[The bus outgrew tail-reading](FIELD-NOTES-2.md#the-bus-outgrew-tail-reading)*
 
 ---
 
