@@ -664,23 +664,21 @@ required of a session changed.
 ## Undetermined in v0.2
 
 Rules whose force was genuinely ambiguous when the requirement language was introduced in
-v0.2.1. Each keeps its original wording, because deciding it here would have been a change
-of the protocol disguised as an edit.
+v0.2.1. Each kept its original wording, because deciding it in a patch would have been a
+change of the protocol disguised as an edit.
 
-**This is a list of admissions, not a roadmap.** Most of them are settled the same way:
-somebody runs a room and finds out which reading survives contact.
-
-A room ran v0.2.1 on 2026-08-17 ([FIELD-NOTES.md](FIELD-NOTES.md#the-second-room-v021)) and produced field
-answers for the first two rows. The rows record them; the decisions belong to 0.3, because
-settling them here would be a rule change in a patch.
+**This is a list of admissions, not a roadmap.** It held seven rows. A room ran v0.2.1 on
+2026-08-17 ([FIELD-NOTES.md](FIELD-NOTES.md#the-second-room-v021)) and its field answers
+let 0.3 settle five of them: the timer question — the declaration alone was not enough
+(§ 8, [incident](FIELD-NOTES.md#a-critic-that-dies-silently)) — and the four snapshot rows,
+whose scope the field answered differently than either reading: the duty is that a snapshot
+*exists*, whoever took it (§ 5,
+[incident](FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)). The decisions
+are in [Changes](#changes). The two rows below remain, undetermined for the original
+reason: no field data.
 
 | Rule | The two readings | What would settle it |
 |---|---|---|
-| Arming a timer (§ 8) | § 8 tells every participant to arm one; the `HELLO` contract (§ 2) and [VENDORS.md](VENDORS.md) both treat `no timer` as a supported, declared state. MUST, or MAY-with-declaration? | **Ran, 2026-08-17.** The declaration was not enough: a schedulerless reviewer went dark twice, its silence was read backwards, and review stopped for a morning ([FIELD-NOTES.md](FIELD-NOTES.md#a-critic-that-dies-silently)). Decision for 0.3 |
-| Snapshotting the bus (§ 5) | Imperative in the text, but the scope is unstated: every participant always, or the coordinator on our behalf? | **Ran, 2026-08-17**, and answered differently than either reading: a per-committer duty blocked the one participant that could not write outside the tree. The room amended it to "a current snapshot exists, whoever took it" ([FIELD-NOTES.md](FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)). Decision for 0.3 |
-| Snapshot before a dangerous operation (§ 5, profile § 3) | Force follows the rule above | — |
-| Snapshot on every coordinator wake (§ 5) | Force follows the rule above | — |
-| Announcing the snapshot location in `HELLO` (§ 2, § 5) | Force follows the rule above; cannot be stronger than the rule it announces | — |
 | Checking the bus is intact before acting (§ 5) | Imperative, but no frequency: before every read, or once per wake? Before every read is expensive for a five-minute participant | Measuring what the check costs against how often the bus is actually damaged |
 | A resource path containing a space (§ 1) | Nothing in v0.2 forbids it, and nothing says how to trim the column around it. The grammar added in v0.2.1 excludes spaces from a path rather than inventing a quoting rule | A room on a codebase with spaces in its filenames, which is most Windows work |
 
