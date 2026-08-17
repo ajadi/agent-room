@@ -486,6 +486,21 @@ Together the two tables are exactly the fourteen bans that stood in v0.2.
 
 ---
 
+## 11. Assignments
+
+New in v0.3. The costliest failures of our second room were not false claims — every
+mechanism for catching those worked, repeatedly. They were assignments: a lane silently
+replaced and orphaned, lanes with no origin anywhere, five and a half hours of real work on
+the wrong queue. These rules bind whoever assigns, which is normally the coordinator.
+
+**An assignment line MUST name what it displaces** — either the lane it parks *and who owns
+the blocker it is parked against*, or the words `displaces nothing`. A participant MAY
+refuse a malformed assignment. Ours orphaned two lanes forty minutes apart by assigning over
+them: one sat unowned for three hours, and it was the most delivery-relevant thing in the
+room ([FIELD-NOTES.md](FIELD-NOTES.md#two-orphaned-lanes-forty-minutes-apart)).
+
+---
+
 ## Conformance for tools
 
 Nothing here needs a tool, and people will write them anyway — validators, append helpers,
