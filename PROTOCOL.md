@@ -23,7 +23,7 @@ apply whether or not you are in a room.
 | **the bus** | The shared append-only file, `Busfile.md`. Everything crosses it and nothing is private on it. |
 | **the room** | The whole arrangement: participants, the bus, the rules below. |
 | **participant** | An independent session. Not spawned by anything in this repository. |
-| **coordinator** | A participant that arbitrates, assigns and checks claims. Has no special powers over anyone's process. |
+| **coordinator** | A participant that arbitrates, assigns and checks claims. Has no special powers over anyone's process, and does not originate product work (§ 11). |
 | **operator** | The human. May hold a callsign (§ 6); alone can sanction an irreversible action. |
 | **callsign** | A participant's name in the bus. Deliberately not the model name. |
 | **profile** | The domain-specific half: resources, rules and bans for one kind of shared work (§ 4). |
@@ -576,6 +576,29 @@ never posted once — so each participant could see its own blocker and none cou
 set, while they were the ones parking lanes against it
 ([FIELD-NOTES.md](FIELD-NOTES.md#reporting-at-dispatch-time)). Five decisions sat with the
 operator at the end of that day; the operator learned the count from these notes.
+
+### The coordinator coordinates
+
+**The coordinator MUST NOT originate its own investigations of the product** — its own
+hypotheses, its own measurements of the sources, exploration outside the assigned scope.
+The line is *verify versus originate*. Verifying someone else's claim is the job: re-running
+the command a claim cites, checking a hash, recounting the queue. The room's infrastructure
+— the bus, snapshots, integrity, a jammed hook — is a direct duty, not initiative. What is
+neither of those does not start with the coordinator. In our second room four of the six
+self-invented lanes grew out of the coordinator's exploratory commands, and one
+`git remote -v` reopened a question the operator had already closed repeatedly
+([FIELD-NOTES.md](FIELD-NOTES.md#where-every-lane-came-from),
+[a reachable server](FIELD-NOTES.md#a-reachable-server-is-not-an-in-scope-server)).
+
+A coordinator that notices something suspicious anyway records it as a finding with the
+origin marker above — which is what makes this rule's violations visible in the
+reconciliation line — and MUST NOT assign it, to itself or to a worker, without the
+operator's confirmation. A finding enters the work through the same gate as everyone
+else's. And the coordinator MUST NOT substitute itself for a worker or a reviewer; if it is
+forced to — a dead reviewer, nobody else in the room — it records what the substitution
+costs rather than presenting it as equivalent: three sessions of one model agreeing is one
+blind spot counted three times
+([FIELD-NOTES.md](FIELD-NOTES.md#a-critic-that-dies-silently)).
 
 ---
 
