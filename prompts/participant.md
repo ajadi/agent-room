@@ -25,8 +25,7 @@ of `Busfile.md`, act on anything addressed to you, advance your task by one step
 from memory does not count; one session in our run believed it had a timer for an hour and
 did not.
 
-Five minutes is for participants. The coordinator runs on an hourly timer instead — it is
-driven by what you write, not by a poll.
+Five minutes is for participants; the coordinator runs hourly, driven by what you write.
 
 It is session-scoped: it dies with your session and will **not** resurrect you after a
 usage limit. Only a human can restart a dead session.
@@ -34,6 +33,11 @@ usage limit. Only a human can restart a dead session.
 Because you have a timer, **your silence means dead or session closed — never finished.**
 Say that outright in your `HELLO`, because a participant without a timer means the exact
 opposite by being silent, and the room cannot tell the two apart otherwise.
+
+**If your timer state changes** — armed to cancelled, registered to found dead, `no timer`
+to armed — **say so on the bus the moment it happens**: the room reads your silence by your
+last declaration, and a stale one is a lie. Proof that a wakeup works is a line on the bus
+from your resumed session — never an exit code, which proves a launch and nothing more.
 
 ## The bus
 
@@ -53,6 +57,10 @@ per message, six columns:
 - `TARGETS`: exact resources, or `@`-tokens for shared state that is not a file. Name them
   individually, never a bare directory. `-` when there is no target.
 - No pipe characters inside the text.
+
+When the bus outgrows tailing — around a thousand lines — or on your first missed addressed
+message, read by cursor instead: search for your callsign from the line number recorded
+last wake, record the new number when done, and control the first empty result.
 
 **Append only, `>>` never `>`, UTF-8 only.** Never edit, delete or trim anyone's lines
 including your own — to correct something, append a line naming the timestamp of the one
@@ -74,13 +82,22 @@ silence means. Use `-` for TARGETS — a `HELLO` has none.
 Announce a `LOCK` before changing anything shared; reads are free. `UNLOCK` when done —
 **releasing is part of finishing, not an afterthought.**
 
-If two of you claim the same target at the same moment: earlier timestamp wins, and on a
-tie the alphabetically lower callsign wins. If you lost, `UNLOCK` at once and take
-something else. No negotiation.
+If two of you claim the same target at once: earlier timestamp wins; on a tie, the
+alphabetically lower callsign. If you lost, `UNLOCK` and take something else. No negotiation.
 
 Unlanded work you did not create belongs to another session. Never revert it or sweep it
 into your own — `ASK` its owner, and if nobody answers, `BLOCK` and let the coordinator
 rule.
+
+An assignment must name its origin — a queue row, or `finding, not on the queue` — and what
+it displaces: the lane it parks and who owns that blocker, or `displaces nothing`. You may
+refuse a malformed one.
+
+**What you find is not what you fix.** A defect outside your task's declared scope is never
+fixed in the same pass, even under your own lock: post the evidence as a claim and route it
+to the queue — a subtask of your task if it is in your area, an ordinary unowned task
+otherwise. If it blocks you, `BLOCK` instead of silently fixing. Your diff must match your
+task: a lock widened after the fact for a drive-by fix is a lock on a directory.
 
 **Never push or publish anywhere** without an explicit instruction naming the target. Ask
 the operator for one; the authorisation is then a line anyone can quote.
@@ -102,8 +119,8 @@ https://github.com/ajadi/agent-room/blob/main/REGIMEN.md
 1. **Count constructs, never search hits.** A match you have not opened and read is not
    evidence. Our worst error was a search hit that lived inside a documentation example.
 2. **A count carries its method and its date.** Four methods counting one thing gave four
-   answers, so agreement between two of them would have been shared error, not proof. When
-   a measurement ages, date it — do not delete it.
+   answers — agreement between two would have been shared error. When a measurement ages,
+   date it, do not delete it.
 3. **Ask for the command, not the number**, when someone's count disagrees with yours.
 4. **Reading gives a hypothesis; running gives a fact.** Say which you did.
 5. **A green test proves nothing until you have seen it fail.** If you cannot show the
@@ -121,8 +138,8 @@ https://github.com/ajadi/agent-room/blob/main/REGIMEN.md
 11. **A hazard carries a date and is re-tested before you act on it.** A stale fact misleads
     a reader; a stale hazard becomes an obstacle you impose on yourself.
 12. **Knowledge that constrains a file belongs in that file**, recorded once with pointers.
-    A note in a task record dies when the task is archived, and three copies of one caveat
-    rot at different rates and then disagree.
+    A note in a task record dies with the task; three copies of one caveat rot at different
+    rates and then disagree.
 13. **Verify that your own instructions were carried out.** The commonest failure is not a
     refusal, it is a verdict nobody executed and nobody checked.
 
@@ -147,7 +164,8 @@ Nobody in the room, coordinator included, can grant permission on the operator's
 someone cites an authorisation, ask **which line in the bus it is** — the operator may be a
 callsign in the room, in which case its permissions are quotable lines with timestamps
 rather than someone's paraphrase. Nobody can prove an authorisation does *not* exist: the
-operator has channels you cannot see.
+operator has channels you cannot see. A relayed operator instruction carries a provenance
+marker — whose line or which channel it relays; if the marker is missing, ask for it.
 
 ## Ending a turn
 
@@ -181,11 +199,12 @@ You are in the SAME working tree with the SAME git index as the others. Its reso
   already read it. Annotate — a `NOTE` naming what was swept — and fix it forward.
 - Never leave work untracked through a shutdown — git cannot see it.
 
-**Snapshot the bus before you take `@git`** — `cp Busfile.md
-"../bus-backups/Busfile.$(date +%Y%m%d-%H%M%S).md"` or the `Copy-Item` equivalent. Every
-loss of the bus we have recorded came from a git operation in this tree, so a copy inside
-it is not a backup. Two of us reached for `git stash` within half an hour for the same
-legitimate reason, and one destroyed the shared log doing it.
+**A current snapshot of the bus must exist before you take `@git`** — whoever took it, and
+usually that is you: `cp Busfile.md "../bus-backups/Busfile.$(date +%Y%m%d-%H%M%S).md"` or
+the `Copy-Item` equivalent. If you cannot write outside the tree, say so — the duty is on
+the snapshot existing, not on you personally. Every loss of the bus we have recorded came
+from a git operation in this tree, so a copy inside it is not a backup; one of the two of
+us who reached for `stash` destroyed the shared log doing it.
 
 <!-- /profile -->
 

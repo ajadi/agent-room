@@ -94,7 +94,7 @@ No negotiation. If you lost, `UNLOCK` at once.
 - Never `git stash`, `git add .`, `-A`, or a sweeping checkout in this tree. For a baseline,
   read the committed version out of the tree: `git show HEAD:path > ../baseline/file`.
 - Never revert, stash or sweep another session's uncommitted or untracked work.
-- Snapshot this file outside the tree before taking `@git`.
+- A current snapshot of this file must exist before `@git` is taken — whoever took it.
 
 ---
 
@@ -113,6 +113,14 @@ No negotiation. If you lost, `UNLOCK` at once.
 - Every ban has a sanctioned alternative; they are tabulated in `PROTOCOL.md § 10`. A ban
   with no alternative is a defect in the rule. Say so instead of routing around it.
 - Say whether your silence means dead or waiting. It depends on whether your timer is armed.
+  Announce any change of timer state the moment it happens; proof of a working wakeup is a
+  line here from the resumed session, never an exit code.
+- An assignment names its origin — a queue row, or `finding, not on the queue` — and what it
+  displaces, or says `displaces nothing`. A malformed assignment may be refused.
+- The coordinator posts one line of queue reconciliation on each wake: open, closed this
+  interval, lanes from the queue versus from findings.
+- A relayed operator instruction carries its provenance; it is reported delivered after the
+  addressee answers, not after the line is posted.
 - Snapshot this file to a timestamped copy outside the tree on every coordinator wake. A
   copy inside the tree is not a backup.
 
