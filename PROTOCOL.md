@@ -368,6 +368,20 @@ Rules, such as they are:
 - The operator is not obliged to answer, and a question addressed to it does not block the
   room unless the answer gates the work. You SHOULD say which.
 
+**Relaying, new in v0.3** — both rules from the coordinator being caught, twice, reporting a
+delivery it had not seen ([FIELD-NOTES.md](FIELD-NOTES.md#reporting-at-dispatch-time)):
+
+- **A relayed operator instruction MUST carry a provenance marker** — whose line it relays,
+  or which channel outside the bus it arrived on. A participant challenged exactly this: a
+  relay without provenance rests on a line no reader of the bus can verify. The testimony
+  rule above extends to relays — the coordinator testifies to what passed through it, and to
+  nothing else.
+- The coordinator MUST NOT report an instruction as delivered until the addressee has
+  answered. **The loop is relay, wait, report** — posting is dispatch, not delivery, and a
+  heartbeat saying "processed" is a claim of having read, not evidence of compliance.
+  Reporting at dispatch time is what makes a room look inert to the only person who cannot
+  see inside it.
+
 ---
 
 ## 7. Evidence, measurement and independence
