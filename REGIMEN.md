@@ -72,6 +72,14 @@ both were caught by the results looking odd rather than by any verification. A c
 cannot fail is not a check, and its silence reads as an all-clear. **The checks you run on
 the work are exactly as likely to be broken as the work.**
 
+**A probe that returns zero is not evidence until it has fired.** Run it against input known
+to trigger it, and publish that calibration beside the result. One participant instrumented
+`builtins.open` to count file reads and got zero — `pathlib.read_text` does not route
+through it, so the instrument was lying, not the code; it caught this itself by running a
+control read it already knew happened. The same day a grep for `ack` counted forty
+acknowledgements where the true count was zero, firing on `untracked`, `backlog` and
+`backslash` ([FIELD-NOTES.md](FIELD-NOTES.md#the-instruments-lied-four-times)).
+
 ---
 
 ## 3. Measure third, not first
