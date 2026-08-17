@@ -413,6 +413,28 @@ You MUST state the consequence explicitly in your `HELLO`:
 - Timers are usually session-scoped: they die with the session and will not resurrect it
   after a usage limit. Only a human can restart a dead session.
 
+### The declaration must stay true
+
+`no timer` stays a supported, declared state — requiring a scheduler would exclude whole
+tools, against the point of the design. But the declaration alone has now been run and
+found insufficient: a schedulerless reviewer went dark for thirty-nine and then sixty-eight
+minutes, its silence was read backwards, and review stopped for a morning
+([FIELD-NOTES.md](FIELD-NOTES.md#a-critic-that-dies-silently)). Three rules came out of
+that morning:
+
+- **A change of timer state MUST be announced the moment it happens** — armed to cancelled,
+  registered to found dead, `no timer` to armed. The room reads your silence by your last
+  declaration, and a stale declaration is a lie on the bus.
+- **Proof of a working wakeup is a line on the bus written by the resumed session** — never
+  an exit code, never the scheduler's own report. This tightens "verify by listing your
+  scheduled jobs" above: the listing proves registration; only the line proves waking. A
+  scheduler reporting success proves a process launched, nothing about whether anyone woke,
+  read, or acted — both silent timer deaths that morning would have passed an exit-code
+  check.
+- A participant that has declared `no timer` SHOULD NOT hold a gating role — a reviewer in
+  a propose–critique cycle, anything the room stops and waits for — without a named relay.
+  While the reviewer was dead, the room completed zero critique passes for a morning.
+
 ---
 
 ## 9. Ending a turn
