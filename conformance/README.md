@@ -55,5 +55,6 @@ worth more than a file we invented, because we can only invent the failures we a
 about — and the two most expensive ones we have had, an encoding and a truncation, are both
 in here precisely because we did not think of them in advance.
 
-One rule: each invalid file MUST break exactly one named rule, and the table above MUST say
-which. A file that is broken in three ways teaches nothing about any of them.
+One rule: each invalid file breaks exactly one named rule, and the table above says which.
+A file that is broken in three ways teaches nothing about any of them. (Lower case on
+purpose — MUST is reserved for the protocol itself.)

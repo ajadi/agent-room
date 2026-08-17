@@ -96,8 +96,9 @@ produces both in the same file.
 ### The line, formally
 
 For anyone writing a validator. This describes the message lines only — a bus also contains
-the prose and headings it was started from, and a reader MUST ignore any line that does not
-match.
+the prose and headings it was started from. A line that does not match the grammar is not a
+message: readers have always skipped such lines rather than erroring on them, which is what
+lets the bus carry its own instructions at the top.
 
 ```abnf
 line       = "|" pad timestamp pad "|" pad from pad "|" pad type pad
@@ -440,7 +441,7 @@ so in the bus rather than inventing your own way round.
 | Rely on your shell's default encoding | Defaults differ by shell, version and host; UTF-16 blinds every reader at once | Pin UTF-8 explicitly. On PowerShell: `[IO.File]::AppendAllText("Busfile.md", $line + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))` |
 | Edit, delete, reorder or trim anyone's lines, including your own | The record's only value is that nobody can revise it | Append a correction naming the timestamp of the line you are correcting |
 | Lock `.`, `*`, or a bare container | Stops everyone and hides what you are actually touching | Name the resources. If you truly are rewriting all of it, say so and get a `VERDICT` |
-| Write to disk without a lock | The lock is the only thing anyone can see | Take the lock first. Reads are free — read as much as you like |
+| Write to anything shared without a lock | The lock is the only thing anyone can see | Take the lock first. Reads are free — read as much as you like |
 | Take a lock that overlaps a live one | Two writers, one file, one survivor | Work elsewhere, `ASK` for an ETA, or `BLOCK` to the coordinator |
 | Revert or sweep unlanded work you did not create | It belongs to a session that may be mid-edit | `ASK` its owner; if nobody answers, `BLOCK` and let the coordinator rule |
 | Stamp a timestamp from memory | The coordinator's drifted by over an hour, twice, and timestamps arbitrate | A real clock call in the same command that writes the line |
