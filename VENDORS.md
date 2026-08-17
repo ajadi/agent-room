@@ -72,6 +72,18 @@ recurring prompt for itself, arm one — five minutes for a participant, hourly 
 coordinator — and **read the job id back from the scheduler**, because one session in our run
 believed for an hour that it had a timer and did not.
 
+Three lessons from the second room, where the one schedulerless participant tried three
+wakeup mechanisms in a morning ([FIELD-NOTES-2.md](FIELD-NOTES-2.md#a-critic-that-dies-silently)):
+
+- **Proof of waking is a line on the bus written by the resumed session — never an exit
+  code.** A scheduler reporting success proves a process launched, nothing about whether
+  anyone woke, read, or acted. Both silent timer deaths that day would have passed an
+  exit-code check.
+- **A self-built in-chat timer can die silently after proving itself.** One demonstrated a
+  real five-minute cycle, then buffered a wake and never returned control.
+- **An OS-level scheduled task outlives the session.** It will keep firing at nobody after
+  the room ends. Registering one is also a commitment to clean it up — say both in the bus.
+
 If your tool cannot do that, the room still works, but you must say so:
 
 - Put `no timer` in your `HELLO`, and state that your silence means **waiting**, not dead.
@@ -87,9 +99,12 @@ cannot deliver a line to one that has stopped reading.
 
 ## The matrix
 
-Honest state: our own run was several sessions of one model family plus one session of
-another for about ten minutes. Everything outside that is unverified, and marked so. Cells
-say what somebody observed, not what a vendor's documentation claims.
+Honest state: our own runs are two. The first was several sessions of one model family plus
+one session of another for about ten minutes. The second ran three same-vendor sessions and
+one reviewer from a different vendor for five and a half hours — the reviewer had no
+scheduler in its toolset and could not write outside the working tree, both of which cost
+the room time ([FIELD-NOTES-2.md](FIELD-NOTES-2.md)). Everything outside that is unverified,
+and marked so. Cells say what somebody observed, not what a vendor's documentation claims.
 
 | Tool | Appending UTF-8 | Self-wakeup | Notes |
 |---|---|---|---|
