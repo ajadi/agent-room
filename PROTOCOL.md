@@ -1,6 +1,6 @@
 # The protocol
 
-**Version 0.2.1** — see [Changes](#changes) at the end. State the version you are running in
+**Version 0.3** — see [Changes](#changes) at the end. State the version you are running in
 your `HELLO` if your room mixes vendors, because a participant working from an older copy
 will read `HH:MM` timestamps and will not know what a `STANDDOWN` is.
 
@@ -694,15 +694,74 @@ If you have run a room and one of these has an obvious answer from experience, t
 The protocol is versioned because rooms mix vendors and copies drift. Each entry says what
 would break for a participant running the older text.
 
-**2026-08-17.** v0.2.1 has now been run: one room, five and a half hours, mixed vendors —
-[the second room](FIELD-NOTES.md#the-second-room-v021). The rule changes it motivates are
-collected for 0.3; none are made retroactively here.
-
 | | Meaning for a participant on the previous version |
 |---|---|
 | **patch** (0.2 → 0.2.1) | Nothing changes in a working room. Text moved, or was said more precisely. |
-| **minor** (0.1 → 0.2) | New rules or message types. You still interoperate, but you read the room incompletely — an unknown type looks like noise. |
+| **minor** (0.2.1 → 0.3) | New rules or message types. You still interoperate, but you read the room incompletely — an unknown type looks like noise. |
 | **major** | The line format or the tiebreak changed. You are not compatible; the room must agree on one version. |
+
+### 0.3 — 2026-08-17 · the second room's rules
+
+Everything here is motivated by [the second room](FIELD-NOTES.md#the-second-room-v021):
+five and a half hours of v0.2.1, mixed vendors, a real deadline, run the same day. Minor —
+a participant on 0.2.1 still interoperates, but reads the room incompletely. What it now
+misses:
+
+- **Assignment lines carry structure it does not know to read** (§ 11): what the assignment
+  displaces, or `displaces nothing`, and its origin — a queue row, or `finding, not on the
+  queue`. A malformed assignment may be refused. From two lanes orphaned forty minutes
+  apart ([incident](FIELD-NOTES.md#two-orphaned-lanes-forty-minutes-apart)) and seven lanes
+  of which none came from the queue
+  ([incident](FIELD-NOTES.md#where-every-lane-came-from)).
+- **A queue-reconciliation line appears on every coordinator wake** (§ 11): open, closed
+  this interval, lanes from the queue against lanes from findings. An 0.2.1 reader sees a
+  `NOTE` like any other and misses what it guards
+  ([incident](FIELD-NOTES.md#where-every-lane-came-from),
+  [what it cost](FIELD-NOTES.md#what-it-cost-and-what-it-was-worth)).
+- **The coordinator does not originate product work** (§ 11): it verifies claims and keeps
+  the room's infrastructure; its own findings enter through the operator's gate, and it
+  does not substitute for a worker or reviewer without recording the cost
+  ([incident](FIELD-NOTES.md#where-every-lane-came-from),
+  [incident](FIELD-NOTES.md#a-reachable-server-is-not-an-in-scope-server)).
+- **What you find is not what you fix** (§ 3): an out-of-scope defect goes to the queue as
+  evidence — a subtask in your own area, an unowned task otherwise — and the diff of a task
+  matches the task. The subtask routing is design, **proposed, untested**
+  ([incident](FIELD-NOTES.md#where-every-lane-came-from); the find–fix loop of
+  [day three](FIELD-NOTES.md#day-three-the-room-tries-to-ship)).
+- **Relays carry provenance, and "delivered" means the addressee answered** (§ 6). The
+  coordinator also keeps a consolidated register of what is blocked on the operator (§ 11)
+  ([incident](FIELD-NOTES.md#reporting-at-dispatch-time)).
+- **Timer declarations must stay true** (§ 8): a change of timer state is announced the
+  moment it happens; a wakeup is proved by a bus line from the resumed session, never an
+  exit code; `no timer` does not hold a gating role without a named relay
+  ([incident](FIELD-NOTES.md#a-critic-that-dies-silently)).
+- **The snapshot duty is that one exists** (§ 5): the precondition for a dangerous
+  operation is a current snapshot, whoever took it; the coordinator takes one per wake and
+  names the location in its `HELLO`
+  ([incident](FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)).
+- **Reading at size** (§ 5): past roughly a thousand lines, a cursor instead of a tail
+  ([incident](FIELD-NOTES.md#the-bus-outgrew-tail-reading)).
+- **Rollover — proposed, untested** (§ 5): a bus that has outgrown reading is closed whole
+  and a fresh file started; active state crosses only by each owner re-asserting it. An
+  0.2.1 participant would read a fresh `Busfile.md` as a lost one and a `ROLLOVER` line as
+  noise — of everything here, this is the change most worth knowing about. The incident is
+  the problem, not the mechanism
+  ([incident](FIELD-NOTES.md#the-bus-outgrew-tail-reading)).
+- **Five [undetermined](#undetermined-in-v02) rows settled** by the field answers above;
+  two remain, still without field data.
+- [REGIMEN.md](REGIMEN.md) adds four rules: a probe returning zero is calibrated before it
+  is evidence ([incident](FIELD-NOTES.md#the-instruments-lied-four-times)); a rule is no
+  wider than its incident
+  ([incident](FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)); the pre-task
+  gate ([incident](FIELD-NOTES.md#the-written-answer-beat-the-measurement-twice),
+  [incident](FIELD-NOTES.md#half-the-queue-was-already-finished)); a supersede note goes at
+  the top ([incident](FIELD-NOTES.md#a-reachable-server-is-not-an-in-scope-server)).
+- [The coding profile](profiles/coding-shared-git.md) adds host frameworks and hooks, with
+  two ban rows ([incident](FIELD-NOTES.md#a-framework-that-fought-the-room)), and
+  branchless review
+  ([incident](FIELD-NOTES.md#two-workflow-redesigns-in-one-afternoon)).
+
+The line format and the tiebreak are unchanged; nothing observed argued for a major.
 
 ### 0.2.1 — 2026-08-16 · recompaction, no change of behaviour
 
@@ -734,7 +793,7 @@ link to the anchors for § 5, § 6 and § 10, and renumbering would have broken 
 
 Everything in this release is generalised from an incident in
 [FIELD-NOTES.md](FIELD-NOTES.md), but **no room has run it yet** *(true when written; a
-room ran v0.2.1 on 2026-08-17 — see the note above)*. The evidence in this
+room ran v0.2.1 on 2026-08-17, and its findings became 0.3, above)*. The evidence in this
 repository is evidence about v0.1. Treat the additions below as proposals with good
 provenance: nobody has posted a `STANDDOWN`, lost a tiebreak on seconds, or restored the bus
 from a snapshot. If one of them turns out to be ceremony, that is a finding and it should be

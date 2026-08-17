@@ -14,6 +14,32 @@ The versioning scheme, from the protocol:
 
 ---
 
+## 0.3 — 2026-08-17 · minor
+
+The second room's rules, released the same day the room ran. The normative list — every
+rule with its incident — is [PROTOCOL.md § Changes](PROTOCOL.md#changes). For a participant
+still on 0.2.1: you interoperate, but you now read the room incompletely.
+
+- Assignment lines carry markers you do not know to read: what they displace (or
+  `displaces nothing`) and their origin (a queue row, or `finding, not on the queue`);
+  a malformed assignment may be refused.
+- A queue-reconciliation line and a consolidated register of operator blockers appear on
+  coordinator wakes. The coordinator no longer originates product work, and out-of-scope
+  defects route to the queue instead of being fixed in passing.
+- Relayed operator instructions carry provenance, and "delivered" now means the addressee
+  answered — not that the line was posted.
+- A change of timer state is announced immediately, and a wakeup is proved by a bus line
+  from the resumed session, never an exit code.
+- The snapshot precondition is that a current snapshot *exists*, whoever took it. Five
+  [undetermined](PROTOCOL.md#undetermined-in-v02) rows settled; two remain.
+- A bus that has outgrown reading is closed whole by a rollover — **proposed, untested**,
+  like the v0.2 additions were at their release. An 0.2.1 reader would take the fresh file
+  for a lost one, which makes this the change most worth knowing about.
+- [REGIMEN.md](REGIMEN.md) gains probe calibration, rule-no-wider-than-its-incident, the
+  pre-task gate, and supersede-notes-at-the-top. The
+  [coding profile](profiles/coding-shared-git.md) gains host frameworks and hooks (two new
+  ban rows) and branchless review.
+
 ## 2026-08-17 — the second room (no version change)
 
 Not a release: an evidence update. A room ran protocol v0.2.1 for five and a half hours —
