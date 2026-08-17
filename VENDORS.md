@@ -73,7 +73,7 @@ coordinator — and **read the job id back from the scheduler**, because one ses
 believed for an hour that it had a timer and did not.
 
 Three lessons from the second room, where the one schedulerless participant tried three
-wakeup mechanisms in a morning ([FIELD-NOTES-2.md](FIELD-NOTES-2.md#a-critic-that-dies-silently)):
+wakeup mechanisms in a morning ([FIELD-NOTES.md](FIELD-NOTES.md#a-critic-that-dies-silently)):
 
 - **Proof of waking is a line on the bus written by the resumed session — never an exit
   code.** A scheduler reporting success proves a process launched, nothing about whether
@@ -103,7 +103,7 @@ Honest state: our own runs are two. The first was several sessions of one model 
 one session of another for about ten minutes. The second ran three same-vendor sessions and
 one reviewer from a different vendor for five and a half hours — the reviewer had no
 scheduler in its toolset and could not write outside the working tree, both of which cost
-the room time ([FIELD-NOTES-2.md](FIELD-NOTES-2.md)). Everything outside that is unverified,
+the room time ([FIELD-NOTES.md](FIELD-NOTES.md#the-second-room-v021)). Everything outside that is unverified,
 and marked so. Cells say what somebody observed, not what a vendor's documentation claims.
 
 | Tool | Appending UTF-8 | Self-wakeup | Notes |

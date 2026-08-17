@@ -41,7 +41,7 @@ unreachable, and a single traceback showed it reached three times out of three �
 cross-vendor reviewer was dead and no critique pass ran.
 
 *[Counting is harder than it looks](FIELD-NOTES.md#counting-is-harder-than-it-looks)*
-· *[A critic that dies silently](FIELD-NOTES-2.md#a-critic-that-dies-silently)*
+· *[A critic that dies silently](FIELD-NOTES.md#a-critic-that-dies-silently)*
 
 ---
 
@@ -89,7 +89,7 @@ the disproof sat in the header of a descriptor file none of four sessions had op
 check became a mandatory pre-task gate there, posted even when the task survives it.
 
 *[Sending three agents to measure what the specification already answered](FIELD-NOTES.md#sending-three-agents-to-measure-what-the-specification-already-answered)*
-· *[The written answer beat the measurement, twice](FIELD-NOTES-2.md#the-written-answer-beat-the-measurement-twice)*
+· *[The written answer beat the measurement, twice](FIELD-NOTES.md#the-written-answer-beat-the-measurement-twice)*
 
 ---
 
@@ -112,7 +112,7 @@ result.
 
 *[What the room surfaced that nobody was looking for](FIELD-NOTES.md#what-the-room-surfaced-that-nobody-was-looking-for)*
 · *[The coordinator's own instruments, again](FIELD-NOTES.md#the-coordinators-own-instruments-again)*
-· *[The instruments lied four times](FIELD-NOTES-2.md#the-instruments-lied-four-times)*
+· *[The instruments lied four times](FIELD-NOTES.md#the-instruments-lied-four-times)*
 
 ---
 
@@ -192,7 +192,7 @@ expensive direction.
 
 *[Cross-vendor, honestly](FIELD-NOTES.md#cross-vendor-honestly)*
 · *[Shrinking the room to one, on purpose](FIELD-NOTES.md#shrinking-the-room-to-one-on-purpose)*
-· *[A critic that dies silently](FIELD-NOTES-2.md#a-critic-that-dies-silently)*
+· *[A critic that dies silently](FIELD-NOTES.md#a-critic-that-dies-silently)*
 
 ---
 
@@ -237,7 +237,7 @@ leftover note; the queue, opened only when the operator asked, turned out to be 
 finished already. Every mechanism for catching a false claim worked; nothing noticed the
 wrong work being done well.
 
-*[Where every lane came from](FIELD-NOTES-2.md#where-every-lane-came-from)*
+*[Where every lane came from](FIELD-NOTES.md#where-every-lane-came-from)*
 
 ---
 
@@ -252,7 +252,7 @@ Ours: two rules broadcast and reported as delivered; a heartbeat saying "process
 claim of having read — cited to the operator as evidence of compliance. Caught twice by the
 operator, not by anyone inside.
 
-*[Reporting at dispatch time](FIELD-NOTES-2.md#reporting-at-dispatch-time)*
+*[Reporting at dispatch time](FIELD-NOTES.md#reporting-at-dispatch-time)*
 
 ---
 
@@ -265,7 +265,7 @@ holding no lane at all.
 Ours: the coordinator reported the room fully assigned while one worker had held no task
 for eighty minutes.
 
-*[Two orphaned lanes, forty minutes apart](FIELD-NOTES-2.md#two-orphaned-lanes-forty-minutes-apart)*
+*[Two orphaned lanes, forty minutes apart](FIELD-NOTES.md#two-orphaned-lanes-forty-minutes-apart)*
 
 ---
 
@@ -282,7 +282,7 @@ rule applied to a question that was merely answered. A snapshot duty issued with
 whether every participant could write outside the tree — one could not, and was blocked by
 the rule meant to protect it.
 
-*[Every rule the coordinator wrote was too wide](FIELD-NOTES-2.md#every-rule-the-coordinator-wrote-was-too-wide)*
+*[Every rule the coordinator wrote was too wide](FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)*
 
 ---
 
@@ -298,7 +298,7 @@ thing in the room. The fix that held was mechanical, not attentional: an assignm
 names what it displaces, or says "displaces nothing," and a malformed assignment may be
 refused.
 
-*[Two orphaned lanes, forty minutes apart](FIELD-NOTES-2.md#two-orphaned-lanes-forty-minutes-apart)*
+*[Two orphaned lanes, forty minutes apart](FIELD-NOTES.md#two-orphaned-lanes-forty-minutes-apart)*
 
 ---
 
@@ -311,7 +311,7 @@ by the resumed session — the only evidence that survives both failure modes.
 Ours: two silent timer deaths in one day, one of them in a mechanism that had proved itself
 with a real cycle hours earlier. Both would have passed an exit-code check.
 
-*[A critic that dies silently](FIELD-NOTES-2.md#a-critic-that-dies-silently)*
+*[A critic that dies silently](FIELD-NOTES.md#a-critic-that-dies-silently)*
 
 ---
 
@@ -326,7 +326,7 @@ coordinator answer for six minutes and then missed an explicit approval while as
 it. The replacement — search for your own callsign from a recorded line number, and control
 the first empty result — was itself found wrong by the reviewer minutes later, in the open.
 
-*[The bus outgrew tail-reading](FIELD-NOTES-2.md#the-bus-outgrew-tail-reading)*
+*[The bus outgrew tail-reading](FIELD-NOTES.md#the-bus-outgrew-tail-reading)*
 
 ---
 
