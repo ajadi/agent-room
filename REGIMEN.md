@@ -173,6 +173,13 @@ disappears. They become unanswerable, and the two look identical from outside.
 that was deleted. The word had been sitting in a task specification for months and had never
 been checked against the thing it named.
 
+**A supersede note goes at the top of the record it corrects, not the bottom.** A
+confidently worded page with its correction at the foot is not half-fixed — it is the exact
+mechanism by which a stale record misleads, because the reader takes the tone at the top and
+leaves. Our coordinator reopened a question the operator had closed repeatedly, briefed by
+an assertive page whose supersede note sat at the bottom, unread
+([FIELD-NOTES.md](FIELD-NOTES.md#a-reachable-server-is-not-an-in-scope-server)).
+
 ---
 
 ## 7. Check that your own instructions were carried out
