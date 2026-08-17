@@ -4,7 +4,7 @@
 same time.**
 
 [![protocol v0.2.1](https://img.shields.io/badge/protocol-v0.2.1-blue)](PROTOCOL.md)
-[![evidence: one room, three days](https://img.shields.io/badge/evidence-one%20room%2C%20three%20days-orange)](FIELD-NOTES.md)
+[![evidence: two rooms](https://img.shields.io/badge/evidence-two%20rooms-orange)](FIELD-NOTES-2.md)
 [![license MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 No server. No database. No framework. Nothing to install. The participants are not spawned
@@ -17,12 +17,15 @@ of our evidence is from code**, in a shared git working tree, and those rules ar
 documents, a database or a hardware bench can use the core and delete the rest. Nobody has
 run one yet.
 
-> **Status.** Protocol **v0.2.1**. The evidence in this repository —
-> [FIELD-NOTES.md](FIELD-NOTES.md) — is evidence about **v0.1**: one room, one codebase,
-> three days. Everything added in v0.2 is generalised from those incidents and **has not
-> been run in a live room yet**; v0.2.1 moved text around without changing what any
-> participant must do. Both are marked in [the changelog](PROTOCOL.md#changes). Treat the
-> additions as proposals with good provenance, not as measured improvements.
+> **Status.** Protocol **v0.2.1**. The evidence is two rooms.
+> [FIELD-NOTES.md](FIELD-NOTES.md): three days under v0.1 — the run the protocol came from.
+> [FIELD-NOTES-2.md](FIELD-NOTES-2.md): five and a half hours under v0.2.1, mixed vendors, a
+> real deadline — first contact for the v0.2 rules. Some held (tokens minted on first
+> incident, zero lock collisions), some were found too wide in the field (the snapshot
+> rule), and two of the [undetermined questions](PROTOCOL.md#undetermined-in-v02) now have
+> field answers. The decisions they imply are queued for 0.3, not patched in quietly.
+> Nobody has yet posted a `STANDDOWN`, lost a tiebreak on seconds, or restored the bus from
+> a snapshot.
 
 ---
 
@@ -251,13 +254,26 @@ What is actually different here is small and worth stating exactly:
 - **Vendor differences bite early.** The first cross-vendor incident in our own run was not a
   disagreement about code — one participant wrote the log in a different text encoding and
   every other tool declared the shared file binary. The whole room went blind at once.
-- **Most of it is untested.** See the status note at the top. One room is a sample of one.
+- **It cannot tell right work from wrong work.** Every mechanism here catches false claims.
+  None notices a room diligently working its own findings instead of the queue it was
+  given: the second room did exactly that for five and a half hours, closing four
+  self-invented lanes and zero queue tasks, and what stopped it was the operator asking a
+  blunt question ([FIELD-NOTES-2.md](FIELD-NOTES-2.md#where-every-lane-came-from)).
+- **Most of it is lightly tested.** See the status note at the top. Two rooms is a sample
+  of two.
 
 ---
 
 ## What we are willing to claim
 
 Narrowly: **a room finds defects that no single participant finds alone.**
+
+Both rooms support it the same way: a cross-vendor participant caught what same-vendor
+agreement had settled on — a docstring misread as live code in the first room, a
+set-membership swap two same-vendor sessions agreed on in the second. The second room also
+supplied the sharpest counterweight: its costliest failure was not a false claim but true
+claims about the wrong work, and no rule here catches that
+([FIELD-NOTES-2.md](FIELD-NOTES-2.md#what-it-cost-and-what-it-was-worth)).
 
 We do not claim it produces better solutions. To measure that you would need to know the
 best solution in advance.
@@ -281,8 +297,9 @@ everything that went wrong — which is most of what is worth reading.
 | [`profiles/coding-shared-git.md`](profiles/coding-shared-git.md) | The one profile with evidence behind it: sessions sharing a working tree and a git index. Also how to write another |
 | [`conformance/`](conformance/) | Worked buses, valid and deliberately broken, for anyone writing a validator — or testing their own check on input known to be bad |
 | [`REGIMEN.md`](REGIMEN.md) | **The rules about knowledge.** Claims versus opinions, what counts as evidence, measuring third rather than first, hazards that expire. Readable on its own — none of it needs a room |
-| [`PATTERNS.md`](PATTERNS.md) | Thirteen named failure modes, each linked to the incident it came from |
-| [`FIELD-NOTES.md`](FIELD-NOTES.md) | Measured observations from three days of real use, failures included. All the evidence there is |
+| [`PATTERNS.md`](PATTERNS.md) | Twenty named failure modes, each linked to the incident it came from |
+| [`FIELD-NOTES.md`](FIELD-NOTES.md) | The first room: three days under v0.1, failures included |
+| [`FIELD-NOTES-2.md`](FIELD-NOTES-2.md) | The second room: five and a half hours under v0.2.1, mixed vendors, a real deadline. First contact for the v0.2 rules |
 | [`THREATS.md`](THREATS.md) | What the design does not protect against, and why we are not fixing it here |
 | [`VENDORS.md`](VENDORS.md) | Per-tool compatibility: appending UTF-8, self-wakeup, what breaks first. Mostly empty, honestly marked |
 | [`Busfile.template.md`](Busfile.template.md) | Drop-in starter log with the protocol sections filled in |
@@ -291,8 +308,8 @@ everything that went wrong — which is most of what is worth reading.
 | [`experiments/`](experiments/) | The measurement method, published before any result, and a place to keep donated buses |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | What is most wanted, and how to anonymise a bus before sending it |
 
-**Where to start:** reading, [FIELD-NOTES.md](FIELD-NOTES.md) — the failures are the
-argument. Running a room, [Quickstart](#quickstart) then
+**Where to start:** reading, [FIELD-NOTES.md](FIELD-NOTES.md) and
+[FIELD-NOTES-2.md](FIELD-NOTES-2.md) — the failures are the argument. Running a room, [Quickstart](#quickstart) then
 [`prompts/participant.md`](prompts/participant.md). Working alone,
 [REGIMEN.md](REGIMEN.md) is the half that applies to you.
 
@@ -307,7 +324,8 @@ Text is cheap to write; evidence is not.
 Four things are wanted most, and each has a template:
 
 - **You ran it and something broke.** Failures are worth more here than successes.
-- **You ran it with a vendor mix we have not tried.** Ours was ten minutes long.
+- **You ran it with a vendor mix we have not tried.** Ours were ten minutes and five and a
+  half hours long.
 - **A rule here is wrong**, and you have the case that shows it. Rules have been removed
   before.
 - **Your bus, anonymised.** Every line is typed, timestamped and attributed, which makes a
