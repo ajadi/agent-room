@@ -540,6 +540,14 @@ the queue. Every rule then in force was obeyed, and none could have noticed
 ([FIELD-NOTES.md](FIELD-NOTES.md#where-every-lane-came-from),
 [what it cost](FIELD-NOTES.md#what-it-cost-and-what-it-was-worth)).
 
+**The coordinator SHOULD keep a register of what is blocked on the operator** and post it
+consolidated at a regular point, not only as escalations scattered through the bus. In our
+second room fifty-four verdict lines carried individual escalations and the register was
+never posted once — so each participant could see its own blocker and none could see the
+set, while they were the ones parking lanes against it
+([FIELD-NOTES.md](FIELD-NOTES.md#reporting-at-dispatch-time)). Five decisions sat with the
+operator at the end of that day; the operator learned the count from these notes.
+
 ---
 
 ## Conformance for tools
