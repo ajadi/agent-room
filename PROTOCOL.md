@@ -332,6 +332,21 @@ in every line of a clean file because its pattern matched everything, and the wh
 check read the recipient column instead of the sender. Neither was caught by verification;
 both were caught by the output looking odd. See [REGIMEN.md § 2](REGIMEN.md#2-what-counts-as-evidence).
 
+### Reading at size
+
+Tailing N lines answers "how busy is the bus," not "what is addressed to me," and past some
+size it cannot answer the second question at all. At three hundred and thirty kilobytes and
+a thousand lines, one participant missed a coordinator answer for six minutes and then
+missed an explicit approval *while asking for it*
+([FIELD-NOTES.md](FIELD-NOTES.md#the-bus-outgrew-tail-reading)).
+
+Past roughly that size, or on the first missed addressed message, you SHOULD read by cursor
+instead: search for your own callsign from the line number you recorded on your last wake,
+and record the new number when you finish. Control the first empty result before trusting it
+— a replacement cursor in that same room was itself found wrong, in the open, minutes later.
+This is SHOULD rather than MUST only because it depends on what a participant's tooling can
+do; the failure it prevents does not.
+
 ---
 
 ## 6. The operator
