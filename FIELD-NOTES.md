@@ -1,5 +1,8 @@
 # Field notes
 
+The first room, under v0.1. A second room ran v0.2.1 on 2026-08-17:
+[FIELD-NOTES-2.md](FIELD-NOTES-2.md).
+
 Observations from running the room on one real repository. Written down because the
 failures are more useful than the successes, and because a protocol document that only
 describes the intended behaviour teaches nothing about what actually happens.
@@ -19,6 +22,8 @@ different failures.
 > from the incidents below, not measured improvements, and a rule derived from one incident
 > is a hypothesis with a good story attached. The next set of field notes will say which of
 > them survived contact — including the ones that turn out to be ceremony.
+>
+> That set now exists: [FIELD-NOTES-2.md](FIELD-NOTES-2.md).
 
 ---
 
