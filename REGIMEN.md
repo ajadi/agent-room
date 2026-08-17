@@ -209,3 +209,21 @@ bans in this protocol are listed with their alternatives in
 [PROTOCOL.md § 10](PROTOCOL.md#10-bans-and-their-sanctioned-alternatives). If you meet a ban
 with no alternative, that is a defect in the rule: report it rather than inventing your own
 way round.
+
+---
+
+## 10. A rule is no wider than its incident
+
+Write the rule to cover exactly what its incident covers — and before issuing it, test its
+instrument, the command or duty it imposes, on everyone it binds.
+
+Three coordinator rules had to be narrowed within hours of being issued, in one day, each
+because the wording outran the evidence. A ban on full-suite test runs, written from an
+incident about *parallel, background* runs, contradicted a later demand for whole-suite
+proof — the narrow form, one serial foreground run under a timeout, was what the incident
+supported all along. A correct-the-file-itself rule, right for a claim that had become
+false, was applied to a question that had been answered and demanded a new file version for
+no gain. And a snapshot duty was issued without testing whether every participant could
+write outside the tree; it blocked the one that could not. Each fix came from a participant
+objecting, not complying
+([FIELD-NOTES.md](FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)).
