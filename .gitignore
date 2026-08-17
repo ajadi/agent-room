@@ -1,0 +1,6 @@
+# The operator's working notes (task specs, acceptance tables). Local by design.
+tz*.md
+
+# OS noise
+.DS_Store
+Thumbs.db
