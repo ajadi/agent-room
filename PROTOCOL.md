@@ -499,6 +499,18 @@ refuse a malformed assignment. Ours orphaned two lanes forty minutes apart by as
 them: one sat unowned for three hours, and it was the most delivery-relevant thing in the
 room ([FIELD-NOTES.md](FIELD-NOTES.md#two-orphaned-lanes-forty-minutes-apart)).
 
+**An assignment line MUST name its origin** — the queue or backlog row it comes from, or the
+words `finding, not on the queue`. And on every wake the coordinator MUST post **one line of
+queue reconciliation**: queue tasks open, closed this interval, active lanes from the queue
+against active lanes from findings. One line, not a report — the point is the ratio, visible
+to everyone including the operator, and a reconciliation that grows into ceremony will be
+skipped. This pair is the only mechanism this protocol has against its dominant recorded
+failure: seven lanes assigned in five and a half hours, not one from the open backlog, half
+the queue already finished the whole time, and progress on findings reported as progress on
+the queue. Every rule then in force was obeyed, and none could have noticed
+([FIELD-NOTES.md](FIELD-NOTES.md#where-every-lane-came-from),
+[what it cost](FIELD-NOTES.md#what-it-cost-and-what-it-was-worth)).
+
 ---
 
 ## Conformance for tools
