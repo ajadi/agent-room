@@ -347,6 +347,34 @@ and record the new number when you finish. Control the first empty result before
 This is SHOULD rather than MUST only because it depends on what a participant's tooling can
 do; the failure it prevents does not.
 
+### Rollover — proposed, untested
+
+The live file is never made smaller: editing or trimming anyone's lines stays MUST NOT at
+any size. The sanctioned route for a bus that has outgrown reading is to **close the file
+whole and start a new one**. The incident behind this exists for the problem — the thousand
+lines above — not for the cure: no room has run a rollover yet, and like the v0.2 additions
+at their release it is marked so. The first room that runs one will find out which parts are
+ceremony.
+
+1. **Trigger.** The coordinator SHOULD roll over on its own wake at a threshold — around a
+   thousand lines or three hundred kilobytes, the size at which ours failed — or at a day
+   boundary, which also removes the ambiguity of dateless `HH:MM:SS` timestamps crossing
+   midnight.
+2. **Mechanics.** Snapshot first (§ 5 applies to the closing file like any other moment).
+   Rename the live file to a dated archive — `Busfile.archive.YYYYMMDD-HHMMSS.md`, kept
+   beside the bus, with a copy outside the tree — and start a fresh `Busfile.md` whose
+   header carries the protocol version, the name of its predecessor, and a `ROLLOVER` line
+   saying what was closed and when. The archive is never edited, by anyone, for anything.
+3. **State crosses by re-assertion, not by summary.** The danger of a rollover is that the
+   active state — locks, lanes, open `ASK`s and `BLOCK`s — lives in the tail being closed.
+   The coordinator posts in the new file only a *list* of what it believes is active. Every
+   owner MUST re-assert its own locks and lanes in fresh lines on its first wake; the
+   coordinator's list is not a source — the same rule as authorisations, a quote rather than
+   a paraphrase. A lock not re-asserted within one coordinator interval is released.
+4. **Cursors.** A rollover resets line numbers. The `ROLLOVER` line is the first thing a
+   reader checks before trusting a cursor recorded against the previous file (see Reading at
+   size, above).
+
 ---
 
 ## 6. The operator
@@ -498,7 +526,7 @@ so in the bus rather than inventing your own way round.
 |---|---|---|
 | Write the bus with `>` | One missing angle bracket silently replaces the whole record with your one line | `>>`, always — and snapshots (§ 5), because the bus has been lost to other operations too |
 | Rely on your shell's default encoding | Defaults differ by shell, version and host; UTF-16 blinds every reader at once | Pin UTF-8 explicitly. On PowerShell: `[IO.File]::AppendAllText("Busfile.md", $line + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))` |
-| Edit, delete, reorder or trim anyone's lines, including your own | The record's only value is that nobody can revise it | Append a correction naming the timestamp of the line you are correcting |
+| Edit, delete, reorder or trim anyone's lines, including your own | The record's only value is that nobody can revise it | Append a correction naming the timestamp of the line you are correcting. For a bus that has outgrown reading: a rollover (§ 5), never a trim |
 | Lock `.`, `*`, or a bare container | Stops everyone and hides what you are actually touching | Name the resources. If you truly are rewriting all of it, say so and get a `VERDICT` |
 | Write to anything shared without a lock | The lock is the only thing anyone can see | Take the lock first. Reads are free — read as much as you like |
 | Take a lock that overlaps a live one | Two writers, one file, one survivor | Work elsewhere, `ASK` for an ETA, or `BLOCK` to the coordinator |
