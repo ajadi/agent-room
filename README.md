@@ -23,9 +23,9 @@ run one yet.
 > for the v0.2 rules. Some held (tokens minted on first
 > incident, zero lock collisions), some were found too wide in the field (the snapshot
 > rule), and two of the [undetermined questions](PROTOCOL.md#undetermined-in-v02) now have
-> field answers. The decisions they imply are queued for 0.3, not patched in quietly.
-> Nobody has yet posted a `STANDDOWN`, lost a tiebreak on seconds, or restored the bus from
-> a snapshot.
+> field answers. The decisions they imply are queued for **[0.3](ROADMAP.md)**, not patched
+> in quietly. Nobody has yet posted a `STANDDOWN`, lost a tiebreak on seconds, or restored
+> the bus from a snapshot.
 
 ---
 
@@ -304,6 +304,8 @@ everything that went wrong — which is most of what is worth reading.
 | [`Busfile.template.md`](Busfile.template.md) | Drop-in starter log with the protocol sections filled in |
 | [`prompts/participant.md`](prompts/participant.md) | Startup prompt for a worker session |
 | [`prompts/coordinator.md`](prompts/coordinator.md) | Startup prompt for the coordinator |
+| [`ROADMAP.md`](ROADMAP.md) | What 0.3 will decide and add — every item with its incident, or marked untested |
+| [`CHANGELOG.md`](CHANGELOG.md) | The full version history with context. The normative list is [PROTOCOL.md § Changes](PROTOCOL.md#changes) |
 | [`experiments/`](experiments/) | The measurement method, published before any result, and a place to keep donated buses |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | What is most wanted, and how to anonymise a bus before sending it |
 
