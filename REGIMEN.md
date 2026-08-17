@@ -99,6 +99,16 @@ exact failure deliberately, and had been archived unread.
 
 Both instincts are correct and they compete. This is their order.
 
+**The gate before starting an assigned task.** Establish that (a) the subject still exists,
+(b) the answer is not already written down, and (c) the work was not already done in a
+commit nobody recorded — and post the check *even when the task survives it*, because a
+silent start is indistinguishable from a skipped gate. In our second room half the queue —
+fifteen task files of thirty-one — had been finished before the room opened; on another lane
+an afternoon of correct measurements was disproved by a descriptor file that stated, in its
+own header, the decision the measurements were about to overturn
+([FIELD-NOTES.md](FIELD-NOTES.md#the-written-answer-beat-the-measurement-twice),
+[half the queue](FIELD-NOTES.md#half-the-queue-was-already-finished)).
+
 **Refine a measurement only when a decision hangs on the difference.** Asked how much
 firmware had to be copied, three sessions produced 14.7 MB, then 44.5 MB, then 33.5 MB,
 with excellent reasoning about which population each figure counted; two of them corrected
