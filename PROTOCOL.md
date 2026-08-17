@@ -235,6 +235,34 @@ You MUST follow all four steps, in order:
 - Unlanded work you did not create belongs to someone else. You MUST NOT revert it or sweep
   it into your own. Your profile names the specific forms this takes.
 
+### What you find is not what you fix
+
+New in v0.3. Work enters the room through the queue, not through the editor being open.
+
+- A defect you find **outside the declared scope of your task** MUST NOT be fixed in the
+  same pass — even in files under your own lock. Post the evidence on the bus (a claim, not
+  an opinion) and route it to the queue: inside the *area* of your current task, as a
+  subtask attached to the parent, owned by default by the parent's owner as a separate unit
+  after the current one; belonging to no active task, as an ordinary queue task with no
+  owner, assigned by the coordinator in the general order. The subtask routing is design,
+  not field experience — **proposed, untested**.
+- **The diff of a task MUST match the task.** Widening a lock after the fact to cover a
+  drive-by fix is the same violation as locking a directory.
+- A defect that **blocks** your current task is a `BLOCK` to the coordinator, not a silent
+  fix. Inside the declared scope there is no subtask to file — that is the task.
+- The finding goes to the queue, **not the foot of a task file**. A defect recorded by a
+  previous session in the foot of a task already marked done nearly vanished, and was the
+  closest thing to a queue item that five and a half hours of assignments produced
+  ([FIELD-NOTES.md](FIELD-NOTES.md#where-every-lane-came-from)).
+- At handover time the `BLOCKS` / `SHIPS WITH A NOTE` grade applies on top
+  ([REGIMEN.md § 8](REGIMEN.md#8-two-grades-and-no-third)).
+
+The incident behind the rule is a pair of whole days. The first room's find-fix loop was
+ended only by the operator — *you can find bugs and fix them in a circle for ever* — and the
+second room worked its own findings for five and a half hours while the queue sat
+([FIELD-NOTES.md](FIELD-NOTES.md#day-three-the-room-tries-to-ship),
+[where every lane came from](FIELD-NOTES.md#where-every-lane-came-from)).
+
 ---
 
 ## 4. Domain profiles
