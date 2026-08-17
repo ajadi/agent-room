@@ -10,7 +10,7 @@ this domain has, which operations on them are dangerous, and what to do instead.
 **This is the only profile with evidence behind it.** Every rule below comes from an
 incident in [FIELD-NOTES.md](../FIELD-NOTES.md) — two rooms now: the three days the whole
 protocol came from, which is why the core spent a version with these rules inside it, and
-the second room's five and a half hours, which supplied § 5.
+the second room's five and a half hours, which supplied §§ 5–6.
 
 ---
 
@@ -126,7 +126,21 @@ because the hook printed its reason where neither worker read it
 
 ---
 
-## Writing a profile
+## 6. Branchless review
+
+New in v0.3. Some rooms run without branches: finished work goes to a reviewer first-come
+first-served, approved means committed, rejected returns to the queue at high priority. The
+model works — ours ran three full cycles to commit — but it changes what *finished* means,
+and two rules follow
+([FIELD-NOTES.md](../FIELD-NOTES.md#two-workflow-redesigns-in-one-afternoon)):
+
+- **Locks persist through the review.** Finished-but-unreviewed work sits uncommitted in the
+  shared tree, so a lock is released on the verdict — approve-and-commit, or rejection — not
+  when the typing stops. Releasing earlier tells the room the paths are free while the only
+  copy of the work still sits in them.
+- **The diff is copied outside the tree until the verdict.** Unreviewed work in a shared
+  tree has no other copy anywhere. One participant adopted this unprompted before it was a
+  rule, which is the usual sign of a rule worth writing down.
 
 A profile is four things: the resources of a domain, the rules for its sharpest edges, the
 bans with their sanctioned alternatives, and the field notes they came from.
