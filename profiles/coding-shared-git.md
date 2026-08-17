@@ -62,14 +62,19 @@ coordinator rule.
 
 ---
 
-## 3. Snapshot the bus before taking `@git`
+## 3. A current snapshot must exist before `@git` is taken
 
 Snapshots are a core rule ([core § 5](../PROTOCOL.md#5-keeping-the-bus)) — what belongs here
 is the trigger, because `@git` is a resource of this domain.
 
-Snapshot first, then take the lock. Every loss of the bus we have recorded came from a git
-operation in the shared tree: one `git stash` truncated it, and the file is often untracked,
-so git could not restore what git had destroyed.
+Before taking the lock, a current snapshot MUST exist — **whoever took it**. Usually that is
+you: snapshot first, then lock. But the duty is on the existence, not the committer
+personally; the per-committer wording blocked the one participant that could not write
+outside the tree
+([FIELD-NOTES.md](../FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)). Every
+loss of the bus we have recorded came from a git operation in the shared tree: one
+`git stash` truncated it, and the file is often untracked, so git could not restore what git
+had destroyed.
 
 ```sh
 mkdir -p ../bus-backups

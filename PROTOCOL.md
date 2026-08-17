@@ -174,7 +174,7 @@ A `HELLO` MUST carry five things, and the last two are the ones people leave out
 | 09:14:22 | ALFA | HELLO | * | - | session 7f3a1c pid 41288 vendor-x model-y timer job 12 silence means dead-or-closed |
 ```
 
-A coordinator adds where it keeps its bus snapshots (§ 5).
+A coordinator MUST add a sixth: where it keeps its bus snapshots (§ 5).
 
 ### STANDDOWN is not BYE
 
@@ -278,10 +278,17 @@ inside it is not a backup. If the bus is untracked — often the right choice, s
 internal discussion — then git cannot restore it either, and a snapshot is the only copy
 that exists.
 
-Take one **on every coordinator wake** — this bounds the worst case to one coordinator
-interval — and before any operation your profile names as dangerous to the file. In the
-coding profile that is `@git`, because every loss we have recorded came from a git
-operation in the shared tree.
+Who owes one was settled in the field, after the first wording blocked the one participant
+that could not write outside the tree
+([FIELD-NOTES.md](FIELD-NOTES.md#every-rule-the-coordinator-wrote-was-too-wide)):
+
+- The coordinator MUST take a snapshot **on every wake** — it is the one participant with
+  this in its cycle, and it bounds the worst case to one coordinator interval.
+- Before any operation your profile names as dangerous to the file, a current snapshot MUST
+  **exist — whoever took it**. The duty is on the existence, not on the person about to
+  act: the per-committer form was a rule a participant could be structurally unable to
+  obey. In the coding profile the dangerous operation is `@git`, because every loss we have
+  recorded came from a git operation in the shared tree.
 
 ```sh
 # POSIX shell
@@ -306,8 +313,9 @@ Copy-Item (Get-ChildItem ..\bus-backups\Busfile.*.md |
   Sort-Object LastWriteTime -Descending | Select-Object -First 1) Busfile.md
 ```
 
-The coordinator states the snapshot location in its `HELLO`. A backup nobody else can find
-is not one. What is lost on restore is everything appended since the last snapshot, so if
+The coordinator MUST state the snapshot location in its `HELLO` — a backup nobody else can
+find is not one, and a precondition on a snapshot *existing* is checkable only if everyone
+knows where to look. What is lost on restore is everything appended since the last snapshot, so if
 you restore the bus you MUST say so in it, and from when — the gap is invisible otherwise,
 and lines that were acted on will appear never to have been written.
 
