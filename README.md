@@ -3,7 +3,7 @@
 **A text-file protocol for several independent AI sessions working on the same thing at the
 same time.**
 
-[![protocol v0.2.1](https://img.shields.io/badge/protocol-v0.2.1-blue)](PROTOCOL.md)
+[![protocol v0.3](https://img.shields.io/badge/protocol-v0.3-blue)](PROTOCOL.md)
 [![evidence: two rooms](https://img.shields.io/badge/evidence-two%20rooms-orange)](FIELD-NOTES.md)
 [![license MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -17,15 +17,16 @@ of our evidence is from code**, in a shared git working tree, and those rules ar
 documents, a database or a hardware bench can use the core and delete the rest. Nobody has
 run one yet.
 
-> **Status.** Protocol **v0.2.1**. The evidence is two rooms, both in
-> [FIELD-NOTES.md](FIELD-NOTES.md): three days under v0.1 — the run the protocol came from —
-> and five and a half hours under v0.2.1, mixed vendors, a real deadline — first contact
-> for the v0.2 rules. Some held (tokens minted on first
-> incident, zero lock collisions), some were found too wide in the field (the snapshot
-> rule), and two of the [undetermined questions](PROTOCOL.md#undetermined-in-v02) now have
-> field answers. The decisions they imply are queued for **[0.3](ROADMAP.md)**, not patched
-> in quietly. Nobody has yet posted a `STANDDOWN`, lost a tiebreak on seconds, or restored
-> the bus from a snapshot.
+> **Status.** Protocol **v0.3** — the second room's rules, released the same day that room
+> ran. The evidence is two rooms, both in [FIELD-NOTES.md](FIELD-NOTES.md): three days
+> under v0.1 — the run the protocol came from — and five and a half hours under v0.2.1,
+> mixed vendors, a real deadline. 0.3 answers the second run: assignments carry their
+> origin and what they displace, the coordinator reconciles the queue and originates no
+> product work of its own, relays carry provenance, timer declarations must stay true, and
+> five of the seven [undetermined questions](PROTOCOL.md#undetermined-in-v02) are settled.
+> No room has run the 0.3 rules yet, and the rollover mechanism is explicitly marked
+> **proposed, untested**. Nobody has yet posted a `STANDDOWN`, lost a tiebreak on seconds,
+> or restored the bus from a snapshot.
 
 ---
 
@@ -255,10 +256,13 @@ What is actually different here is small and worth stating exactly:
   disagreement about code — one participant wrote the log in a different text encoding and
   every other tool declared the shared file binary. The whole room went blind at once.
 - **It cannot tell right work from wrong work.** Every mechanism here catches false claims.
-  None notices a room diligently working its own findings instead of the queue it was
+  Nothing noticed a room diligently working its own findings instead of the queue it was
   given: the second room did exactly that for five and a half hours, closing four
   self-invented lanes and zero queue tasks, and what stopped it was the operator asking a
-  blunt question ([FIELD-NOTES.md](FIELD-NOTES.md#where-every-lane-came-from)).
+  blunt question ([FIELD-NOTES.md](FIELD-NOTES.md#where-every-lane-came-from)). v0.3 adds
+  the one candidate mechanism — every assignment names its origin, and the coordinator
+  posts a queue-reconciliation line each wake ([PROTOCOL.md § 11](PROTOCOL.md#11-assignments))
+  — and no room has run it yet.
 - **Most of it is lightly tested.** See the status note at the top. Two rooms is a sample
   of two.
 
@@ -304,7 +308,7 @@ everything that went wrong — which is most of what is worth reading.
 | [`Busfile.template.md`](Busfile.template.md) | Drop-in starter log with the protocol sections filled in |
 | [`prompts/participant.md`](prompts/participant.md) | Startup prompt for a worker session |
 | [`prompts/coordinator.md`](prompts/coordinator.md) | Startup prompt for the coordinator |
-| [`ROADMAP.md`](ROADMAP.md) | What 0.3 will decide and add — every item with its incident, or marked untested |
+| [`ROADMAP.md`](ROADMAP.md) | Emptied by 0.3 — what would earn a place in a next version, and nothing currently scheduled |
 | [`CHANGELOG.md`](CHANGELOG.md) | The full version history with context. The normative list is [PROTOCOL.md § Changes](PROTOCOL.md#changes) |
 | [`experiments/`](experiments/) | The measurement method, published before any result, and a place to keep donated buses |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | What is most wanted, and how to anonymise a bus before sending it |
