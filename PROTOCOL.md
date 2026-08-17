@@ -537,9 +537,10 @@ so in the bus rather than inventing your own way round.
 Add a row on the first incident rather than designing the list up front — the same rule as
 the pseudo-resources in § 3.
 
-**Your profile extends this table.** The coding profile adds five rows, all of them about
-git: [`profiles/coding-shared-git.md` § 4](profiles/coding-shared-git.md#4-bans-and-their-sanctioned-alternatives).
-Together the two tables are exactly the fourteen bans that stood in v0.2.
+**Your profile extends this table.** The coding profile adds seven rows — five about git,
+which together with this table are exactly the fourteen bans that stood in v0.2, and since
+v0.3 two about host frameworks:
+[`profiles/coding-shared-git.md` § 4](profiles/coding-shared-git.md#4-bans-and-their-sanctioned-alternatives).
 
 ---
 

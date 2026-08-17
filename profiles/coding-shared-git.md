@@ -8,9 +8,9 @@ listed there. What a profile supplies is the part the core cannot know: which re
 this domain has, which operations on them are dangerous, and what to do instead.
 
 **This is the only profile with evidence behind it.** Every rule below comes from an
-incident in [FIELD-NOTES.md](../FIELD-NOTES.md) — three days, one room, one codebase. It is
-also where the whole protocol came from, which is why the core spent a version with these
-rules inside it.
+incident in [FIELD-NOTES.md](../FIELD-NOTES.md) — two rooms now: the three days the whole
+protocol came from, which is why the core spent a version with these rules inside it, and
+the second room's five and a half hours, which supplied § 5.
 
 ---
 
@@ -96,6 +96,33 @@ cell is the sanctioned route to the same goal.
 | A sweeping `git checkout -- .` | Same, destructively | `git restore <one path you own>` — the single-path form is not the banned one |
 | Rewrite history to undo a bad commit | Other sessions have already read and built on it | Annotate: a `NOTE` naming what was swept and by whom, then a follow-up commit |
 | Take a commit hash from `git log` | In a shared tree the top of the log is not necessarily yours | Take it from the output of the command that made it |
+| Disable a host framework's enforcement hook | It is someone else's guard, and you cannot see everything it protects | Relocate your writes into a directory the guard permits, and report the block (§ 5) |
+| Delete another framework's runtime state, however stale | Shared state you did not create is not yours to clear | Report it with the measurement that shows it stale, and route around it |
+
+---
+
+## 5. Host frameworks and hooks
+
+New in v0.3. A repository can carry an agent framework of its own: hooks that gate writes,
+runtime state that goes stale, a second task registry beside the room's. Ours did — nominally
+switched off, and not off enough. A write-guard hook denied every write under the room's
+directory for eighteen minutes, on the strength of a marker file twenty hours stale against
+a thirty-minute TTL; propose–critique was structurally impossible and nobody could see why,
+because the hook printed its reason where neither worker read it
+([FIELD-NOTES.md](../FIELD-NOTES.md#a-framework-that-fought-the-room)).
+
+- **Diagnose a hook by running it, not by reading it.** Feed it candidate paths, and include
+  a control that must be denied — an instrument that cannot fail is not an instrument
+  ([REGIMEN.md § 2](../REGIMEN.md#2-what-counts-as-evidence)). Reading the hook tells you
+  what it was meant to do; the run tells you what it does.
+- **The sanctioned fix is relocation** into a directory the guard permits. You MUST NOT
+  disable someone else's enforcement hook and MUST NOT delete someone else's runtime state,
+  however stale — both levers were available in our incident, both workers refused them, and
+  relocation ended the block with no guard disabled, no state deleted, no hook patched.
+- **Two task registries in one tree need an explicit bridge** — a stated mapping between the
+  room's lanes and the framework's rows. Without one, finished work has no row to close: a
+  full day of lanes closed zero queue tasks in part because nothing the room finished had a
+  row anywhere.
 
 ---
 
