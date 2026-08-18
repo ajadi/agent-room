@@ -231,9 +231,10 @@ You MUST follow all four steps, in order:
 - You SHOULD lock the narrowest target set that works, and MUST NOT lock `.` or `*`.
 - **Releasing your lock is part of finishing:** you MUST `UNLOCK` when the work is done. A
   lock outliving its task is the most common defect we saw — a closed, archived task still
-  holding an entire directory, silently making other participants stop and verify. One
-  other thing releases a lock: after a bus rollover, a lock its owner has not re-asserted
-  within one coordinator interval is released (§ 5).
+  holding an entire directory, silently making other participants stop and verify.
+  Something other than your own `UNLOCK` can release a lock: a `BYE` voids all your locks,
+  a `VERDICT` overrides them, and after a bus rollover a lock its owner has not
+  re-asserted within one coordinator interval is released (§ 5).
 - Unlanded work you did not create belongs to someone else. You MUST NOT revert it or sweep
   it into your own. Your profile names the specific forms this takes.
 

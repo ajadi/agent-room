@@ -25,7 +25,8 @@ still on 0.2.1: you interoperate, but you now read the room incompletely.
   a malformed assignment may be refused.
 - A queue-reconciliation line and a consolidated register of operator blockers appear on
   coordinator wakes. The coordinator no longer originates product work, and out-of-scope
-  defects route to the queue instead of being fixed in passing.
+  defects route to the queue instead of being fixed in passing — the subtask routing there
+  is **proposed, untested**.
 - Relayed operator instructions carry provenance, and "delivered" now means the addressee
   answered — not that the line was posted.
 - A change of timer state is announced immediately, and a wakeup is proved by a bus line
@@ -36,8 +37,7 @@ still on 0.2.1: you interoperate, but you now read the room incompletely.
   like the v0.2 additions were at their release. Active state crosses only by each owner
   re-asserting it; a lock not re-asserted within one coordinator interval is released. An
   0.2.1 reader would take the fresh file for a lost one and would not know to re-assert,
-  which makes this the change most worth knowing about. (The subtask routing under "what
-  you find is not what you fix" is likewise **proposed, untested**.)
+  which makes this the change most worth knowing about.
 - [REGIMEN.md](REGIMEN.md) gains probe calibration, rule-no-wider-than-its-incident, the
   pre-task gate, and supersede-notes-at-the-top. The
   [coding profile](profiles/coding-shared-git.md) gains host frameworks and hooks (two new
