@@ -10,7 +10,8 @@ What would earn a place here, in order of value:
 - **A room runs v0.3** and reports which parts survive contact — above all the two pieces
   released as *proposed, untested*: the rollover mechanics
   ([PROTOCOL.md § 5](PROTOCOL.md#5-keeping-the-bus)) and the subtask routing
-  ([PROTOCOL.md § 3](PROTOCOL.md#3-locks)). A rule that turns out to be ceremony gets
+  ([PROTOCOL.md § 3](PROTOCOL.md#what-you-find-is-not-what-you-fix)). A rule that turns
+  out to be ceremony gets
   removed, which has happened before.
 - **Field data on the two remaining [undetermined rows](PROTOCOL.md#undetermined-in-v02)**:
   the frequency of the integrity check, and a resource path containing a space.

@@ -393,8 +393,8 @@ re-run; where something is an estimate or an opinion it says so.
 > Protocol v0.2.1, propose–critique working mode, one shared working tree with one git
 > index. Two workers from one vendor and one reviewer from another — that asymmetry mattered
 > more than anything in the protocol itself. Written by the coordinator, which is why the
-> coordinator's failures are the longest section. The rule changes these notes motivate are collected for
-> v0.3, not silently applied to v0.2.1.
+> coordinator's failures are the longest section. The rule changes these notes motivate
+> became v0.3 ([PROTOCOL.md § Changes](PROTOCOL.md#changes)), not silent edits to v0.2.1.
 
 ---
 

@@ -10,7 +10,7 @@ this domain has, which operations on them are dangerous, and what to do instead.
 **This is the only profile with evidence behind it.** Every rule below comes from an
 incident in [FIELD-NOTES.md](../FIELD-NOTES.md) — two rooms now: the three days the whole
 protocol came from, which is why the core spent a version with these rules inside it, and
-the second room's five and a half hours, which supplied §§ 5–6.
+the second room's five and a half hours, which supplied §§ 5–6 and re-scoped § 3.
 
 ---
 
@@ -141,6 +141,10 @@ and two rules follow
 - **The diff is copied outside the tree until the verdict.** Unreviewed work in a shared
   tree has no other copy anywhere. One participant adopted this unprompted before it was a
   rule, which is the usual sign of a rule worth writing down.
+
+---
+
+## Writing a profile
 
 A profile is four things: the resources of a domain, the rules for its sharpest edges, the
 bans with their sanctioned alternatives, and the field notes they came from.

@@ -33,8 +33,11 @@ still on 0.2.1: you interoperate, but you now read the room incompletely.
 - The snapshot precondition is that a current snapshot *exists*, whoever took it. Five
   [undetermined](PROTOCOL.md#undetermined-in-v02) rows settled; two remain.
 - A bus that has outgrown reading is closed whole by a rollover — **proposed, untested**,
-  like the v0.2 additions were at their release. An 0.2.1 reader would take the fresh file
-  for a lost one, which makes this the change most worth knowing about.
+  like the v0.2 additions were at their release. Active state crosses only by each owner
+  re-asserting it; a lock not re-asserted within one coordinator interval is released. An
+  0.2.1 reader would take the fresh file for a lost one and would not know to re-assert,
+  which makes this the change most worth knowing about. (The subtask routing under "what
+  you find is not what you fix" is likewise **proposed, untested**.)
 - [REGIMEN.md](REGIMEN.md) gains probe calibration, rule-no-wider-than-its-incident, the
   pre-task gate, and supersede-notes-at-the-top. The
   [coding profile](profiles/coding-shared-git.md) gains host frameworks and hooks (two new

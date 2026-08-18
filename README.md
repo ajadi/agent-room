@@ -276,7 +276,8 @@ Both rooms support it the same way: a cross-vendor participant caught what same-
 agreement had settled on — a docstring misread as live code in the first room, a
 set-membership swap two same-vendor sessions agreed on in the second. The second room also
 supplied the sharpest counterweight: its costliest failure was not a false claim but true
-claims about the wrong work, and no rule here catches that
+claims about the wrong work, and until 0.3 no rule here caught that — the rule that now
+tries ([PROTOCOL.md § 11](PROTOCOL.md#11-assignments)) has not been run
 ([FIELD-NOTES.md](FIELD-NOTES.md#what-it-cost-and-what-it-was-worth)).
 
 We do not claim it produces better solutions. To measure that you would need to know the

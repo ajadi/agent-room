@@ -231,7 +231,9 @@ You MUST follow all four steps, in order:
 - You SHOULD lock the narrowest target set that works, and MUST NOT lock `.` or `*`.
 - **Releasing your lock is part of finishing:** you MUST `UNLOCK` when the work is done. A
   lock outliving its task is the most common defect we saw — a closed, archived task still
-  holding an entire directory, silently making other participants stop and verify.
+  holding an entire directory, silently making other participants stop and verify. One
+  other thing releases a lock: after a bus rollover, a lock its owner has not re-asserted
+  within one coordinator interval is released (§ 5).
 - Unlanded work you did not create belongs to someone else. You MUST NOT revert it or sweep
   it into your own. Your profile names the specific forms this takes.
 
@@ -392,7 +394,10 @@ ceremony.
    Rename the live file to a dated archive — `Busfile.archive.YYYYMMDD-HHMMSS.md`, kept
    beside the bus, with a copy outside the tree — and start a fresh `Busfile.md` whose
    header carries the protocol version, the name of its predecessor, and a `ROLLOVER` line
-   saying what was closed and when. The archive is never edited, by anyone, for anything.
+   saying what was closed and when. The `ROLLOVER` line is part of that header prose, not a
+   message: it is not a new `TYPE` and does not touch the grammar in § 1 — readers have
+   always skipped lines that do not match it. The archive is never edited, by anyone, for
+   anything.
 3. **State crosses by re-assertion, not by summary.** The danger of a rollover is that the
    active state — locks, lanes, open `ASK`s and `BLOCK`s — lives in the tail being closed.
    The coordinator posts in the new file only a *list* of what it believes is active. Every
@@ -695,14 +700,15 @@ would break for a participant running the older text.
 | | Meaning for a participant on the previous version |
 |---|---|
 | **patch** (0.2 → 0.2.1) | Nothing changes in a working room. Text moved, or was said more precisely. |
-| **minor** (0.2.1 → 0.3) | New rules or message types. You still interoperate, but you read the room incompletely — an unknown type looks like noise. |
+| **minor** (0.1 → 0.2, 0.2.1 → 0.3) | New rules or message types. You still interoperate, but you read the room incompletely — an unknown type looks like noise. |
 | **major** | The line format or the tiebreak changed. You are not compatible; the room must agree on one version. |
 
 ### 0.3 — 2026-08-17 · the second room's rules
 
 Everything here is motivated by [the second room](FIELD-NOTES.md#the-second-room-v021):
-five and a half hours of v0.2.1, mixed vendors, a real deadline, run the same day. Minor —
-a participant on 0.2.1 still interoperates, but reads the room incompletely. What it now
+five and a half hours of v0.2.1, mixed vendors, a real deadline, run the same day —
+and, as with v0.2 at its release, **no room has run these rules yet**. Minor: a
+participant on 0.2.1 still interoperates, but reads the room incompletely. What it now
 misses:
 
 - **Assignment lines carry structure it does not know to read** (§ 11): what the assignment
@@ -740,11 +746,12 @@ misses:
 - **Reading at size** (§ 5): past roughly a thousand lines, a cursor instead of a tail
   ([incident](FIELD-NOTES.md#the-bus-outgrew-tail-reading)).
 - **Rollover — proposed, untested** (§ 5): a bus that has outgrown reading is closed whole
-  and a fresh file started; active state crosses only by each owner re-asserting it. An
-  0.2.1 participant would read a fresh `Busfile.md` as a lost one and a `ROLLOVER` line as
-  noise — of everything here, this is the change most worth knowing about. The incident is
-  the problem, not the mechanism
-  ([incident](FIELD-NOTES.md#the-bus-outgrew-tail-reading)).
+  and a fresh file started; active state crosses only by each owner re-asserting it, and
+  **a lock not re-asserted within one coordinator interval is released**. An 0.2.1
+  participant would read a fresh `Busfile.md` as a lost one, a `ROLLOVER` header line as
+  noise — and, not knowing to re-assert, would silently lose its locks: of everything
+  here, this is the change most worth knowing about. The incident is the problem, not the
+  mechanism ([incident](FIELD-NOTES.md#the-bus-outgrew-tail-reading)).
 - **Five [undetermined](#undetermined-in-v02) rows settled** by the field answers above;
   two remain, still without field data.
 - [REGIMEN.md](REGIMEN.md) adds four rules: a probe returning zero is calibrated before it
